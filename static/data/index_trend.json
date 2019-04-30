@@ -1,0 +1,81 @@
+{
+  "result": "00000000",
+  "msg": "success",
+  "data": {
+    "xinwen": [
+      {
+        "legend": "新闻",
+        "axisY": "14994.0",
+        "axisX": "04/04"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "1431.0",
+        "axisX": "04/05"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "1146.0",
+        "axisX": "04/06"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "1380.0",
+        "axisX": "04/07"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "1436.0",
+        "axisX": "04/08"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "860.0",
+        "axisX": "04/09"
+      },
+      {
+        "legend": "新闻",
+        "axisY": "0.0",
+        "axisX": "04/10"
+      }
+    ],
+    "shejiao": [
+      {
+        "legend": "社交",
+        "axisY": "1318.0",
+        "axisX": "04/04"
+      },
+      {
+        "legend": "社交",
+        "axisY": "1270.0",
+        "axisX": "04/05"
+      },
+      {
+        "legend": "社交",
+        "axisY": "1878.0",
+        "axisX": "04/06"
+      },
+      {
+        "legend": "社交",
+        "axisY": "30282.0",
+        "axisX": "04/07"
+      },
+      {
+        "legend": "社交",
+        "axisY": "5398.0",
+        "axisX": "04/08"
+      },
+      {
+        "legend": "社交",
+        "axisY": "7480.0",
+        "axisX": "04/09"
+      },
+      {
+        "legend": "社交",
+        "axisY": "0.0",
+        "axisX": "04/10"
+      }
+    ]
+  },
+  "errorMsg": null
+}

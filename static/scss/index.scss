@@ -1,0 +1,174 @@
+@charset "utf-8";
+
+body {
+  //background: url("../imgs/bg_body.jpg") 50% no-repeat;
+  background-size: cover;
+
+}
+
+//样式里的l,m,r,t,b分别代表左，中，右，上，下
+//布局
+main {
+  flex: 1;
+  display: flex;
+  padding: 0;
+
+  .l, .m, .r, .chart-box {
+    //outline: 1px dashed orange;
+  }
+
+  h3 {
+    font-size: 1.5625rem;
+    color: var(--c_mainBlue);
+  }
+
+}
+
+// 左侧样式
+.l {
+  flex: 0 0 28%;
+  padding: 3.75rem 0 0 3.75rem;
+
+  .l-t {
+    width: 23rem;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    .text {
+      display: flex;
+      justify-content: space-between;
+
+      .digital-num {
+        font-family: 'digitalNumber', serif;
+        font-size: 3rem;
+        color: var(--c_highlightBlue);
+      }
+
+      .rate {
+        display: flex;
+
+        & > * {
+          display: flex;
+          align-items: center;
+        }
+
+        color: var(--c_mainBlue);
+        margin-right: 1rem;
+
+        .rate-num {
+          font-size: 1.5rem;
+        }
+
+        i.iconfont {
+          position: relative;
+          top: .25rem;
+          font-size: 2rem;
+          color: red;
+        }
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      tr {
+        border-bottom: 1px solid rgba(0, 138, 255, 0.2);
+
+        &:nth-of-type(even) {
+          background-color: rgba(0, 138, 255, 0.05);
+        }
+      }
+
+      th, td {
+        padding: .375rem;
+      }
+
+      th {
+        font-weight: normal;
+        font-size: .875rem;
+        color: var(--c_mainBlue);
+      }
+
+      td:nth-of-type(1) {
+        padding-left: 1rem;
+      }
+
+      td:nth-of-type(2) {
+        padding-left: 1rem;
+        font-size: .875rem;
+
+        img {
+          position: relative;
+          display: inline-block;
+          top: .125rem;
+          width: 2rem;
+          height: 1.5rem;
+          padding-top: .25rem;
+          margin-bottom: -.125rem;
+          margin-right: 0.75rem;
+          border: 0;
+        }
+      }
+
+      td:nth-of-type(3) {
+        text-align: center;
+      }
+    }
+  }
+
+  .l-b {
+    padding-top: 6rem;
+
+    h3 {
+      margin-bottom: .5rem;
+    }
+
+    .chart-box {
+      height: 15rem;
+    }
+  }
+}
+
+// 中间样式
+.m {
+  flex: 0 0 50%;
+  padding-top: 4rem;
+
+  .chart-box {
+    height: 50rem;
+  }
+}
+
+// 右侧样式
+.r {
+  flex: 0 0 22%;
+  padding-top: 9rem;
+  padding-right: 4rem;
+
+
+  .r-box {
+    background: linear-gradient(rgba(8, 25, 59, 0), rgba(8, 25, 59, 0.8) 20%, rgba(8, 25, 59, 0.8) 80%, rgba(8, 25, 59, 0));
+
+    h3 {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .r-t {
+      .chart-box {
+        height: 24rem;
+      }
+    }
+
+    .r-b {
+      .chart-box {
+        height: 16rem;
+      }
+    }
+  }
+}
+
+
