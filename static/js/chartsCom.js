@@ -9,6 +9,7 @@ let colors = [
     // '#ffc002',
 ];
 let c_axisLine = 'rgba(76,180,231,0.33)';
+let c_bg_bar = 'rgba(76,180,231,0.15)';
 let [cTextWeek, cSplitLine] = ["#0083b3", "#0083b3"];
 let barWidth = 14 * bodyScale;
 let lineStyle = {
@@ -142,13 +143,28 @@ let com_charts = {
         fontSize: 10 * bodyScale
     },
     legend: {
+        padding:[0,5*bodyScale],
         itemWidth: 20 * bodyScale,
         itemHeight: 5 * bodyScale,
-        bottom:0,
+        inactiveColor:'#666',
+        lineHeight:10*bodyScale,
         textStyle:{
-            color:'#666',
+            color:colors[0],
             fontSize:16*bodyScale,
         }
+    },
+    tooltip: {
+        // backgroundColor:'rgba(0,51,124,0.8)',
+        // axisPointer: {
+        //     type: 'shadow',
+        //     shadowStyle:{
+        //         color:"rgba(6,88,255,0.1)",
+        //     }
+        // },
+        textStyle:{
+            fontSize:16*bodyScale,
+            color:colors[0]
+        },
     },
     grid: {
         top:'15%',
@@ -170,7 +186,7 @@ let com_axis = {
         color:colors[0],
         fontSize: 18 * bodyScale
     },
-    nameGap: 10 * bodyScale, //坐标轴名称距离
+    nameGap: 16 * bodyScale, //坐标轴名称距离
     axisTick: { //小刻度线
         show: false
     },
@@ -182,12 +198,10 @@ let com_axis = {
     },
     splitLine: { //分割线
         show: false,
-        lineStyle: {
-            color: '#051f52'
-        }
     },
     boundaryGap: false
 };
+
 //折线图公共属性
 let opt_line = $.extend(true, {}, com_charts, {
     xAxis: $.extend(true, {}, com_axis, {
@@ -195,28 +209,24 @@ let opt_line = $.extend(true, {}, com_charts, {
     }),
     yAxis: $.extend(true, {}, com_axis, {
         type: 'value',
-        splitLine: { //分割线
-            show: false,
-        },
-        // axisLine: {show: false},
-        nameGap: 10 * bodyScale,
-        nameTextStyle: {
-            padding: [0, 12 * bodyScale, 0, 0],
-        }
+        // nameGap: 10 * bodyScale,
+        // nameTextStyle: {
+        //     padding: [0, 12 * bodyScale, 0, 0],
+        // }
     }),
     legend: {
-        itemHeight: 3 * bodyScale,
-        itemWidth: 20 * bodyScale,
-        bottom:0,
-        textStyle:{
-            color:'#666',
-            fontSize:12*bodyScale,
-        }
+        itemHeight: 5 * bodyScale,
+        itemWidth: 15 * bodyScale,
+        top:0,
+    },
+    grid:{
+        top:'25%',
+        bottom:'10%'
     },
     //这里写此类图表其他属性
     tooltip: {
         trigger: 'axis',
-        backgroundColor:'rgba(0,51,124,0.8)',
+        /*backgroundColor:'rgba(0,51,124,0.8)',
         axisPointer: {
             type: 'shadow',
             shadowStyle:{
@@ -226,9 +236,8 @@ let opt_line = $.extend(true, {}, com_charts, {
         textStyle:{
             fontSize:16*bodyScale,
             color:'#fff'
-        },
+        },*/
     },
-    color: colors
 });
 let seri_line = {
     type: 'line',
@@ -237,11 +246,71 @@ let seri_line = {
     smooth: true,
     lineStyle: {
         normal: {
-            width:1*bodyScale,
+            width:1.5*bodyScale,
             shadowColor: 'rgba(255,255,255,0.4)', //线条外发光
-            shadowBlur: 1*bodyScale,
+            shadowBlur: 1.5*bodyScale,
         }
     },
+};
+let seri_area = $.extend(true,{},seri_line,{
+    areaStyle: {
+        color: {
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+                offset: 0, color: colors[0] // 0% 处的颜色
+            }, {
+                offset: 1, color: 'transparent' // 100% 处的颜色
+            }]
+        }
+    }
+});
+
+// let opt_area = $.extend(true, {}, com_charts,opt_line)
+//横条图公共属性
+let opt_bar_h = $.extend(true, {}, com_charts, {
+    xAxis: $.extend(true, {}, com_axis, {
+        type: 'value'
+    }),
+    yAxis: $.extend(true, {}, com_axis, {
+        boundaryGap: true,
+        type: 'category'
+    }),
+    barWidth: '60%'
+});
+let seri_bar_h = {
+    type: 'bar',
+    symbol: 'circle',
+    showSymbol: false,
+    smooth: true,
+    lineStyle: {
+        normal: {
+            width:1.5*bodyScale,
+            shadowColor: 'rgba(255,255,255,0.4)', //线条外发光
+            shadowBlur: 1.5*bodyScale,
+        }
+    },
+};
+//竖条图公共属性
+let opt_bar_v = $.extend(true, {}, com_charts, {
+    xAxis: $.extend(true, {}, com_axis, {
+        boundaryGap: true,
+        type: 'category'
+    }),
+    yAxis: $.extend(true, {}, com_axis, {
+        type: 'value'
+    }),
+    tooltip:{
+        trigger: 'axis',
+    }
+    //这里写此类图表其他属性
+});
+let seri_bar_v = {
+    type: 'bar',
+    barWidth: '40%'
+
 };
 //圆环图 series里的属性设置
 let circle_series_label = {
@@ -271,31 +340,8 @@ let axisLine_Y = {
 let splitLine = {
     show: false
 };
-//横条图公共属性
-//opt_bar_horizon写在里面是为了不让后面的对象覆盖opt_com
-let com_bar_horizon = $.extend(true, {}, com_charts, {
-    xAxis: $.extend(true, {}, com_axis, {
-        type: 'value'
-    }),
-    yAxis: $.extend(true, {}, com_axis, {
-        boundaryGap: true,
-        type: 'category'
-    }),
-    barWidth: '40%'
-});
 
-//竖条图公共属性
-let com_bar_vertical = $.extend(true, {}, com_charts, {
-    xAxis: $.extend(true, {}, com_axis, {
-        boundaryGap: true,
-        type: 'category'
-    }),
-    yAxis: $.extend(true, {}, com_axis, {
-        type: 'value'
-    }),
-    barWidth: '40%'
-    //这里写此类图表其他属性
-});
+
 //竖柱条组合图公共属性
 let com_lineBar_vertical = $.extend(true, {}, com_charts, {
     xAxis: $.extend(true, {}, com_axis, {
@@ -365,22 +411,6 @@ let com_lineBarSeries ={
     },
 };
 
-//饼图公共属性
-let com_pie = $.extend(true, {}, com_charts, {
-    legend: {
-        show:true,
-        type: 'scroll',
-        itemWidth: 20 * bodyScale,
-        itemHeight: 5 * bodyScale,
-        bottom:0,
-        textStyle:{
-            color:'#666',
-            fontSize:12*bodyScale,
-        }
-    },
-
-});
-let com_circle = $.extend(true, {}, com_pie, {});
 let com_circleSeries = {
     type: 'pie',
     radius: ['45%', '65%'],
@@ -453,56 +483,22 @@ let opt_radar = $.extend(true, {}, {
         }
     },
 });
-//圆环图
-let opt_circle = $.extend(true, {}, com_charts, {
-    tooltip: {
-        // formatter: "{a} <br/>{b}: {c} ({d}%)"
-        trigger: 'axis',
-        axisPointer: {
-            //type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
-        },
-        textStyle: {
-            align: 'left'
-        },
-    },
-    color: colors,
-    legend: {
-        center: 'center',
-        textStyle: {
-            color: '#0cf',
-            fontSize: 12 * bodyScale
-        },
-        top: '2%'
-    }
+//饼图公共属性
+let opt_pie = $.extend(true, {}, com_charts, {
 
 });
-//圆环玫瑰图
-let opt_NightingaleRose = $.extend(true, {}, com_charts, {
-    tooltip: {
-        // formatter: "{a} <br/>{b}: {c} ({d}%)"
-        trigger: 'axis',
-        axisPointer: {
-            //type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
-            }
-        },
-        textStyle: {
-            align: 'left'
-        },
+
+let seri_pie = $.extend(true, {}, com_charts, {
+    type:'pie',
+    radius:'60%',
+    center:['50%','55%'],
+    label:{
+        fontSize:16*bodyScale
     },
-    color: colors,
-    legend: {
-        center: 'center',
-        textStyle: {
-            color: '#0cf',
-            fontSize: 10 * bodyScale
-        },
-        top: '2%'
-    }
+
+});
+let seri_circle = $.extend(true, {}, com_charts, seri_pie,{
+    radius:['20%','60%'],
 
 });
 

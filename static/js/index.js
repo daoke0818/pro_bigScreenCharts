@@ -635,7 +635,7 @@ Index.init();
 function ec01_circle_getMemberLevel_d(seriesData) {
     let chart = echarts.init($("#ec01_circle_passengerLevel")[0]);
     charts.ec01_circle_passengerLevel = chart;
-    chart.setOption(com_circle);
+    chart.setOption(opt_circle);
     chart.setOption({
         title: {
             text: '团散客人数占比',

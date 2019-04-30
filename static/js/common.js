@@ -54,41 +54,18 @@ function hasVal(val) {
     return val;
 }
 
-/**
- * 通过时间对象获取日期和时间格式
- * @param dateObj 时间对象
- * @return {{timeStr: string, dateStr: string, dateStrNoHyphen: string}}
- * @constructor
- */
-function DateFormatter(dateObj) {
-    let [year, mon, date, hour, min, sec, milliSec] = [
-        dateObj.getFullYear(),
-        dateObj.getMonth() + 1,
-        dateObj.getDate(),
-        dateObj.getHours(),
-        dateObj.getMinutes(),
-        dateObj.getSeconds(),
-        dateObj.getMilliseconds()
-    ];
-    let timeStr = `${hour}:${min > 9 ? min : "0" + min}:${sec > 9 ? sec : "0" + sec}`;
-    let dateStr = `${year}-${mon > 9 ? mon : "0" + mon}-${date > 9 ? date : "0" + date}`;
-    let dateStrNoHyphen = `${year}${mon > 9 ? mon : "0" + mon}${date > 9 ? date : "0" + date}`;
-    let dateStrWithHyphen = `${year}-${mon > 9 ? mon : "0" + mon}-${date > 9 ? date : "0" + date}`;
-    return {timeStr, dateStr, dateStrNoHyphen, dateStrWithHyphen, year, mon, date, hour, min, sec,}
-}
 // 页面顶部时间
 let colonShow =true;
 function setHeaderTime(){
     setTimeout(function () {
         let t = new Date();
-        let timeHtml = `<span class="digital-num">${t.getFullYear()}</span>
-                        年<span class="digital-num">${t.getMonth()+1}</span>
-                        月<span class="digital-num">${t.getDate()}</span>
-                        日<span class="digital-num">
-                            ${t.getHours()} 
-                            <span class="colon" style="">${colonShow?' :':'&nbsp;'}</span>
-                            ${t.getMinutes()<10?'0'+t.getMinutes():t.getMinutes()}
-                        </span>`;
+        let timeHtml = `
+                <span class="date"> ${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}</span>
+                <span class="digital-num">
+                    ${t.getHours()} 
+                    <span class="colon" style="">${colonShow?' :':'&nbsp;'}</span>
+                    ${t.getMinutes()<10?'0'+t.getMinutes():t.getMinutes()}
+                </span>`;
         colonShow = !colonShow;
         $("#headerTime").html(timeHtml);
 
