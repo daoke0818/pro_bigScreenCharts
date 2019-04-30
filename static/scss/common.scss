@@ -55,45 +55,50 @@
 }
 
 // 全局样式
-  @font-face {
-    font-family: digitalNumber;
-    src: url("../assets/font/digitalNumber.TTF");
-  }
+@font-face {
+  font-family: digitalNumber;
+  src: url("../assets/font/digitalNumber.TTF");
+}
 
-  .myBg {
-    background-size: 100% 100%;
-    background-origin: content-box;
-    background-repeat: no-repeat;
-  }
-  strong {
-    font-weight: normal;
-    color: var(--c_mainBlue);
-    letter-spacing: .125rem;
-  }
-  h3 {
-    margin-bottom: 1rem;
-    padding: .5rem 1rem;
-    font-size: 1.5rem;
-    letter-spacing: .0625rem;
-    color: var(--c_mainWhite);
-    background: linear-gradient(to right, var(--c_mainBlue), transparent);
-    &.en {
-      margin-top: .3rem;
-      color: #999;
-      font-size: .75rem;
-    }
-  }
+.myBg {
+  background-size: 100% 100%;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+}
 
-  h4 {
-    font-size: 1.125rem;
-    letter-spacing: .125rem;
+strong {
+  font-weight: normal;
+  color: var(--c_mainBlue);
+  letter-spacing: .125rem;
+}
+
+h3 {
+  margin-bottom: 1rem;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+  letter-spacing: .0625rem;
+  color: var(--c_mainWhite);
+  background: linear-gradient(to right, var(--c_mainBlue), transparent);
+
+  &.en {
+    margin-top: .3rem;
+    color: #999;
+    font-size: .75rem;
   }
-  h5 {
-    letter-spacing: .125rem;
-  }
-  #container {
-    height: 100%;
-  }
+}
+
+h4 {
+  font-size: 1.125rem;
+  letter-spacing: .125rem;
+}
+
+h5 {
+  letter-spacing: .125rem;
+}
+
+#container {
+  height: 100%;
+}
 
 // 图标
 @media all {
@@ -111,15 +116,18 @@
     overflow: hidden;
   }
 }
-#container{
+
+#container {
   //头部
-  &>header {
+  & > header {
     position: relative;
     padding: 2rem 1rem 1.5rem;
-    .logo{
+
+    .logo {
       position: absolute;
       outline: 1px dashed wheat;
     }
+
     h1 {
       text-align: center;
       margin: 0 4.5rem .5rem;
@@ -128,38 +136,64 @@
       color: var(--c_mainWhite);
     }
 
-    time#headerTime {
+    #headerTime {
       position: absolute;
       right: 1rem;
       top: 2.5rem;
       font-size: 1.125rem;
-        letter-spacing: .0625rem;
-        margin-right: 1rem;
-        .date{
+      letter-spacing: .0625rem;
+      margin-right: 1rem;
+      &>span{
+        display: block;
+      }
+      .digital-num {
+        font-family: "digitalNumber", serif;
+        font-size: 1.5rem;
+        margin: 0 .125rem;
 
+        &:last-child {
+          margin-left: 1rem;
+          margin-right: 0;
         }
-        .digital-num{
-          font-family: "digitalNumber", serif;
-          font-size: 1.5rem;
-          margin: 0 .125rem;
-          &:last-child{
-            margin-left: 1rem;
-            margin-right: 0;
-          }
-          .colon{
-            display: inline-block;
-            font-family: sans-serif;
-            width: .125rem
-          }
+
+        .colon {
+          display: inline-block;
+          font-family: sans-serif;
+          width: .125rem
         }
+      }
 
     }
+
+    .weatherBox {
+      position: absolute;
+      right: 11rem;
+      top: 2.5rem;
+
+      #weatherIcon {
+        vertical-align: top;
+        width: 3rem;
+        height: 3rem;
+        filter: brightness(3);
+        background-size: contain;
+        /*background-image: url("https://cdn.heweather.com/cond_icon/101.png");*/
+      }
+
+      ul {
+        font-size: 1.125rem;
+        display: inline-block;
+        .temperature{
+          margin-bottom: .25rem;
+        }
+      }
+    }
+
   }
 
-  &>main {
+  & > main {
     flex: 1;
     display: flex;
-    padding: 0 1rem 2rem ;
+    padding: 0 1rem 2rem;
   }
 
 }

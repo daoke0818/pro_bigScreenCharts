@@ -53,22 +53,60 @@ function hasVal(val) {
     }
     return val;
 }
+//获取天气情况
+function getWeather(currTime) {
+    // 官方文档 http://www.heweather.com/douments/api/s6/weather-forecast
+    $.get("https://free-api.heweather.com/s6/weather/forecast?location=青岛&key=7e07c4303b4841e6b1595dca70f9d4a7", function (data) {
+        let temperatureTxt = '';
+        let daily_forecast = data.HeWeather6[0].daily_forecast[0];
+        // console.warn(data.HeWeather6[0].status)
+        let [code, txt] = ['', ''];
+        if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
+            code = daily_forecast.cond_code_d;
+            txt = daily_forecast.cond_txt_d;
+            temperatureTxt = daily_forecast.tmp_min + "℃~" + daily_forecast.tmp_max + "℃";
+        } else {
+            code = daily_forecast.cond_code_n;
+            txt = daily_forecast.cond_txt_n;
+            temperatureTxt = daily_forecast.tmp_max + "℃~" + daily_forecast.tmp_min + "℃";
+        }
+        $("#weather").text(txt);
+        $("#temperature").text(temperatureTxt);
+        $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
+    })
+}
 
 // 页面顶部时间
 let colonShow =true;
 function setHeaderTime(){
     setTimeout(function () {
         let t = new Date();
+        let [year, mon, date, hour, min, sec, milliSec] = [
+            t.getFullYear(),
+            t.getMonth() + 1,
+            t.getDate(),
+            t.getHours(),
+            t.getMinutes(),
+            t.getSeconds(),
+            t.getMilliseconds()
+        ];
         let timeHtml = `
-                <span class="date"> ${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}</span>
+                <span class="date"> ${year}-${mon}-${date}</span>
                 <span class="digital-num">
-                    ${t.getHours()} 
+                    ${hour} 
                     <span class="colon" style="">${colonShow?' :':'&nbsp;'}</span>
-                    ${t.getMinutes()<10?'0'+t.getMinutes():t.getMinutes()}
+                    ${(min+"").padStart(2,'0')}
                 </span>`;
         colonShow = !colonShow;
         $("#headerTime").html(timeHtml);
-
+        if (!hasGetWeather) {
+            getWeather(t);
+            hasGetWeather = true;
+        } else {
+            if (min % getWeatherPeriod === 0 && (sec === 0 || sec === 30) && milliSec < 500) {
+                getWeather(t);
+            }
+        }
 
         setHeaderTime();
     },500)

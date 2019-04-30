@@ -143,7 +143,7 @@ let com_charts = {
         fontSize: 10 * bodyScale
     },
     legend: {
-        padding:[0,5*bodyScale],
+        // padding:[0,5*bodyScale],
         itemWidth: 20 * bodyScale,
         itemHeight: 5 * bodyScale,
         inactiveColor:'#666',

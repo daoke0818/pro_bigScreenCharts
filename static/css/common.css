@@ -101,24 +101,42 @@ h5 {
     font-size: 2.5rem;
     font-weight: normal;
     color: var(--c_mainWhite); }
-  #container > header time#headerTime {
+  #container > header #headerTime {
     position: absolute;
     right: 1rem;
     top: 2.5rem;
     font-size: 1.125rem;
     letter-spacing: .0625rem;
     margin-right: 1rem; }
-    #container > header time#headerTime .digital-num {
+    #container > header #headerTime > span {
+      display: block; }
+    #container > header #headerTime .digital-num {
       font-family: "digitalNumber", serif;
       font-size: 1.5rem;
       margin: 0 .125rem; }
-      #container > header time#headerTime .digital-num:last-child {
+      #container > header #headerTime .digital-num:last-child {
         margin-left: 1rem;
         margin-right: 0; }
-      #container > header time#headerTime .digital-num .colon {
+      #container > header #headerTime .digital-num .colon {
         display: inline-block;
         font-family: sans-serif;
         width: 0.125rem; }
+  #container > header .weatherBox {
+    position: absolute;
+    right: 11rem;
+    top: 2.5rem; }
+    #container > header .weatherBox #weatherIcon {
+      vertical-align: top;
+      width: 3rem;
+      height: 3rem;
+      filter: brightness(3);
+      background-size: contain;
+      /*background-image: url("https://cdn.heweather.com/cond_icon/101.png");*/ }
+    #container > header .weatherBox ul {
+      font-size: 1.125rem;
+      display: inline-block; }
+      #container > header .weatherBox ul .temperature {
+        margin-bottom: .25rem; }
 #container > main {
   flex: 1;
   display: flex;
