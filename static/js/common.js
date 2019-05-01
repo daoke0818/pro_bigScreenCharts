@@ -21,13 +21,18 @@ const Public = {
     ajaxHeaders: {
         token: ''
     },
+    hasVal(val) {
+        if (val === null) {
+            return '-';
+        }
+        return val;
+    },
     chartsResize(charts) {
-        window.onresize = () => {
+        $(window).resize(()=>{
             Object.keys(charts).forEach(item => {
-                console.log(item);
                 charts[item].resize();
             })
-        }
+        });
     },
 };
 // 自定义方法
@@ -41,25 +46,18 @@ const Public = {
          */
         str2NumFixed: function (n, power, str = '') {
             $.each($(this), function () {
-                $(this).text(hasVal(parseFloat($(this).text() + 'e' + power).toFixed(n) + str));
+                $(this).text(Public.hasVal(parseFloat($(this).text() + 'e' + power).toFixed(n) + str));
             })
         }
     })
 })();
 
-function hasVal(val) {
-    if (val === null) {
-        return '-';
-    }
-    return val;
-}
 //获取天气情况
 function getWeather(currTime) {
     // 官方文档 http://www.heweather.com/douments/api/s6/weather-forecast
     $.get("https://free-api.heweather.com/s6/weather/forecast?location=青岛&key=7e07c4303b4841e6b1595dca70f9d4a7", function (data) {
         let temperatureTxt = '';
         let daily_forecast = data.HeWeather6[0].daily_forecast[0];
-        // console.warn(data.HeWeather6[0].status)
         let [code, txt] = ['', ''];
         if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
             code = daily_forecast.cond_code_d;
@@ -107,7 +105,6 @@ function setHeaderTime(){
                 getWeather(t);
             }
         }
-
         setHeaderTime();
     },500)
 }
@@ -124,16 +121,15 @@ function pageResize() {
         // console.info("方")
     }
     $("html").css("font-size", bodyScale * 16 + "px").css("opacity", 1);
-    // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + htmlFontSize)
+    console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + bodyScale)
 }
 
 pageResize();
-
-onresize = function () {
+    $(window).resize (() => {
+    console.log(1)
     pageResize();
     pageResize();
-
-};
+});
 
 //设置请求header
 function setHeader(request) {

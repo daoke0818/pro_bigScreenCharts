@@ -5,13 +5,14 @@
 main {
 
   div {
-    //outline: 1px dashed orange;
+    outline: 1px dashed orange;
   }
 
   .l, .m, .r {
     flex: 0 0 33.33%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .l > div, .m > div, .r > div {
@@ -28,7 +29,7 @@ main {
 
   .chart {
     flex: 1;
-    height: 10rem;
+    //height: 10rem;
   }
 }
 

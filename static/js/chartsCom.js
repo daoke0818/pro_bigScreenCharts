@@ -137,13 +137,17 @@ let geoCoordMap = {
 //所有图表的公共属性
 let com_charts = {
     color: colors,
+    grid:{
+        top:'25%',
+        bottom:'10%'
+    },
+
     textStyle: {
         fontFamily: 'PingFang SC, sans-serif',
         // color: '#fff',
         fontSize: 10 * bodyScale
     },
     legend: {
-        // padding:[0,5*bodyScale],
         itemWidth: 20 * bodyScale,
         itemHeight: 5 * bodyScale,
         inactiveColor:'#666',
@@ -154,23 +158,10 @@ let com_charts = {
         }
     },
     tooltip: {
-        // backgroundColor:'rgba(0,51,124,0.8)',
-        // axisPointer: {
-        //     type: 'shadow',
-        //     shadowStyle:{
-        //         color:"rgba(6,88,255,0.1)",
-        //     }
-        // },
         textStyle:{
             fontSize:16*bodyScale,
             color:colors[0]
         },
-    },
-    grid: {
-        top:'15%',
-        left: '10%',
-        right: '10%',
-        bottom: '20%',
     },
 };
 
@@ -218,10 +209,6 @@ let opt_line = $.extend(true, {}, com_charts, {
         itemHeight: 5 * bodyScale,
         itemWidth: 15 * bodyScale,
         top:0,
-    },
-    grid:{
-        top:'25%',
-        bottom:'10%'
     },
     //这里写此类图表其他属性
     tooltip: {
@@ -325,20 +312,6 @@ let circle_series_label = {
             fontWeight: 'normal'
         }
     }
-};
-let circle_series_labline = {
-    normal: {
-        show: true,
-    }
-
-};
-let axisLine_Y = {
-    lineStyle: {
-        color: '#0083b3'
-    }
-};
-let splitLine = {
-    show: false
 };
 
 
