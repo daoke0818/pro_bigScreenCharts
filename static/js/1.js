@@ -140,6 +140,25 @@ let Index = {
         this.charts.ec05_lineBar_timeDistribute = chart;
         chart.setOption(opt_line);
         chart.setOption({
+            legend:{
+                data:["吃饭","学习","工作","其他",'睡觉',]
+            },
+            tooltip:{
+                formatter:function (param) {
+                    // console.log(param)
+                    // alert(param.seriesName)
+                    return param.map(item=>{
+                        if(item.seriesName === '补位'){
+                            // alert(item.seriesName)
+                            return ''
+                        }else{
+                            // alert('1'+item.seriesName)
+                            return `${item.seriesName}: ${item.value}<br>`
+                        }
+                    })
+
+                }
+            },
             xAxis: {
                 boundaryGap: true,
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
