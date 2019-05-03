@@ -4,7 +4,8 @@ let Index = {
         // this.ctx = 'http://192.168.25.55:9999';
         this.charts = {};
         this.loadData();
-        Public.chartsResize(this.charts)
+        Public.chartsResize(this.charts);
+        Public.chartsReDraw(this.charts,5)
     },
     loadData() {
         this.ec01_line_tiobe();//
@@ -212,7 +213,7 @@ let Index = {
                     itemStyle: {
                         normal: {
                             color: colors[0],
-                            shadowBlur: 100 * bodyScale,
+                            shadowBlur: 100 * scale,
                             shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
                     },

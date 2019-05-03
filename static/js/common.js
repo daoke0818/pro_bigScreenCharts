@@ -15,7 +15,7 @@ let beforeYesterdayDate = '';
 let beforeYesterdayDateWithHyphen = '';
 let hasGetWeather = false;
 let getWeatherPeriod = 1;
-let bodyScale = 1;
+let scale = 1;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const Public = {
     ajaxHeaders: {
@@ -34,7 +34,25 @@ const Public = {
             })
         });
     },
+    /**
+     *
+     * @param charts
+     * @param t 默认刷新时间（秒）
+     */
+    chartsReDraw(charts, t=5){
+        let counter = setInterval(()=>{
+            // alert(1)
+            Object.keys(charts).forEach(item => {
+                let chart = charts[item];
+                let opt = chart.getOption();
+                chart.clear();
+                chart.setOption(opt);
+            })
+        },t*1000)
+
+    }
 };
+
 // 自定义方法
 (function initTools() {
     $.fn.extend({
@@ -113,21 +131,19 @@ function pageResize() {
     [pageH, pageW] = [$(window).height(), $(window).width()];
     if (pageW / pageH > 16 / 9) { //扁
         $("#container").css({width: pageH * 16 / 9, height: '100%'});
-        bodyScale = pageH / 1080;
+        scale = pageH / 1080;
         // console.info("扁")
     } else { //方
         $("#container").css({height: pageW * 9 / 16, width: '100%'});
-        bodyScale = pageW / 1920;
+        scale = pageW / 1920;
         // console.info("方")
     }
-    $("html").css("font-size", bodyScale * 16 + "px").css("opacity", 1);
-    console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + bodyScale)
+    $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
+    // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
 }
 
 pageResize();
     $(window).resize (() => {
-    console.log(1)
-    pageResize();
     pageResize();
 });
 
@@ -135,31 +151,5 @@ pageResize();
 function setHeader(request) {
     request.setRequestHeader("X-Sign", xSign);
     request.setRequestHeader("X-Token", xToken);
-}
-
-//获取token
-function getToken(loadData) {
-    $.post({
-        url: domain + '/api/' + version + '/accessToken',
-        data: {
-            loginName: 'admin',
-            password: '123456'
-        },
-        dataType: 'json',
-        beforeSend: function (request) {
-            request.setRequestHeader("Accept", '*/*');
-            request.setRequestHeader("X-Platform", "PC");
-        },
-        success: function (data) {
-            // console.log(data);
-            if (data.data.accessToken) {
-                xToken = data.data.accessToken;
-            }
-            loadData();
-        },
-        error: function () {
-            loadData();
-        }
-    });
 }
 
