@@ -1,11 +1,13 @@
 let Index = {
     init() {
-        // let that = this;
-        // this.ctx = 'http://192.168.25.55:9999';
         this.charts = {};
         this.loadData();
         Public.chartsResize(this.charts);
-        Public.chartsReDraw(this.charts,5)
+        Public.chartsReDraw(this.charts, 10, [
+            'ec01_line_tiobe', 'ec06_pie_findSong'
+        ], [
+            'ec03_barV_timeDistribute','ec05_lineBar_timeDistribute', 'ec06_pie_findSong'
+        ])
     },
     loadData() {
         this.ec01_line_tiobe();//
@@ -21,7 +23,6 @@ let Index = {
         chart.setOption(opt_line);
         chart.setOption({
             xAxis: {
-                // name: '年份',
                 nameLocation: 'start',
                 inverse: true,
                 data: ['2019', '2014', '2009', '2004', '1999', '1994', '1989']
@@ -51,7 +52,10 @@ let Index = {
                 // {"name": "Lisp", data: [29, 13, 19, 14, 14, 5, 2]},
                 // {"name": "Pascal", data: [207, 14, 14, 96, 6, 3, 17]}
             ].map(item => {
-                return $.extend(true, {}, seri_line, item, {smooth: false})
+                return $.extend(true, {}, seri_line, {
+                    smooth: false,
+                    showSymbol: false,
+                }, item)
             })
         })
     },
@@ -82,7 +86,9 @@ let Index = {
                 name: '搜索引擎',
                 data: [820, 932, 901, 934, 1290, 1330, 1320]
             }].map(item => {
-                return $.extend(true, {}, seri_area, item)
+                return $.extend(true, {}, seri_area,{
+                    symbol: 'circle',
+                }, item)
             })
         });
     },
@@ -141,22 +147,22 @@ let Index = {
         this.charts.ec05_lineBar_timeDistribute = chart;
         chart.setOption(opt_line);
         chart.setOption({
-            legend:{
-                data:["吃饭","学习","工作","其他",'睡觉',]
+            legend: {
+                data: ["吃饭", "学习", "工作", "其他", '睡觉',]
             },
-            tooltip:{
-                formatter:function (param) {
+            tooltip: {
+                formatter: function (param) {
                     // console.log(param)
                     // alert(param.seriesName)
-                    return param.map(item=>{
-                        if(item.seriesName === '补位'){
+                    return param.map(item => {
+                        if (item.seriesName === '补位') {
                             // alert(item.seriesName)
                             return ''
-                        }else{
+                        } else {
                             // alert('1'+item.seriesName)
                             return `${item.seriesName}: ${item.value}<br>`
                         }
-                    })
+                    }).join("").replace(',','')
 
                 }
             },
@@ -173,7 +179,9 @@ let Index = {
                 {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
                 {"name": "其他", data: [10, 6, 6, 5.5, 7, 7, 3.5]},
             ].map(item => {
-                return $.extend(true, {}, seri_line, item)
+                return $.extend(true, {}, seri_line,{
+                    symbol:'emptyCircle'
+                }, item)
             }).concat([
                 {
                     name: '睡觉',

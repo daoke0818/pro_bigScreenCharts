@@ -121,10 +121,11 @@ h5 {
   //头部
   & > header {
     position: relative;
-    padding: 2rem 1rem 1.5rem;
+    padding: 2rem 2rem 1.5rem;
 
     .logo {
       position: absolute;
+      padding:1rem;
       outline: 1px dashed wheat;
     }
 

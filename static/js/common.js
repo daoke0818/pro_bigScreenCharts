@@ -14,7 +14,8 @@ let yesterdayDate = '';
 let beforeYesterdayDate = '';
 let beforeYesterdayDateWithHyphen = '';
 let hasGetWeather = false;
-let getWeatherPeriod = 1;
+let getWeatherPeriod = 5;
+const chartRefreshPeriod = 10;
 let scale = 1;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const Public = {
@@ -28,7 +29,7 @@ const Public = {
         return val;
     },
     chartsResize(charts) {
-        $(window).resize(()=>{
+        $(window).resize(() => {
             Object.keys(charts).forEach(item => {
                 charts[item].resize();
             })
@@ -38,17 +39,19 @@ const Public = {
      *
      * @param charts
      * @param t 默认刷新时间（秒）
+     * @param noRefresh 无需刷新的图表
+     * @param someRefresh 指定要刷新的图表，有重复指定的图表时优先权高于noRefresh
      */
-    chartsReDraw(charts, t=5){
-        let counter = setInterval(()=>{
-            // alert(1)
+    chartsReDraw(charts, t = chartRefreshPeriod, noRefresh, someRefresh) {
+        let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
+                if (noRefresh.includes(item) && !someRefresh.includes(item)) return;
                 let chart = charts[item];
                 let opt = chart.getOption();
                 chart.clear();
                 chart.setOption(opt);
             })
-        },t*1000)
+        }, t * 1000)
 
     }
 };
@@ -70,31 +73,68 @@ const Public = {
     })
 })();
 
+//jsonP
+function onBack(data) {
+}
+
 //获取天气情况
 function getWeather(currTime) {
-    // 官方文档 http://www.heweather.com/douments/api/s6/weather-forecast
-    $.get("https://free-api.heweather.com/s6/weather/forecast?location=青岛&key=7e07c4303b4841e6b1595dca70f9d4a7", function (data) {
-        let temperatureTxt = '';
-        let daily_forecast = data.HeWeather6[0].daily_forecast[0];
-        let [code, txt] = ['', ''];
-        if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
-            code = daily_forecast.cond_code_d;
-            txt = daily_forecast.cond_txt_d;
-            temperatureTxt = daily_forecast.tmp_min + "℃~" + daily_forecast.tmp_max + "℃";
-        } else {
-            code = daily_forecast.cond_code_n;
-            txt = daily_forecast.cond_txt_n;
-            temperatureTxt = daily_forecast.tmp_max + "℃~" + daily_forecast.tmp_min + "℃";
+    // 获取地理位置
+    $.get({
+        url: 'https://api.asilu.com/weather_v2/',
+        type: 'get',
+        dataType: 'jsonp',  // 请求方式为jsonp
+        jsonpCallback: "onBack",    // 自定义回调函数名
+        success: function (data) {
+            const city = data.forecasts[0].city;
+
+            //如果以后找到合适的天气图标将替代和风天气
+            /*
+            let temperatureTxt = '';
+            let daily_forecast = data.forecasts[0].casts[0];
+            let [code, txt] = ['', ''];
+            if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
+                code = daily_forecast.cond_code_d;
+                txt = daily_forecast.dayweather;
+                temperatureTxt = daily_forecast.nighttemp + "℃~" + daily_forecast.daytemp + "℃";
+            } else {
+                code = daily_forecast.cond_code_n;
+                txt = daily_forecast.nightweather;
+                temperatureTxt = daily_forecast.daytemp + "℃~" + daily_forecast.nighttemp + "℃";
+            }
+            $("#weather").html(txt + '&emsp;' + city);
+            $("#temperature").text(temperatureTxt);
+*/
+            // $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
+
+
+            // 官方文档 http://www.heweather.com/douments/api/s6/weather-forecast 因为要用图标，所以暂时还是用了和风天气
+            $.get(`https://free-api.heweather.com/s6/weather/forecast?location=${city}&key=7e07c4303b4841e6b1595dca70f9d4a7`, data => {
+                let temperatureTxt = '';
+                let daily_forecast = data.HeWeather6[0].daily_forecast[0];
+                let [code, txt] = ['', ''];
+                if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
+                    code = daily_forecast.cond_code_d;
+                    txt = daily_forecast.cond_txt_d;
+                    temperatureTxt = daily_forecast.tmp_min + "℃~" + daily_forecast.tmp_max + "℃";
+                } else {
+                    code = daily_forecast.cond_code_n;
+                    txt = daily_forecast.cond_txt_n;
+                    temperatureTxt = daily_forecast.tmp_max + "℃~" + daily_forecast.tmp_min + "℃";
+                }
+                $("#weather").html(txt+'&emsp;'+city);
+                $("#temperature").text(temperatureTxt);
+                $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
+            })
         }
-        $("#weather").text(txt);
-        $("#temperature").text(temperatureTxt);
-        $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
     })
+
 }
 
 // 页面顶部时间
-let colonShow =true;
-function setHeaderTime(){
+let colonShow = true;
+
+function setHeaderTime() {
     setTimeout(function () {
         let t = new Date();
         let [year, mon, date, hour, min, sec, milliSec] = [
@@ -110,8 +150,8 @@ function setHeaderTime(){
                 <span class="date"> ${year}-${mon}-${date}</span>
                 <span class="digital-num">
                     ${hour} 
-                    <span class="colon" style="">${colonShow?' :':'&nbsp;'}</span>
-                    ${(min+"").padStart(2,'0')}
+                    <span class="colon" style="">${colonShow ? ' :' : '&nbsp;'}</span>
+                    ${(min + "").padStart(2, '0')}
                 </span>`;
         colonShow = !colonShow;
         $("#headerTime").html(timeHtml);
@@ -119,14 +159,17 @@ function setHeaderTime(){
             getWeather(t);
             hasGetWeather = true;
         } else {
-            if (min % getWeatherPeriod === 0 && (sec === 0 || sec === 30) && milliSec < 500) {
+            if (min % getWeatherPeriod === 0 && sec === 0 && milliSec < 500) {
                 getWeather(t);
             }
         }
+        console.log(sec)
         setHeaderTime();
-    },500)
+    }, 500)
 }
+
 setHeaderTime();
+
 function pageResize() {
     [pageH, pageW] = [$(window).height(), $(window).width()];
     if (pageW / pageH > 16 / 9) { //扁
@@ -143,7 +186,7 @@ function pageResize() {
 }
 
 pageResize();
-    $(window).resize (() => {
+$(window).resize(() => {
     pageResize();
 });
 

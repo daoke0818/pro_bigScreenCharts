@@ -1,5 +1,3 @@
-main div {
-  outline: 1px dashed orange; }
 main .l, main .m, main .r {
   flex: 0 0 33.33%;
   display: flex;
