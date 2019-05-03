@@ -15,21 +15,44 @@ let beforeYesterdayDate = '';
 let beforeYesterdayDateWithHyphen = '';
 let hasGetWeather = false;
 let getWeatherPeriod = 1;
-let bodyScale = 1;
+let scale = 1;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const Public = {
     ajaxHeaders: {
         token: ''
     },
+    hasVal(val) {
+        if (val === null) {
+            return '-';
+        }
+        return val;
+    },
     chartsResize(charts) {
-        window.onresize = () => {
+        $(window).resize(()=>{
             Object.keys(charts).forEach(item => {
-                console.log(item);
                 charts[item].resize();
             })
-        }
+        });
     },
+    /**
+     *
+     * @param charts
+     * @param t 默认刷新时间（秒）
+     */
+    chartsReDraw(charts, t=5){
+        let counter = setInterval(()=>{
+            // alert(1)
+            Object.keys(charts).forEach(item => {
+                let chart = charts[item];
+                let opt = chart.getOption();
+                chart.clear();
+                chart.setOption(opt);
+            })
+        },t*1000)
+
+    }
 };
+
 // 自定义方法
 (function initTools() {
     $.fn.extend({
@@ -41,17 +64,32 @@ const Public = {
          */
         str2NumFixed: function (n, power, str = '') {
             $.each($(this), function () {
-                $(this).text(hasVal(parseFloat($(this).text() + 'e' + power).toFixed(n) + str));
+                $(this).text(Public.hasVal(parseFloat($(this).text() + 'e' + power).toFixed(n) + str));
             })
         }
     })
 })();
 
-function hasVal(val) {
-    if (val === null) {
-        return '-';
-    }
-    return val;
+//获取天气情况
+function getWeather(currTime) {
+    // 官方文档 http://www.heweather.com/douments/api/s6/weather-forecast
+    $.get("https://free-api.heweather.com/s6/weather/forecast?location=青岛&key=7e07c4303b4841e6b1595dca70f9d4a7", function (data) {
+        let temperatureTxt = '';
+        let daily_forecast = data.HeWeather6[0].daily_forecast[0];
+        let [code, txt] = ['', ''];
+        if ((currTime.getHours() >= 6) && (currTime.getHours() < 18)) {
+            code = daily_forecast.cond_code_d;
+            txt = daily_forecast.cond_txt_d;
+            temperatureTxt = daily_forecast.tmp_min + "℃~" + daily_forecast.tmp_max + "℃";
+        } else {
+            code = daily_forecast.cond_code_n;
+            txt = daily_forecast.cond_txt_n;
+            temperatureTxt = daily_forecast.tmp_max + "℃~" + daily_forecast.tmp_min + "℃";
+        }
+        $("#weather").text(txt);
+        $("#temperature").text(temperatureTxt);
+        $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
+    })
 }
 
 // 页面顶部时间
@@ -59,17 +97,32 @@ let colonShow =true;
 function setHeaderTime(){
     setTimeout(function () {
         let t = new Date();
+        let [year, mon, date, hour, min, sec, milliSec] = [
+            t.getFullYear(),
+            t.getMonth() + 1,
+            t.getDate(),
+            t.getHours(),
+            t.getMinutes(),
+            t.getSeconds(),
+            t.getMilliseconds()
+        ];
         let timeHtml = `
-                <span class="date"> ${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}</span>
+                <span class="date"> ${year}-${mon}-${date}</span>
                 <span class="digital-num">
-                    ${t.getHours()} 
+                    ${hour} 
                     <span class="colon" style="">${colonShow?' :':'&nbsp;'}</span>
-                    ${t.getMinutes()<10?'0'+t.getMinutes():t.getMinutes()}
+                    ${(min+"").padStart(2,'0')}
                 </span>`;
         colonShow = !colonShow;
         $("#headerTime").html(timeHtml);
-
-
+        if (!hasGetWeather) {
+            getWeather(t);
+            hasGetWeather = true;
+        } else {
+            if (min % getWeatherPeriod === 0 && (sec === 0 || sec === 30) && milliSec < 500) {
+                getWeather(t);
+            }
+        }
         setHeaderTime();
     },500)
 }
@@ -78,54 +131,25 @@ function pageResize() {
     [pageH, pageW] = [$(window).height(), $(window).width()];
     if (pageW / pageH > 16 / 9) { //扁
         $("#container").css({width: pageH * 16 / 9, height: '100%'});
-        bodyScale = pageH / 1080;
+        scale = pageH / 1080;
         // console.info("扁")
     } else { //方
         $("#container").css({height: pageW * 9 / 16, width: '100%'});
-        bodyScale = pageW / 1920;
+        scale = pageW / 1920;
         // console.info("方")
     }
-    $("html").css("font-size", bodyScale * 16 + "px").css("opacity", 1);
-    // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + htmlFontSize)
+    $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
+    // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
 }
 
 pageResize();
-
-onresize = function () {
+    $(window).resize (() => {
     pageResize();
-    pageResize();
-
-};
+});
 
 //设置请求header
 function setHeader(request) {
     request.setRequestHeader("X-Sign", xSign);
     request.setRequestHeader("X-Token", xToken);
-}
-
-//获取token
-function getToken(loadData) {
-    $.post({
-        url: domain + '/api/' + version + '/accessToken',
-        data: {
-            loginName: 'admin',
-            password: '123456'
-        },
-        dataType: 'json',
-        beforeSend: function (request) {
-            request.setRequestHeader("Accept", '*/*');
-            request.setRequestHeader("X-Platform", "PC");
-        },
-        success: function (data) {
-            // console.log(data);
-            if (data.data.accessToken) {
-                xToken = data.data.accessToken;
-            }
-            loadData();
-        },
-        error: function () {
-            loadData();
-        }
-    });
 }
 

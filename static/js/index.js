@@ -44,7 +44,7 @@ let Index = {
                     series.push({
                         name: legendArr[index],
                         symbol: 'circle',
-                        symbolSize: 8 * bodyScale,
+                        symbolSize: 8 * scale,
                         type: 'line',
                         stack: '总量',
                         // hoverAnimation: false,
@@ -65,7 +65,7 @@ let Index = {
                             }
                         },
                         lineStyle: {
-                            width: 1 * bodyScale,
+                            width: 1 * scale,
                         },
                         data: item
                     })
@@ -84,7 +84,7 @@ let Index = {
                 axisPointer: {
                     type: 'item',
                     label: {
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                         backgroundColor: '#6a7985'
                     }
                 }
@@ -92,11 +92,11 @@ let Index = {
             legend: {
                 // data: legendArr,
                 right: '8%',
-                top: 20 * bodyScale,
-                itemHeight: 10 * bodyScale,
-                itemWidth: 15 * bodyScale,
+                top: 20 * scale,
+                itemHeight: 10 * scale,
+                itemWidth: 15 * scale,
                 textStyle: {
-                    fontSize: 12 * bodyScale,
+                    fontSize: 12 * scale,
                     color: "#fff"
                 }
             },
@@ -119,12 +119,12 @@ let Index = {
                     },
                     axisLine: {
                         lineStyle: {
-                            width: 1 * bodyScale,
+                            width: 1 * scale,
                             color: 'rgba(141,200,255,.8)'
                         }
                     },
                     axisLabel: {
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                         color: '#fff'
                     }
                 }
@@ -133,7 +133,7 @@ let Index = {
                 {
                     name: '数据（/万条）',
                     type: 'value',
-                    nameGap: 15 * bodyScale,
+                    nameGap: 15 * scale,
                     axisTick: {
                         show: false
                     },
@@ -141,8 +141,8 @@ let Index = {
                         show: false
                     },
                     nameTextStyle: {
-                        padding: [0, 0, 5 * bodyScale, 5 * bodyScale],
-                        fontSize: 12 * bodyScale,
+                        padding: [0, 0, 5 * scale, 5 * scale],
+                        fontSize: 12 * scale,
                         color: "#fff"
                     },
                     axisLine: {
@@ -151,7 +151,7 @@ let Index = {
                         }
                     },
                     axisLabel: {
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                         color: '#fff',
                         formatter: function (value, index) {
                             return value / 10000;
@@ -208,17 +208,17 @@ let Index = {
                 type: 'scatter3D',
                 coordinateSystem: 'globe',
                 // blendMode: 'lighter',
-                symbolSize: 5 * bodyScale,
+                symbolSize: 5 * scale,
                 itemStyle: {
                     color: '#fff',
                     opacity: 1,
                     borderColor: '#57fafa',
-                    borderWidth: 3 * bodyScale,
+                    borderWidth: 3 * scale,
                 },
                 label: {
                     show: false,//不知如何取消鼠标移上去后触发的动作
                     formatter: '{b}',
-                    distance: 15 * bodyScale
+                    distance: 15 * scale
                 },
                 data: mapDataScatters
             },
@@ -226,14 +226,14 @@ let Index = {
                 type: 'lines3D',
                 effect: {
                     show: true,
-                    trailWidth: 2 * bodyScale,
-                    trailLength: 0.25 * bodyScale,
+                    trailWidth: 2 * scale,
+                    trailLength: 0.25 * scale,
                     trailOpacity: .7,
                     trailColor: '#ff3ecf'
                 },
 
                 lineStyle: {
-                    width: 1 * bodyScale,
+                    width: 1 * scale,
                     color: '#6e0fff',
                     opacity: .6
                 },
@@ -344,7 +344,7 @@ let Index = {
                      series.push({
                          name: legendArr[index],
                          symbol: 'circle',
-                         symbolSize: 5 * bodyScale,
+                         symbolSize: 5 * scale,
                          type: 'line',
                          stack: '总量',
                          // hoverAnimation: false,
@@ -365,7 +365,7 @@ let Index = {
                              }
                          },
                          lineStyle: {
-                             width: 1 * bodyScale
+                             width: 1 * scale
                          },
                          data: item
                      })
@@ -430,14 +430,14 @@ let Index = {
                 pageTextStyle:{
                     color:'#fff',
                 },
-                itemHeight: 2.5 * bodyScale,
-                itemWidth: 15 * bodyScale,
+                itemHeight: 2.5 * scale,
+                itemWidth: 15 * scale,
                 bottom: "15%",
                 right: '5%',
-                width: 270*bodyScale,
-                itemGap: 10 * bodyScale,
+                width: 270*scale,
+                itemGap: 10 * scale,
                 textStyle: {
-                    fontSize: 12 * bodyScale,
+                    fontSize: 12 * scale,
                     color: '#fff'
                 },
                 selected:selectedArr,
@@ -448,10 +448,10 @@ let Index = {
                 center: ['50%', '34%'],
                 name: {
                     textStyle: {
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                         color: "#fff",
-                        borderRadius: 3 * bodyScale,
-                        padding: [3 * bodyScale, 5 * bodyScale]
+                        borderRadius: 3 * scale,
+                        padding: [3 * scale, 5 * scale]
                     }
                 },
                 axisLine: {
@@ -477,11 +477,11 @@ let Index = {
                     name: "领域分布",
                     type: "radar",
                     label: {
-                        fontSize: 12 * bodyScale
+                        fontSize: 12 * scale
                     },
 
                     lineStyle: {
-                        width: 1 * bodyScale
+                        width: 1 * scale
                     },
                     data: seriesData
                 }
@@ -540,7 +540,7 @@ let Index = {
                     type: 'value',
                     show: false,
                     axisLabel: {
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                         color: '#fff'
                     },
                     max
@@ -552,7 +552,7 @@ let Index = {
                     axisLine: {show: false},
                     axisLabel: {
                         color: '#fff',
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                     },
                     axisTick: { //小刻度线
                         show: false
@@ -564,7 +564,7 @@ let Index = {
                     axisLine: {show: false},
                     axisLabel: {
                         color: '#fff',
-                        fontSize: 12 * bodyScale,
+                        fontSize: 12 * scale,
                     },
                     axisTick: { //小刻度线
                         show: false
@@ -579,7 +579,7 @@ let Index = {
                 {
                     name: '数据量',
                     type: 'bar',
-                    barWidth: 8 * bodyScale,
+                    barWidth: 8 * scale,
                     label: {
                         normal: {
                             show: false,
@@ -587,7 +587,7 @@ let Index = {
                         }
                     },
                     itemStyle: {
-                        barBorderRadius: 5 * bodyScale,
+                        barBorderRadius: 5 * scale,
                         color: new echarts.graphic.LinearGradient(
                             0, 0, 1, 0,
                             [
@@ -605,10 +605,10 @@ let Index = {
                     itemStyle: {
                         color: '#1f3255',
                         shadowColor: '#1f3255',
-                        barBorderRadius: 5 * bodyScale
+                        barBorderRadius: 5 * scale
                     },
                     barGap: '-100%',
-                    barWidth: 8 * bodyScale,
+                    barWidth: 8 * scale,
 
                     data: new Array(seriesData.length).fill(max)
                     // data:['59999','59999','59999','59999']
@@ -641,7 +641,7 @@ function ec01_circle_getMemberLevel_d(seriesData) {
             text: '团散客人数占比',
             textStyle: {
                 color: '#fff',
-                fontSize: 16 * bodyScale
+                fontSize: 16 * scale
             },
             x: 'center',
             y: 'bottom'
@@ -650,11 +650,11 @@ function ec01_circle_getMemberLevel_d(seriesData) {
             startAngle: 0,
             center: ['50%', '45%'],
             label: {
-                height: 60 * bodyScale,
+                height: 60 * scale,
                 formatter: '{b}\n{c}%',
-                fontSize: 18 * bodyScale
+                fontSize: 18 * scale
             },
-            labelLine: {length: 24 * bodyScale},
+            labelLine: {length: 24 * scale},
             data: seriesData
         }].map(function (item, index) {
             return $.extend(true, {}, com_circleSeries, item);

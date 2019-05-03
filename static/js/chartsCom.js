@@ -1,4 +1,4 @@
-// let bodyScale = 1;
+// let scale = 1;
 
 let colors = [
     '#4cb4e7',
@@ -11,10 +11,10 @@ let colors = [
 let c_axisLine = 'rgba(76,180,231,0.33)';
 let c_bg_bar = 'rgba(76,180,231,0.15)';
 let [cTextWeek, cSplitLine] = ["#0083b3", "#0083b3"];
-let barWidth = 14 * bodyScale;
+let barWidth = 14 * scale;
 let lineStyle = {
     shadowColor: 'rgba(255, 255, 255, 1)',
-    shadowBlur: 2 * bodyScale
+    shadowBlur: 2 * scale
 };
 
 let geoCoordMap = {
@@ -137,40 +137,31 @@ let geoCoordMap = {
 //所有图表的公共属性
 let com_charts = {
     color: colors,
+    grid:{
+        top:'25%',
+        bottom:'10%'
+    },
+
     textStyle: {
         fontFamily: 'PingFang SC, sans-serif',
         // color: '#fff',
-        fontSize: 10 * bodyScale
+        fontSize: 10 * scale
     },
     legend: {
-        padding:[0,5*bodyScale],
-        itemWidth: 20 * bodyScale,
-        itemHeight: 5 * bodyScale,
+        itemWidth: 20 * scale,
+        itemHeight: 5 * scale,
         inactiveColor:'#666',
-        lineHeight:10*bodyScale,
+        lineHeight:10*scale,
         textStyle:{
             color:colors[0],
-            fontSize:16*bodyScale,
+            fontSize:16*scale,
         }
     },
     tooltip: {
-        // backgroundColor:'rgba(0,51,124,0.8)',
-        // axisPointer: {
-        //     type: 'shadow',
-        //     shadowStyle:{
-        //         color:"rgba(6,88,255,0.1)",
-        //     }
-        // },
         textStyle:{
-            fontSize:16*bodyScale,
+            fontSize:16*scale,
             color:colors[0]
         },
-    },
-    grid: {
-        top:'15%',
-        left: '10%',
-        right: '10%',
-        bottom: '20%',
     },
 };
 
@@ -178,15 +169,15 @@ let com_charts = {
 let com_axis = {
     axisLabel: { //标签名称
         color: colors[0],
-        margin: 8 * bodyScale,
-        fontSize: 16 * bodyScale,
+        margin: 8 * scale,
+        fontSize: 16 * scale,
         // fontWeight: 'bold'
     },
     nameTextStyle: { //坐标轴名称
         color:colors[0],
-        fontSize: 18 * bodyScale
+        fontSize: 18 * scale
     },
-    nameGap: 16 * bodyScale, //坐标轴名称距离
+    nameGap: 16 * scale, //坐标轴名称距离
     axisTick: { //小刻度线
         show: false
     },
@@ -209,19 +200,15 @@ let opt_line = $.extend(true, {}, com_charts, {
     }),
     yAxis: $.extend(true, {}, com_axis, {
         type: 'value',
-        // nameGap: 10 * bodyScale,
+        // nameGap: 10 * scale,
         // nameTextStyle: {
-        //     padding: [0, 12 * bodyScale, 0, 0],
+        //     padding: [0, 12 * scale, 0, 0],
         // }
     }),
     legend: {
-        itemHeight: 5 * bodyScale,
-        itemWidth: 15 * bodyScale,
+        itemHeight: 5 * scale,
+        itemWidth: 15 * scale,
         top:0,
-    },
-    grid:{
-        top:'25%',
-        bottom:'10%'
     },
     //这里写此类图表其他属性
     tooltip: {
@@ -234,7 +221,7 @@ let opt_line = $.extend(true, {}, com_charts, {
             }
         },
         textStyle:{
-            fontSize:16*bodyScale,
+            fontSize:16*scale,
             color:'#fff'
         },*/
     },
@@ -246,9 +233,9 @@ let seri_line = {
     smooth: true,
     lineStyle: {
         normal: {
-            width:1.5*bodyScale,
+            width:1.5*scale,
             shadowColor: 'rgba(255,255,255,0.4)', //线条外发光
-            shadowBlur: 1.5*bodyScale,
+            shadowBlur: 1.5*scale,
         }
     },
 };
@@ -287,9 +274,9 @@ let seri_bar_h = {
     smooth: true,
     lineStyle: {
         normal: {
-            width:1.5*bodyScale,
+            width:1.5*scale,
             shadowColor: 'rgba(255,255,255,0.4)', //线条外发光
-            shadowBlur: 1.5*bodyScale,
+            shadowBlur: 1.5*scale,
         }
     },
 };
@@ -316,29 +303,15 @@ let seri_bar_v = {
 let circle_series_label = {
     normal: {
         show: true,
-        fontSize: 12 * bodyScale
+        fontSize: 12 * scale
     },
     emphasis: {
         show: true,
         textStyle: {
-            fontSize: 15 * bodyScale,
+            fontSize: 15 * scale,
             fontWeight: 'normal'
         }
     }
-};
-let circle_series_labline = {
-    normal: {
-        show: true,
-    }
-
-};
-let axisLine_Y = {
-    lineStyle: {
-        color: '#0083b3'
-    }
-};
-let splitLine = {
-    show: false
 };
 
 
@@ -387,7 +360,7 @@ let com_lineBar_vertical = $.extend(true, {}, com_charts, {
             }
         },
         textStyle:{
-            fontSize:16*bodyScale,
+            fontSize:16*scale,
             color:'#fff'
         },
     },
@@ -431,10 +404,10 @@ let opt_scatter = $.extend(true, {}, com_charts, {
 //雷达图公共属性
 let opt_radar = $.extend(true, {}, {
     legend: {
-        itemWidth: 7 * bodyScale,
-        itemHeight: 7 * bodyScale,
+        itemWidth: 7 * scale,
+        itemHeight: 7 * scale,
         textStyle: {
-            fontSize: 12 * bodyScale,
+            fontSize: 12 * scale,
             color: cTextWeek, //图例白色,全局样式不能影响到
         },
         top: '2%',
@@ -450,7 +423,7 @@ let opt_radar = $.extend(true, {}, {
         textStyle: {
             align: 'left',
             fontFamily: 'PingFang SC, sans-serif',
-            // fontSize: 15 * bodyScale
+            // fontSize: 15 * scale
         }
     },
     radar: {
@@ -459,7 +432,7 @@ let opt_radar = $.extend(true, {}, {
         name: {
             textStyle: {
                 color: '#0cf',
-                fontSize: 12 * bodyScale
+                fontSize: 12 * scale
                 // backgroundColor: '#999',
                 // borderRadius: 3,
                 // padding: [3, 5]
@@ -493,7 +466,7 @@ let seri_pie = $.extend(true, {}, com_charts, {
     radius:'60%',
     center:['50%','55%'],
     label:{
-        fontSize:16*bodyScale
+        fontSize:16*scale
     },
 
 });
@@ -503,7 +476,7 @@ let seri_circle = $.extend(true, {}, com_charts, seri_pie,{
 });
 
 function scatterSymbolSize(data) {
-    return Math.sqrt(data[2]) * bodyScale / 2;
+    return Math.sqrt(data[2]) * scale / 2;
 }
 
 function lineAreaStyle(index) {

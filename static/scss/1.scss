@@ -5,13 +5,14 @@
 main {
 
   div {
-    //outline: 1px dashed orange;
+    outline: 1px dashed orange;
   }
 
   .l, .m, .r {
     flex: 0 0 33.33%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;//可以让元素严格按照百分比显示，而防止被内部大尺寸元素撑住
   }
 
   .l > div, .m > div, .r > div {
@@ -28,7 +29,7 @@ main {
 
   .chart {
     flex: 1;
-    height: 10rem;
+    height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
   }
 }
 

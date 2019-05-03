@@ -2,9 +2,10 @@ let Index = {
     init() {
         // let that = this;
         // this.ctx = 'http://192.168.25.55:9999';
-        // this.charts = {};
+        this.charts = {};
         this.loadData();
-        // Public.chartsResize(this.charts)
+        Public.chartsResize(this.charts);
+        Public.chartsReDraw(this.charts,5)
     },
     loadData() {
         this.ec01_line_tiobe();//
@@ -16,6 +17,7 @@ let Index = {
     },
     ec01_line_tiobe() {
         let chart = echarts.init($("#ec01_line_tiobe")[0]);
+        this.charts.ec01_line_tiobe = chart;
         chart.setOption(opt_line);
         chart.setOption({
             xAxis: {
@@ -52,17 +54,17 @@ let Index = {
                 return $.extend(true, {}, seri_line, item, {smooth: false})
             })
         })
-        console.log(chart.getOption())
     },
     ec02_area_accessSource() {
         let chart = echarts.init($("#ec02_area_accessSource")[0]);
+        this.charts.ec02_area_accessSource = chart;
         chart.setOption(opt_line);
         chart.setOption({
             xAxis: {
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             yAxis: {
-                name: '时间',
+                name: '数量',
             },
             series: [{
                 name: '邮件营销',
@@ -86,6 +88,7 @@ let Index = {
     },
     ec03_barV_timeDistribute() {
         let chart = echarts.init($("#ec03_barV_timeDistribute")[0]);
+        this.charts.ec03_barV_timeDistribute = chart;
         chart.setOption(opt_bar_v);
         chart.setOption({
             xAxis: {
@@ -104,10 +107,10 @@ let Index = {
                 return $.extend(true, {}, seri_bar_v, item, {stack: '总时间'})
             })
         })
-        console.log(chart.getOption())
     },
     ec04_pie_computerBroken() {
         let chart = echarts.init($("#ec04_pie_computerBroken")[0]);
+        this.charts.ec04_pie_computerBroken = chart;
         chart.setOption(opt_pie);
         chart.setOption({
             roseType: 'radius',
@@ -132,12 +135,31 @@ let Index = {
                 return $.extend(true, {}, seri_circle, item)
             })
         })
-        console.log(chart.getOption())
     },
     ec05_lineBar_timeDistribute() {
         let chart = echarts.init($("#ec05_lineBar_timeDistribute")[0]);
+        this.charts.ec05_lineBar_timeDistribute = chart;
         chart.setOption(opt_line);
         chart.setOption({
+            legend:{
+                data:["吃饭","学习","工作","其他",'睡觉',]
+            },
+            tooltip:{
+                formatter:function (param) {
+                    // console.log(param)
+                    // alert(param.seriesName)
+                    return param.map(item=>{
+                        if(item.seriesName === '补位'){
+                            // alert(item.seriesName)
+                            return ''
+                        }else{
+                            // alert('1'+item.seriesName)
+                            return `${item.seriesName}: ${item.value}<br>`
+                        }
+                    })
+
+                }
+            },
             xAxis: {
                 boundaryGap: true,
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
@@ -169,10 +191,10 @@ let Index = {
                 return $.extend(true, {}, seri_bar_v, item)
             }))
         })
-        console.log(chart.getOption())
     },
     ec06_pie_findSong() {
         let chart = echarts.init($("#ec06_pie_findSong")[0]);
+        this.charts.ec06_pie_findSong = chart;
         chart.setOption(opt_pie);
         chart.setOption({
             roseType: 'radius',
@@ -191,7 +213,7 @@ let Index = {
                     itemStyle: {
                         normal: {
                             color: colors[0],
-                            shadowBlur: 100 * bodyScale,
+                            shadowBlur: 100 * scale,
                             shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
                     },
@@ -218,7 +240,6 @@ let Index = {
                 return $.extend(true, {}, seri_pie, item)
             })
         })
-        console.log(chart.getOption())
     }
 };
 Index.init();
