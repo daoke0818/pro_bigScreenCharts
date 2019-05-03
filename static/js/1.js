@@ -6,7 +6,7 @@ let Index = {
         Public.chartsReDraw(this.charts, 10, [
             'ec01_line_tiobe', 'ec06_pie_findSong'
         ], [
-            'ec03_barV_timeDistribute','ec05_lineBar_timeDistribute', 'ec06_pie_findSong'
+            'ec03_barV_timeDistribute', 'ec05_lineBar_timeDistribute', 'ec06_pie_findSong'
         ])
     },
     loadData() {
@@ -18,22 +18,22 @@ let Index = {
         this.ec06_pie_findSong();//
     },
     ec01_line_tiobe() {
-        let chart = echarts.init($("#ec01_line_tiobe")[0]);
-        this.charts.ec01_line_tiobe = chart;
-        chart.setOption(opt_line);
+        let chart = echarts.init($("#ec01_line_tiobe")[0]); //初始化图表，注意命名的规范合理
+        this.charts.ec01_line_tiobe = chart; //放入charts对象方便后面的刷新缩放以及其他操作
+        chart.setOption(opt_line); // 设置这个类型（折线图）图表的共性
         chart.setOption({
-            xAxis: {
+            xAxis: { // 本图表option的个性
                 nameLocation: 'start',
                 inverse: true,
                 data: ['2019', '2014', '2009', '2004', '1999', '1994', '1989']
             },
-            yAxis: {
+            yAxis: { // 本图表option的个性
                 name: '排名',
                 nameLocation: 'start',
                 min: 1,
                 inverse: true
             },
-            dataZoom: {
+            dataZoom: { // 本图表option的个性
                 type: 'inside',
                 orient: 'vertical'
             },
@@ -52,10 +52,11 @@ let Index = {
                 // {"name": "Lisp", data: [29, 13, 19, 14, 14, 5, 2]},
                 // {"name": "Pascal", data: [207, 14, 14, 96, 6, 3, 17]}
             ].map(item => {
-                return $.extend(true, {}, seri_line, {
-                    smooth: false,
-                    showSymbol: false,
-                }, item)
+                return $.extend(true, {}, seri_line,// 折线图图表series的共性
+                    { // 本图表series的个性
+                        smooth: false,
+                        showSymbol: false,
+                    }, item)
             })
         })
     },
@@ -86,7 +87,7 @@ let Index = {
                 name: '搜索引擎',
                 data: [820, 932, 901, 934, 1290, 1330, 1320]
             }].map(item => {
-                return $.extend(true, {}, seri_area,{
+                return $.extend(true, {}, seri_area, {
                     symbol: 'circle',
                 }, item)
             })
@@ -162,7 +163,7 @@ let Index = {
                             // alert('1'+item.seriesName)
                             return `${item.seriesName}: ${item.value}<br>`
                         }
-                    }).join("").replace(',','')
+                    }).join("").replace(',', '')
 
                 }
             },
@@ -179,8 +180,8 @@ let Index = {
                 {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
                 {"name": "其他", data: [10, 6, 6, 5.5, 7, 7, 3.5]},
             ].map(item => {
-                return $.extend(true, {}, seri_line,{
-                    symbol:'emptyCircle'
+                return $.extend(true, {}, seri_line, {
+                    symbol: 'emptyCircle'
                 }, item)
             }).concat([
                 {

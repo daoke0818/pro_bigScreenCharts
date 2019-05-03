@@ -1,21 +1,14 @@
 /**
- * Created by Administrator on 2018/7/4.
+ * Created by Administrator on 2019/4/19.
  */
-//天气预报更新周期
-// let domain = "http://localhost:9999";
-let domain = "http://172.16.3.170:9999";
-let version = "v1"; //接口版本
-let xSign = "hlsofttech"; //系统签名-加密值 不同平台签名不同
-let xToken = "zuo"; //用户认证信息-可以通过接口获取 暂时写死
-let clientUrl = domain + "/api/" + version + "/common/interface/getByDataType";//接口地址 定量
-let param = {"dataType": "a_a_a_a", "params": "time::20180731;;cbkCode::;;startIndex::1;;pageSize::10"};//接口请求参数 变量   新增用户数
-let todayDate = '';
-let yesterdayDate = '';
-let beforeYesterdayDate = '';
-let beforeYesterdayDateWithHyphen = '';
+
+const Cfg = {
+    designW: 1920, //设计图宽度
+    designH: 1080, //设计图高度
+    getWeatherPeriod: 5, //天气预报更新周期（分）
+    chartRefreshPeriod: 10 // 图表刷新周期（秒）
+};
 let hasGetWeather = false;
-let getWeatherPeriod = 5;
-const chartRefreshPeriod = 10;
 let scale = 1;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const Public = {
@@ -42,7 +35,7 @@ const Public = {
      * @param noRefresh 无需刷新的图表
      * @param someRefresh 指定要刷新的图表，有重复指定的图表时优先权高于noRefresh
      */
-    chartsReDraw(charts, t = chartRefreshPeriod, noRefresh, someRefresh) {
+    chartsReDraw(charts, t = Cfg.chartRefreshPeriod, noRefresh, someRefresh) {
         let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
                 if (noRefresh.includes(item) && !someRefresh.includes(item)) return;
@@ -122,7 +115,7 @@ function getWeather(currTime) {
                     txt = daily_forecast.cond_txt_n;
                     temperatureTxt = daily_forecast.tmp_max + "℃~" + daily_forecast.tmp_min + "℃";
                 }
-                $("#weather").html(txt+'&emsp;'+city);
+                $("#weather").html(txt + '&emsp;' + city);
                 $("#temperature").text(temperatureTxt);
                 $("#weatherIcon").css('background-image', `url("https://cdn.heweather.com/cond_icon/${code}.png")`);
             })
@@ -159,7 +152,7 @@ function setHeaderTime() {
             getWeather(t);
             hasGetWeather = true;
         } else {
-            if (min % getWeatherPeriod === 0 && sec === 0 && milliSec < 500) {
+            if (min % Cfg.getWeatherPeriod === 0 && sec === 0 && milliSec < 500) {
                 getWeather(t);
             }
         }
