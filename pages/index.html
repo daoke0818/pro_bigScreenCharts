@@ -5,71 +5,80 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
-    <title>西外可视化分析大屏</title>
+    <title>大屏图表适配解决方案</title>
     <link rel="stylesheet" href="../static/assets/css/iconfont.css">
     <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/1.css">
     <script src="../static/assets/js/jquery-3.3.1.min.js"></script>
 </head>
 
-<body id="index">
+<body id="investmentRisk">
 <div id="container">
     <script src="../static/js/common.js"></script>
     <header>
-        <h1>一带一路跨语言大数据创新平台</h1>
+        <span class="logo">logo</span>
+        <h1>大屏图表适配解决方案</h1>
+        <time id="headerTime"></time>
+        <div class="weatherBox" title="数据来自和风天气">
+            <i class="weatherIcon" id="weatherIcon"></i>
+            <ul>
+                <li class="temperature" id="temperature"></li>
+                <li class="weather" id="weather"></li>
+            </ul>
+        </div>
+
     </header>
     <main>
         <!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
         <div class="l">
             <div class="l-t">
-                <h3>实时数据</h3>
-                <div class="text">
-                    <span class="digital-num">87,235,939</span>
-                    <span class="rate"><span class="rate-num">+0.5%</span><i class="iconfont icon-jiantouarrow504"></i></span>
+                <div class="chart-wrap">
+                    <h3>tiobe计算机语言流行趋势</h3>
+                    <div class="chart" id="ec01_line_tiobe"></div>
                 </div>
-                <table>
-                    <thead>
-                    <tr><th>排名</th><th>国家</th><th>数据量</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>1</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">美国</span></td><td class="num">11235</td></tr>
-                    <tr><td>2</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">俄罗斯</span></td><td class="num">11235</td></tr>
-                    <tr><td>3</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">英国</span></td><td class="num">1123435</td></tr>
-                    <tr><td>4</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">德国</span></td><td class="num">11235</td></tr>
-                    <tr><td>5</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">波兰</span></td><td class="num">1125435</td></tr>
-                    <tr><td>6</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">沙特阿拉伯</span></td><td class="num">11235</td></tr>
-                    <tr><td>7</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">葡萄牙</span></td><td class="num">115</td></tr>
-                    <tr><td>8</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">西班牙</span></td><td class="num">11235</td></tr>
-                    <tr><td>9</td><td><img src="../static/imgs/flag_USA.jpg" alt=""><span class="country">法国</span></td><td class="num">11235</td></tr>
-                    </tbody>
-                </table>
             </div>
             <div class="l-b">
-                <h3>数据走势</h3>
-                <div class="chart-box" id="ec01_line_trend"></div>
+                <div class="chart-wrap">
+                    <h3>面积图</h3>
+                    <div class="chart" id="ec02_area_accessSource"></div>
+                </div>
             </div>
         </div>
         <div class="m">
-            <div class="chart-box" id="ec02_map3d_globe"></div>
-        </div>
-        <div class="r">
-            <div class="r-box">
-                <div class="r-t">
-                    <h3>领域分布</h3>
-                    <div class="chart-box" id="ec03_radar_fieldDistribution"></div>
+            <div class="m-t">
+                <div class="chart-wrap">
+                    <h3>一周时间分布</h3>
+                    <div class="chart" id="ec03_barV_timeDistribute"></div>
                 </div>
-                <div class="r-b">
-                    <h3>数据分布</h3>
-                    <div class="chart-box" id="ec04_hLine_dataDistribution"></div>
+            </div>
+            <div class="m-b">
+                <div class="chart-wrap">
+                    <h3>当电脑坏了的时候</h3>
+                    <div class="chart" id="ec04_pie_computerBroken"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="r">
+            <div class="r-t">
+                <div class="chart-wrap">
+                    <h3>一周时间分布</h3>
+                    <div class="chart" id="ec05_lineBar_timeDistribute"></div>
+                </div>
+            </div>
+            <div class="r-b">
+                <div class="chart-wrap">
+                    <h3>当在网上找某首歌的时候</h3>
+                    <div class="chart" id="ec06_pie_findSong"></div>
                 </div>
             </div>
         </div>
     </main>
 </div>
-<script src="../static/assets/js/echarts-4.2.0.js"></script>
-<script src="../static/assets/js/echarts-gl.js"></script>
+<script src="../static/assets/js/echarts-4.2.0.min.js"></script>
+<!--<script src="../static/assets/js/world.js"></script>-->
 <script src="../static/js/chartsCom.js"></script>
-<script src="../static/js/index.js"></script>
+<script src="../static/js/1.js"></script>
 </body>
 </html>
 

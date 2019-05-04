@@ -1,13 +1,5 @@
-// let scale = 1;
+let colors = Cfg.colors[Cfg.season];
 
-let colors = [
-    '#4cb4e7',
-    '#ffc09f',
-    '#ffee93',
-    '#e2dbbe',
-    '#a3a380',
-    // '#ffc002',
-];
 let c_axisLine = 'rgba(76,180,231,0.33)';
 let c_bg_bar = 'rgba(76,180,231,0.15)';
 

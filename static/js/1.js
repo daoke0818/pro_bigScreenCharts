@@ -127,7 +127,7 @@ let Index = {
                     data: [{
                         value: 72,
                         name: '重启'
-                    }, {
+                    },{
                         value: 3,
                         name: '找人帮忙'
                     }, {
@@ -136,7 +136,7 @@ let Index = {
                     }, {
                         value: 15,
                         name: '想法修复'
-                    }]
+                    } ]
                 },
             ].map(item => {
                 return $.extend(true, {}, seri_circle, item)
@@ -153,14 +153,10 @@ let Index = {
             },
             tooltip: {
                 formatter: function (param) {
-                    // console.log(param)
-                    // alert(param.seriesName)
                     return param.map(item => {
                         if (item.seriesName === '补位') {
-                            // alert(item.seriesName)
                             return ''
                         } else {
-                            // alert('1'+item.seriesName)
                             return `${item.seriesName}: ${item.value}<br>`
                         }
                     }).join("").replace(',', '')
@@ -175,15 +171,6 @@ let Index = {
                 name: '时间',
             },
             series: [
-                {"name": "吃饭", data: [3, 2, 2, 2, 2, 2, 3]},
-                {"name": "学习", data: [3, 1, 1, 1.5, 1, 1, 2]},
-                {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
-                {"name": "其他", data: [10, 6, 6, 5.5, 7, 7, 3.5]},
-            ].map(item => {
-                return $.extend(true, {}, seri_line, {
-                    symbol: 'emptyCircle'
-                }, item)
-            }).concat([
                 {
                     name: '睡觉',
                     data: [8, 7, 7, 7, 6, 6.5, 7.5]
@@ -198,6 +185,15 @@ let Index = {
                 }
             ].map(item => {
                 return $.extend(true, {}, seri_bar_v, item)
+            }).concat([
+                {"name": "吃饭", data: [3, 2, 2, 2, 2, 2, 3]},
+                {"name": "学习", data: [3, 1, 1, 1.5, 1, 1, 2]},
+                {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
+                {"name": "其他", data: [10, 6, 6, 5.5, 7, 7, 3.5]},
+            ].map(item => {
+                return $.extend(true, {}, seri_line, {
+                    symbol: 'emptyCircle'
+                }, item)
             }))
         })
     },

@@ -6,7 +6,24 @@ const Cfg = {
     designW: 1920, //设计图宽度
     designH: 1080, //设计图高度
     getWeatherPeriod: 5, //天气预报更新周期（分）
-    chartRefreshPeriod: 10 // 图表刷新周期（秒）
+    chartRefreshPeriod: 10, // 图表刷新周期（秒）
+    season: 'default',//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
+    colors: {
+        default: ['lightskyblue', 'orange', 'yellow', 'greenyellow',
+            'mediumturquoise','mediumpurple'],
+/*
+        default: ['#4cb4e7', '#ffc09f', '#ffee93', '#e2dbbe',
+            '#a3a380'],
+*/
+        spring: ['#FFFFE6', '#FA8C8C', '#FAAAC8', '#FAC8C8',
+            '#BEDC6E', '#6E6464'],
+        summer: ['#DCFFFF', '#FF5200', '#FFAE00', '#007AFF',
+            '#00BF05', '#505064'],
+        autumn: ['#FAE6DC', '#782323', '#783723', '#A05027',
+            '#A5912D', '#283C14'],
+        winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
+            '#E1E1F0', '#281E1E'],
+    }
 };
 let hasGetWeather = false;
 let scale = 1;
