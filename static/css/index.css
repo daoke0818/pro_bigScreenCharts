@@ -1,97 +1,19 @@
-body {
-  background-size: cover; }
-
-main {
-  flex: 1;
+main .l, main .m, main .r {
+  flex: 0 0 33.33%;
   display: flex;
-  padding: 0; }
-  main h3 {
-    font-size: 1.5625rem;
-    color: var(--c_mainBlue); }
-
-.l {
-  flex: 0 0 28%;
-  padding: 3.75rem 0 0 3.75rem; }
-  .l .l-t {
-    width: 23rem; }
-    .l .l-t h3 {
-      margin-bottom: 1rem; }
-    .l .l-t .text {
-      display: flex;
-      justify-content: space-between; }
-      .l .l-t .text .digital-num {
-        font-family: 'digitalNumber', serif;
-        font-size: 3rem;
-        color: var(--c_highlightBlue); }
-      .l .l-t .text .rate {
-        display: flex;
-        color: var(--c_mainBlue);
-        margin-right: 1rem; }
-        .l .l-t .text .rate > * {
-          display: flex;
-          align-items: center; }
-        .l .l-t .text .rate .rate-num {
-          font-size: 1.5rem; }
-        .l .l-t .text .rate i.iconfont {
-          position: relative;
-          top: .25rem;
-          font-size: 2rem;
-          color: red; }
-    .l .l-t table {
-      width: 100%;
-      border-collapse: collapse; }
-      .l .l-t table tr {
-        border-bottom: 1px solid rgba(0, 138, 255, 0.2); }
-        .l .l-t table tr:nth-of-type(even) {
-          background-color: rgba(0, 138, 255, 0.05); }
-      .l .l-t table th, .l .l-t table td {
-        padding: .375rem; }
-      .l .l-t table th {
-        font-weight: normal;
-        font-size: .875rem;
-        color: var(--c_mainBlue); }
-      .l .l-t table td:nth-of-type(1) {
-        padding-left: 1rem; }
-      .l .l-t table td:nth-of-type(2) {
-        padding-left: 1rem;
-        font-size: .875rem; }
-        .l .l-t table td:nth-of-type(2) img {
-          position: relative;
-          display: inline-block;
-          top: .125rem;
-          width: 2rem;
-          height: 1.5rem;
-          padding-top: .25rem;
-          margin-bottom: -.125rem;
-          margin-right: 0.75rem;
-          border: 0; }
-      .l .l-t table td:nth-of-type(3) {
-        text-align: center; }
-  .l .l-b {
-    padding-top: 6rem; }
-    .l .l-b h3 {
-      margin-bottom: .5rem; }
-    .l .l-b .chart-box {
-      height: 15rem; }
-
-.m {
+  flex-direction: column;
+  overflow: hidden; }
+main .l > div, main .m > div, main .r > div {
+  display: flex;
   flex: 0 0 50%;
-  padding-top: 4rem; }
-  .m .chart-box {
-    height: 50rem; }
-
-.r {
-  flex: 0 0 22%;
-  padding-top: 9rem;
-  padding-right: 4rem; }
-  .r .r-box {
-    background: linear-gradient(rgba(8, 25, 59, 0), rgba(8, 25, 59, 0.8) 20%, rgba(8, 25, 59, 0.8) 80%, rgba(8, 25, 59, 0)); }
-    .r .r-box h3 {
-      margin-bottom: 1rem;
-      padding-left: 1.5rem; }
-    .r .r-box .r-t .chart-box {
-      height: 24rem; }
-    .r .r-box .r-b .chart-box {
-      height: 16rem; }
+  padding: 1rem; }
+main .chart-wrap {
+  border: 0.0625rem solid rgba(76, 180, 231, 0.33);
+  display: flex;
+  flex: 1;
+  flex-direction: column; }
+  main .chart-wrap .chart {
+    flex: 1;
+    height: 0; }
 
 /*# sourceMappingURL=index.css.map */
