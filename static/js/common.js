@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2019/4/19.
  */
-const settings = JSON.parse(localStorage.getItem('settings'));
+const settings = JSON.parse(localStorage.getItem('settings'))||{};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
@@ -238,10 +238,10 @@ $(window).resize(() => {
 
 $(function () {
     Public.setHeaderTime(); // 页面顶部时间
-    $("#getWeatherPeriod").val(settings.getWeatherPeriod);
-    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod);
-    $("#designW").val(settings.designW);
-    $("#designH").val(settings.designH);
+    $("#getWeatherPeriod").val(settings.getWeatherPeriod||5);
+    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod||10);
+    $("#designW").val(settings.designW||1920);
+    $("#designH").val(settings.designH||1080);
     let $colors = $("body>aside .colors");
     Object.keys(Cfg.colorData).forEach(item => {
         $colors.append(`
