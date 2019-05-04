@@ -1,4 +1,4 @@
-let colors = Cfg.colors[Cfg.season];
+let colors = Cfg.colorData[Cfg.colors];
 
 let c_axisLine = 'rgba(76,180,231,0.33)';
 let c_bg_bar = 'rgba(76,180,231,0.15)';

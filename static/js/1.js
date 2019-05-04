@@ -3,7 +3,7 @@ let Index = {
         this.charts = {};
         this.loadData();
         Public.chartsResize(this.charts);
-        Public.chartsReDraw(this.charts, 10, [
+        Public.chartsReDraw(this.charts, null, [
             'ec01_line_tiobe', 'ec06_pie_findSong'
         ], [
             'ec03_barV_timeDistribute', 'ec05_lineBar_timeDistribute', 'ec06_pie_findSong'
@@ -54,6 +54,7 @@ let Index = {
             ].map(item => {
                 return $.extend(true, {}, seri_line,// 折线图图表series的共性
                     { // 本图表series的个性
+                        symbol:'circle',
                         smooth: false,
                         showSymbol: false,
                     }, item)
@@ -69,7 +70,7 @@ let Index = {
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             yAxis: {
-                name: '数量',
+                name: '数量/次',
             },
             series: [{
                 name: '邮件营销',
@@ -102,7 +103,7 @@ let Index = {
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             yAxis: {
-                name: '时间',
+                name: '时间/小时',
             },
             series: [
                 {"name": "吃饭", data: [3, 2, 2, 2, 2, 2, 3]},
@@ -168,7 +169,7 @@ let Index = {
                 data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
             yAxis: {
-                name: '时间',
+                name: '时间/小时',
             },
             series: [
                 {

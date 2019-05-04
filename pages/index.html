@@ -75,8 +75,30 @@
         </div>
     </main>
 </div>
+<aside>
+    <h3>设置</h3>
+    <div class="input-group">
+        <h4>设计图</h4>
+        <label for="designW">宽(像素):</label>
+        <input id="designW" value="1920" type="number" min="1">
+        <label for="designH">高(像素):</label>
+        <input id="designH" value="1080" type="number" min="1">
+    </div>
+    <div class="input-group colors">
+        <h4>配色方案</h4>
+    </div>
+    <div class="input-group other">
+        <h4>其它</h4>
+        <label for="getWeatherPeriod">天气更新频率(分钟):</label>
+        <input id="getWeatherPeriod" type="number" min="1" value="5">
+        <label for="chartRefreshPeriod">图表刷新频率(秒):</label>
+        <input id="chartRefreshPeriod" type="number" min="1" value="10">
+    </div>
+    <div class="input-group">
+        <button id="saveSetting">保存并刷新</button>
+    </div>
+</aside>
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
-<!--<script src="../static/assets/js/world.js"></script>-->
 <script src="../static/js/chartsCom.js"></script>
 <script src="../static/js/1.js"></script>
 </body>

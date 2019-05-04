@@ -1,26 +1,22 @@
 /**
  * Created by Administrator on 2019/4/19.
  */
-
+const settings = JSON.parse(localStorage.getItem('settings'));
 const Cfg = {
-    designW: 1920, //设计图宽度
-    designH: 1080, //设计图高度
-    getWeatherPeriod: 5, //天气预报更新周期（分）
-    chartRefreshPeriod: 10, // 图表刷新周期（秒）
-    season: 'default',//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
-    colors: {
-        default: ['lightskyblue', 'orange', 'yellow', 'greenyellow',
+    designW: settings.designW||1920, //设计图宽度
+    designH: settings.designH||1080, //设计图高度
+    getWeatherPeriod: settings.getWeatherPeriod||5, //天气预报更新周期（分）
+    chartRefreshPeriod: settings.chartRefreshPeriod||10, // 图表刷新周期（秒）
+    colors: settings.colors||'default',
+    colorData: {//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
+        default: ['lightskyblue', 'orange', 'greenyellow','limegreen',
             'mediumturquoise','mediumpurple'],
-/*
-        default: ['#4cb4e7', '#ffc09f', '#ffee93', '#e2dbbe',
-            '#a3a380'],
-*/
-        spring: ['#FFFFE6', '#FA8C8C', '#FAAAC8', '#FAC8C8',
-            '#BEDC6E', '#6E6464'],
-        summer: ['#DCFFFF', '#FF5200', '#FFAE00', '#007AFF',
-            '#00BF05', '#505064'],
-        autumn: ['#FAE6DC', '#782323', '#783723', '#A05027',
-            '#A5912D', '#283C14'],
+        spring: ['#BEDC6E','#FA8C8C', '#FAAAC8', '#FAC8C8',
+            '#FFFFE6', '#6E6464'],
+        summer: [ '#FFAE00','#FF5200',  '#007AFF','#00BF05',
+            '#DCFFFF', '#505064'],
+        autumn: ['#c1ad2f',/*'#A5912D',*/ '#782323', '#783723', '#A05027',
+            '#FAE6DC', '#283C14'],
         winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
             '#E1E1F0', '#281E1E'],
     }
@@ -61,7 +57,7 @@ const Public = {
                 chart.clear();
                 chart.setOption(opt);
             })
-        }, t * 1000)
+        }, (t||Cfg.chartRefreshPeriod) * 1000)
 
     }
 };
@@ -173,7 +169,6 @@ function setHeaderTime() {
                 getWeather(t);
             }
         }
-        console.log(sec)
         setHeaderTime();
     }, 500)
 }
@@ -182,14 +177,12 @@ setHeaderTime();
 
 function pageResize() {
     [pageH, pageW] = [$(window).height(), $(window).width()];
-    if (pageW / pageH > 16 / 9) { //扁
-        $("#container").css({width: pageH * 16 / 9, height: '100%'});
-        scale = pageH / 1080;
-        // console.info("扁")
-    } else { //方
-        $("#container").css({height: pageW * 9 / 16, width: '100%'});
-        scale = pageW / 1920;
-        // console.info("方")
+    if (pageW / pageH > Cfg.designW / Cfg.designH) {
+        $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
+        scale = pageH / Cfg.designH;
+    } else {
+        $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
+        scale = pageW / Cfg.designW;
     }
     $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
     // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
@@ -200,9 +193,29 @@ $(window).resize(() => {
     pageResize();
 });
 
-//设置请求header
-function setHeader(request) {
-    request.setRequestHeader("X-Sign", xSign);
-    request.setRequestHeader("X-Token", xToken);
-}
+$(function () {
+    $("#getWeatherPeriod").val(settings.getWeatherPeriod);
+    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod);
+    $("#designW").val(settings.designW);
+    $("#designH").val(settings.designH);
+    let $colors = $("body>aside .colors");
+    Object.keys(Cfg.colorData).forEach(item=>{
+        $colors.append(`
+            <label for="colors_${item}">
+                <input type="radio" id="colors_${item}" name="colors" ${settings.colors===item?'checked':''}><span>${item}</span>
+            </label>
+        `)
+    });
 
+    $("#saveSetting").click(function () {
+        let settings = {
+            getWeatherPeriod:$("#getWeatherPeriod").val(),
+            chartRefreshPeriod:$("#chartRefreshPeriod").val(),
+            designW:$("#designW").val(),
+            designH:$("#designH").val(),
+            colors:$("body>aside input[type=radio][name=colors]:checked").next().text(),
+        };
+        localStorage.setItem('settings',JSON.stringify(settings));
+        window.location.reload();
+    })
+})
