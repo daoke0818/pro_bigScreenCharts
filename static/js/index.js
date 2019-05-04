@@ -1,669 +1,251 @@
 let Index = {
     init() {
-        let that = this;
-        this.ctx = 'http://192.168.25.55:9999';
         this.charts = {};
         this.loadData();
-        Public.chartsResize(this.charts)
+        Public.chartsResize(this.charts);
+        Public.chartsReDraw(this.charts, null, [
+            'ec01_line_tiobe', 'ec06_pie_findSong'
+        ], [
+            'ec03_barV_timeDistribute', 'ec05_lineBar_timeDistribute', 'ec06_pie_findSong'
+        ])
     },
     loadData() {
-        this.ec01_line_trend_a();//数据走势
-        this.ec02_map3d_globe_a();//地球
-        this.ec03_radar_fieldDistribution_a();//区域分布雷达图
-        this.ec04_hLine_dataDistribution_a();//数据分布横条图
+        this.ec01_line_tiobe();//
+        this.ec02_area_accessSource();//
+        this.ec03_barV_timeDistribute();//
+        this.ec04_pie_computerBroken();//
+        this.ec05_lineBar_timeDistribute();//
+        this.ec06_pie_findSong();//
     },
-    ec01_line_trend_a() {
-        let that = this;
-        $.ajax({
-            url: this.ctx + '/api/common/innter?dataType=yeesight_pc_homepage_trend',
-            type: 'get',
-            headers: Public.ajaxHeaders,
-            success(data) {
-                if (data.msg !== 'success') {
-                    console.log(data.msg);
-                    return;
-                }
-                let dataObj = data.data;
-                //console.log(dataObj)
-                let legendArr = []
-                let xAxisArr = []
-                let yAxisArr = []
-                Object.keys(dataObj).forEach((item, index) => {
-                    legendArr.push(dataObj[item][0]["legend"]);
-                    xAxisArr = []
-                    let axisY = []
-                    dataObj[item].forEach(item => {
-                        xAxisArr.push(item.axisX);
-                        axisY.push(Number(item.axisY));
-                    })
-                    yAxisArr.push(axisY)
-                })
-                // console.log(legendArr,xAxisArr,yAxisArr)
-                let series = []
-                yAxisArr.forEach((item, index) => {
-                    series.push({
-                        name: legendArr[index],
-                        symbol: 'circle',
-                        symbolSize: 8 * scale,
-                        type: 'line',
-                        stack: '总量',
-                        // hoverAnimation: false,
-                        areaStyle: {
-                            // opacity: '.1',
-                            color: {
-                                type: 'linear',
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [{
-                                    offset: 0.3, color: 'rgba(0,138,255,0.3)' // 0% 处的颜色
-                                }, {
-                                    offset: 1, color: 'rgba(0,138,255,0)' // 100% 处的颜色
-                                }],
-                                global: false // 缺省为 false
-                            }
-                        },
-                        lineStyle: {
-                            width: 1 * scale,
-                        },
-                        data: item
-                    })
-                });
-                that.ec01_line_trend_d(xAxisArr, series);
-            }
-        })
-    },
-    ec01_line_trend_d(xAxisArr, seriesData) {
-        let myChart = echarts.init($("#ec01_line_trend")[0]);
-        this.charts.ec01_line_trend = myChart;
-        myChart.setOption({
-            color: ["#008aff", "#40e9ea"],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'item',
-                    label: {
-                        fontSize: 12 * scale,
-                        backgroundColor: '#6a7985'
-                    }
-                }
+    ec01_line_tiobe() {
+        let chart = echarts.init($("#ec01_line_tiobe")[0]); //初始化图表，注意命名的规范合理
+        this.charts.ec01_line_tiobe = chart; //放入charts对象方便后面的刷新缩放以及其他操作
+        chart.setOption(opt_line); // 设置这个类型（折线图）图表的共性
+        chart.setOption({
+            xAxis: { // 本图表option的个性
+                nameLocation: 'start',
+                inverse: true,
+                data: ['2019', '2014', '2009', '2004', '1999', '1994', '1989']
             },
-            legend: {
-                // data: legendArr,
-                right: '8%',
-                top: 20 * scale,
-                itemHeight: 10 * scale,
-                itemWidth: 15 * scale,
-                textStyle: {
-                    fontSize: 12 * scale,
-                    color: "#fff"
-                }
+            yAxis: { // 本图表option的个性
+                name: '排名',
+                nameLocation: 'start',
+                min: 1,
+                inverse: true
             },
-            grid: {
-                left: '8%',
-                right: '8%',
-                bottom: '14%',
-                top: '15%'
+            dataZoom: { // 本图表option的个性
+                type: 'inside',
+                orient: 'vertical'
             },
-            xAxis: [
-                {
-                    boundaryGap: false,
-                    type: 'category',
-                    data: xAxisArr,
-                    axisTick: {
-                        show: false
-                    },
-                    nameTextStyle: {
-                        color: "#fff"
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            width: 1 * scale,
-                            color: 'rgba(141,200,255,.8)'
-                        }
-                    },
-                    axisLabel: {
-                        fontSize: 12 * scale,
-                        color: '#fff'
-                    }
-                }
-            ],
-            yAxis: [
-                {
-                    name: '数据（/万条）',
-                    type: 'value',
-                    nameGap: 15 * scale,
-                    axisTick: {
-                        show: false
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    nameTextStyle: {
-                        padding: [0, 0, 5 * scale, 5 * scale],
-                        fontSize: 12 * scale,
-                        color: "#fff"
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: 'rgba(141,200,255,.8)'
-                        }
-                    },
-                    axisLabel: {
-                        fontSize: 12 * scale,
-                        color: '#fff',
-                        formatter: function (value, index) {
-                            return value / 10000;
-                        }
-                    }
-                }
-            ],
-            series: seriesData.map(function (item, index) {
-                return $.extend(true, {}, {}, item);
+            series: [
+                {"name": "Java", data: [1, 2, 1, 1, 12, '-', 0]},
+                {"name": "C", data: [2, 1, 2, 2, 1, 1, 1]},
+                {"name": "C++", data: [3, 4, 3, 3, 2, 2, 3]},
+                {"name": "Python", data: [4, 7, 5, 9, 27, 21, 0]},
+                {"name": "Visual Basic .NET", data: [5, 10, '-', '-', '-', '-', 0]},
+                {"name": "C#", data: [6, 5, 6, 7, 23, '-', 0]},
+                {"name": "JavaScript", data: [7, 8, 8, 8, 17, '-', 0]},
+                {"name": "PHP", data: [8, 6, 4, 5, '-', '-', 0]},
+                {"name": "SQL", data: [9, '-', '-', 6, '-', '-', 0]},
+                {"name": "Objective-C", data: [10, 3, 36, 44, '-', '-', 0]},
+                // {"name": "COBOL", data: [25, 20, 16, 11, 3, 9, 12]},
+                // {"name": "Lisp", data: [29, 13, 19, 14, 14, 5, 2]},
+                // {"name": "Pascal", data: [207, 14, 14, 96, 6, 3, 17]}
+            ].map(item => {
+                return $.extend(true, {}, seri_line,// 折线图图表series的共性
+                    { // 本图表series的个性
+                        symbol:'circle',
+                        smooth: false,
+                        showSymbol: false,
+                    }, item)
             })
         })
     },
-    ec02_map3d_globe_a() {
-        let that = this;
-        $.ajax({
-            url: '../static/data/earth3d.json',//'/api/index/news/map'
-            type: 'get',
-            headers: Public.ajaxHeaders,
-            success(data) {
-                // console.log('HomePage_earth3d_flights', data);
-                const dataFromInterface = data.data.maps;
-                const coordsXiAn = [109.1162, 34.2004]; //西安经纬度
-                // 散点数据
-                const mapDataScatters = dataFromInterface.concat([{
-                    name: '西安',
-                    latitude: 109.1162,
-                    longitude: 34.2004
-                }]).map(function (item) {
-                    return {
-                        // name: item.name,
-                        // value: [item.latitude, item.longitude]
-                        name: item.areacity,
-                        value: [item.citylatitude, item.citylongitude]
-                    }
-                });
-                // 连线数据
-                const mapDataLines = dataFromInterface.map(function (item) {
-                    return {
-                        // name: item.name,
-                        // coords: [[item.latitude, item.longitude], coordsXiAn]
-                        name: item.areacity,
-                        coords: [[item.citylatitude, item.citylongitude], coordsXiAn]
-                    }
-                });
-                that.ec02_map3d_globe_d(mapDataScatters, mapDataLines);
-            }
+    ec02_area_accessSource() {
+        let chart = echarts.init($("#ec02_area_accessSource")[0]);
+        this.charts.ec02_area_accessSource = chart;
+        chart.setOption(opt_line);
+        chart.setOption({
+            xAxis: {
+                data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+            },
+            yAxis: {
+                name: '数量/次',
+            },
+            series: [{
+                name: '邮件营销',
+                data: [120, 132, 101, 134, 90, 230, 210]
+            }, {
+                name: '联盟广告',
+                data: [220, 182, 191, 234, 290, 330, 310]
+            }, {
+                name: '视频广告',
+                data: [550, 432, 501, 454, 390, 530, 410]
+            }, {
+                name: '直接访问',
+                data: [420, 432, 401, 434, 490, 530, 320]
+            }, {
+                name: '搜索引擎',
+                data: [820, 932, 901, 934, 1290, 1330, 1320]
+            }].map(item => {
+                return $.extend(true, {}, seri_area, {
+                    symbol: 'circle',
+                }, item)
+            })
         });
     },
-    ec02_map3d_globe_d(mapDataScatters, inCity) {
-        let myChart = echarts.init($("#ec02_map3d_globe")[0]);
-        this.charts.ec02_map3d_globe = myChart;
-        let series = [
-            {//绘制点
-                type: 'scatter3D',
-                coordinateSystem: 'globe',
-                // blendMode: 'lighter',
-                symbolSize: 5 * scale,
-                itemStyle: {
-                    color: '#fff',
-                    opacity: 1,
-                    borderColor: '#57fafa',
-                    borderWidth: 3 * scale,
-                },
-                label: {
-                    show: false,//不知如何取消鼠标移上去后触发的动作
-                    formatter: '{b}',
-                    distance: 15 * scale
-                },
-                data: mapDataScatters
+    ec03_barV_timeDistribute() {
+        let chart = echarts.init($("#ec03_barV_timeDistribute")[0]);
+        this.charts.ec03_barV_timeDistribute = chart;
+        chart.setOption(opt_bar_v);
+        chart.setOption({
+            xAxis: {
+                data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             },
-            {//绘制线
-                type: 'lines3D',
-                effect: {
-                    show: true,
-                    trailWidth: 2 * scale,
-                    trailLength: 0.25 * scale,
-                    trailOpacity: .7,
-                    trailColor: '#ff3ecf'
-                },
-
-                lineStyle: {
-                    width: 1 * scale,
-                    color: '#6e0fff',
-                    opacity: .6
-                },
-                // blendMode: 'lighter',
-
-                data: inCity
-            }
-        ];
-
-        myChart.setOption({//地球背景图
-            // background: 'transparent',
-            globe: {
-                // environment: ctx + '/images/starfield.jpg',
-                // baseColor: '#4a7dff',
-                // baseColor: '#fff',
-                // environment: '#000',
-                // baseTexture: ctx + '/images/bg_world_2.png',
-                // left:'20%',
-                // top:'20%',
-                baseTexture: '../static/imgs/earth3d_190410.jpg',
-                globeRadius: 100,
-                globeOuterRadius: 140,
-                viewControl: {
-                    // autoRotate: false,
-                    autoRotateSpeed: 9,
-                    alpha: 33,
-                    beta: 135,
-                    // targetCoord: [87.68, 43.77]//可以定位到乌鲁木齐等城市
-                },
-                light: { // 主光源,影响地图颜色
-                    ambient: {
-                        intensity: 1
-                    },
-                    main: {
-                        intensity: 0
-                    }
-                },
-                // layers: [{
-                //     type: 'blend',
-                //     blendTo: 'emission',
-                //     texture: ctx + '/images/night.jpg'
-                // }],
-                // ambientCubemap: {
-                //     texture: ctx + '/images/pisa.hdr',
-                // }
+            yAxis: {
+                name: '时间/小时',
             },
-            tooltip: {
-                show: false,
-                // formatter:'{}'
-            },
-            series: series
-        });
-    },
-    ec03_radar_fieldDistribution_a() {
-        let that = this;
-        $.ajax({
-            // url: '../../test.json',
-            url: this.ctx + '/api/common/innter?dataType=yeesight_pc_homepage_category',
-            type: 'get',
-            headers: Public.ajaxHeaders,
-            success(data) {
-                if (data.msg !== 'success') {
-                    console.log(data.msg);
-                    return;
-                }
-                let obj = data.data
-                let legendArr = []
-                let indicator = []
-                let seriesData = []
-                let valueArr = []
-                let selectedArr = {};
-                Object.keys(obj).forEach((item, index) => {
-                    legendArr = []
-                    let temp = []
-                    obj[item].forEach(item => {
-                        legendArr.push(item.name)
-                        temp.push(isNaN(item.value) ? '0' : item.value)
-                    })
-                    indicator.push({
-                        name: obj[item][0].class,
-                        max: isNaN(obj[item][0].max) ? '10000' : obj[item][0].max
-                    })
-                    valueArr.push(temp)
-                })
-                //console.log(valueArr)
-
-                let newArray = valueArr[0].map(function (col, i) {
-                    return valueArr.map(function (row) {
-                        return row[i];
-                    })
-                });
-
-                legendArr.forEach((item, index) => {
-
-                    seriesData.push({
-                        value: newArray[index],
-                        name: item
-                    })
-                    if (index > 3) {
-                        selectedArr[item] = false
-                    }
-                })
-
-
-                /* // console.log(legendArr,xAxisArr,yAxisArr)
-                 let series = []
-                 yAxisArr.forEach((item, index) => {
-                     series.push({
-                         name: legendArr[index],
-                         symbol: 'circle',
-                         symbolSize: 5 * scale,
-                         type: 'line',
-                         stack: '总量',
-                         // hoverAnimation: false,
-                         areaStyle: {
-                             // opacity: '.1',
-                             color: {
-                                 type: 'linear',
-                                 x: 0,
-                                 y: 0,
-                                 x2: 0,
-                                 y2: 1,
-                                 colorStops: [{
-                                     offset: 0.3, color: 'rgba(0,138,255,0.3)' // 0% 处的颜色
-                                 }, {
-                                     offset: 1, color: 'rgba(0,138,255,0)' // 100% 处的颜色
-                                 }],
-                                 global: false // 缺省为 false
-                             }
-                         },
-                         lineStyle: {
-                             width: 1 * scale
-                         },
-                         data: item
-                     })
-                 });*/
-                that.ec03_radar_fieldDistribution(indicator, seriesData,selectedArr);
-            },
-            timeout: 3000,
-            error() {
-                const indicator = [
-                    {name: '政治', max: 6500},
-                    {name: '经济', max: 16000},
-                    {name: '社会', max: 28000},
-                    {name: '农业', max: 38000},
-                    {name: '能源', max: 52000},
-                    {name: '文化', max: 38000},
-                    {name: '科技', max: 25000}
-                ];
-                const seriesData = [
-                    {
-                        value: [4300, 10000, 3800, 35000, 50000, 19000, 19000],
-                        name: '交通'
-                    },
-                    {
-                        value: [5000, 14000, 4800, 31000, 42000, 21000, 5900],
-                        name: '游览'
-                    },
-                    {
-                        value: [2300, 10000, 20000, 35000, 50000, 38000, 19000],
-                        name: '安全'
-                    },
-                    {
-                        value: [3000, 14000, 6800, 31000, 42000, 21000, 19000],
-                        name: '通讯'
-                    },
-                    {
-                        value: [1300, 10000, 18000, 45000, 50000, 33000, 19000],
-                        name: '经营'
-                    },
-                    {
-                        value: [6000, 14000, 5800, 51000, 42000, 21000],
-                        name: '资源'
-                    },
-                ];
-                that.ec03_radar_fieldDistribution(indicator, seriesData)
-            }
-
+            series: [
+                {"name": "吃饭", data: [3, 2, 2, 2, 2, 2, 3]},
+                {"name": "睡觉", data: [8, 7, 7, 7, 7, 7, 7.5]},
+                {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
+                {"name": "学习", data: [3, 1, 1, 1.5, 1, 1, 2]},
+                {"name": "其他", data: [10, 6, 6, 5.5, 6, 6.5, 3.5]},
+            ].map(item => {
+                return $.extend(true, {}, seri_bar_v, item, {stack: '总时间'})
+            })
         })
     },
-    ec03_radar_fieldDistribution(indicator, seriesData,selectedArr) {
-        let myChart = echarts.init($("#ec03_radar_fieldDistribution")[0]);
-        this.charts.ec02_map3d_globe = myChart;
-        myChart.setOption({
-            color: ['#008aff', '#41e9ea', '#fffea7', '#fa8e9b',  '#f04965', '#bc8554', '#f3f294', '#4be1d4','#f07f8b','#8ec3ea',],
-            tooltip: {
-                show: true,
-                backgroundColor: '#008aff30',
-            },
+    ec04_pie_computerBroken() {
+        let chart = echarts.init($("#ec04_pie_computerBroken")[0]);
+        this.charts.ec04_pie_computerBroken = chart;
+        chart.setOption(opt_pie);
+        chart.setOption({
+            roseType: 'radius',
+            series: [
+                {
+                    name: "电脑坏了",
+                    data: [{
+                        value: 72,
+                        name: '重启'
+                    },{
+                        value: 3,
+                        name: '找人帮忙'
+                    }, {
+                        value: 10,
+                        name: '放弃使用'
+                    }, {
+                        value: 15,
+                        name: '想法修复'
+                    } ]
+                },
+            ].map(item => {
+                return $.extend(true, {}, seri_circle, item)
+            })
+        })
+    },
+    ec05_lineBar_timeDistribute() {
+        let chart = echarts.init($("#ec05_lineBar_timeDistribute")[0]);
+        this.charts.ec05_lineBar_timeDistribute = chart;
+        chart.setOption(opt_line);
+        chart.setOption({
             legend: {
-                type:'scroll',
-                pageIconColor:'#008aff',
-                pageIconInactiveColor:'#008aff50',//翻页按钮不激活的颜色
-                pageTextStyle:{
-                    color:'#fff',
-                },
-                itemHeight: 2.5 * scale,
-                itemWidth: 15 * scale,
-                bottom: "15%",
-                right: '5%',
-                width: 270*scale,
-                itemGap: 10 * scale,
-                textStyle: {
-                    fontSize: 12 * scale,
-                    color: '#fff'
-                },
-                selected:selectedArr,
+                data: ["吃饭", "学习", "工作", "其他", '睡觉',]
             },
-            radar: {
-                // shape: 'circle',
-                radius: '45%',
-                center: ['50%', '34%'],
-                name: {
-                    textStyle: {
-                        fontSize: 12 * scale,
-                        color: "#fff",
-                        borderRadius: 3 * scale,
-                        padding: [3 * scale, 5 * scale]
-                    }
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(0, 138, 255, 0.2)'
-                    }
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: 'rgba(0, 138, 255, 0.2)'
-                    }
-                },
-                splitArea: {
-                    areaStyle: {
-                        color: ['rgba(0, 138, 255, 0)', 'rgba(0, 138, 255, 0.05)']
-                    }
-                },
-                indicator: indicator
-            },
-            series: [
-                {
-                    symbol: 'none',
-                    name: "领域分布",
-                    type: "radar",
-                    label: {
-                        fontSize: 12 * scale
-                    },
-
-                    lineStyle: {
-                        width: 1 * scale
-                    },
-                    data: seriesData
-                }
-            ]
-        })
-    },
-    ec04_hLine_dataDistribution_a() {
-        const that = this
-        let max = 0;//数据最大值
-        let yAxisData = [];
-        let seriesData = [];
-        let dataArr = [];
-        let quantityFormatter = [];
-        $.ajax({
-            headers: {
-                "token": ''//此处放置请求到的用户token
-            },
-            // url: '/api/test.json',
-            url: this.ctx+'/api/common/innter?dataType=yeesight_pc_homepage_source',
-            type: 'get',
-            dataType: 'json',
-            success: (data) => {
-                if (data.msg === 'success') {
-                    dataArr = data.data.yeesight
-                    dataArr = dataArr.sort(that.sortBy('value'))
-                    dataArr.forEach((item, index) => {
-                        max = item.max
-                        yAxisData.push(item.class)
-                        seriesData.push(item.value)
-                    });
-                    this.ec04_hLine_dataDistribution_d(seriesData, yAxisData, max);
-                }
-            },
-            error() {
-                yAxisData = ['政务', '门户', '报刊', '通讯社', '微博'];
-                seriesData = [744657, 655887, 604713, 583744, 390583];
-                max = 800000;
-                that.ec04_hLine_dataDistribution_d(seriesData, yAxisData, max);
-            }
-        })
-
-    },
-    ec04_hLine_dataDistribution_d(seriesData, yAxisData, max) {
-        let myChart = echarts.init($("#ec04_hLine_dataDistribution")[0]);
-        myChart.setOption({
-            tooltip: {},
-            grid: {
-                left: '8%',
-                right: '8%',
-                top: '5%',
-                bottom: '20%',
-                containLabel: true
-            },
-            xAxis: [
-                {
-                    type: 'value',
-                    show: false,
-                    axisLabel: {
-                        fontSize: 12 * scale,
-                        color: '#fff'
-                    },
-                    max
-                }
-            ],
-            yAxis: [
-                {
-                    type: 'category',
-                    axisLine: {show: false},
-                    axisLabel: {
-                        color: '#fff',
-                        fontSize: 12 * scale,
-                    },
-                    axisTick: { //小刻度线
-                        show: false
-                    },
-                    data: yAxisData,
-
-                }, {
-                    type: 'category',
-                    axisLine: {show: false},
-                    axisLabel: {
-                        color: '#fff',
-                        fontSize: 12 * scale,
-                    },
-                    axisTick: { //小刻度线
-                        show: false
-                    },
-                    data: seriesData.map(function (item) {
-                        console.log(item)
-                        return Number(item).toLocaleString();
-                    })
-                }
-            ],
-            series: [
-                {
-                    name: '数据量',
-                    type: 'bar',
-                    barWidth: 8 * scale,
-                    label: {
-                        normal: {
-                            show: false,
-                            verticalAlign: 'top'
+            tooltip: {
+                formatter: function (param) {
+                    return param.map(item => {
+                        if (item.seriesName === '补位') {
+                            return ''
+                        } else {
+                            return `${item.seriesName}: ${item.value}<br>`
                         }
-                    },
-                    itemStyle: {
-                        barBorderRadius: 5 * scale,
-                        color: new echarts.graphic.LinearGradient(
-                            0, 0, 1, 0,
-                            [
-                                {offset: 0, color: 'rgba(1,136,251,0.1)'},
-                                {offset: 1, color: 'rgba(1,136,251,1)'}
-                            ]
-                        )
-                    },
-                    zlevel: 3,
-                    data: seriesData
-                },
+                    }).join("").replace(',', '')
+
+                }
+            },
+            xAxis: {
+                boundaryGap: true,
+                data: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+            },
+            yAxis: {
+                name: '时间/小时',
+            },
+            series: [
                 {
+                    name: '睡觉',
+                    data: [8, 7, 7, 7, 6, 6.5, 7.5]
+                }, {
                     name: '补位',
-                    type: 'bar',
+                    silent: true,
                     itemStyle: {
-                        color: '#1f3255',
-                        shadowColor: '#1f3255',
-                        barBorderRadius: 5 * scale
+                        color: c_bg_bar,
                     },
                     barGap: '-100%',
-                    barWidth: 8 * scale,
-
-                    data: new Array(seriesData.length).fill(max)
-                    // data:['59999','59999','59999','59999']
+                    data: new Array(7).fill(12)
                 }
-            ]
+            ].map(item => {
+                return $.extend(true, {}, seri_bar_v, item)
+            }).concat([
+                {"name": "吃饭", data: [3, 2, 2, 2, 2, 2, 3]},
+                {"name": "学习", data: [3, 1, 1, 1.5, 1, 1, 2]},
+                {"name": "工作", data: [0, 8, 8, 8, 8, 7.5, 8]},
+                {"name": "其他", data: [10, 6, 6, 5.5, 7, 7, 3.5]},
+            ].map(item => {
+                return $.extend(true, {}, seri_line, {
+                    symbol: 'emptyCircle'
+                }, item)
+            }))
         })
     },
+    ec06_pie_findSong() {
+        let chart = echarts.init($("#ec06_pie_findSong")[0]);
+        this.charts.ec06_pie_findSong = chart;
+        chart.setOption(opt_pie);
+        chart.setOption({
+            roseType: 'radius',
+            visualMap: {
+                show: false,
+                min: 0,
+                max: 100,
+                inRange: {
+                    colorLightness: [0.3, 1.2]
+                }
+            },
 
-    /**
-     * 按照对象中某个字段给整个对象数组排序
-     * @param field 要排序的字段
-     * @returns {function(*, *): number}
-     */
-    sortBy(field) {
-        return function (a, b) {
-            return a[field] - b[field]
-        }
-    },
+            series: [
+                {
+                    name: "视频网站找歌的结果",
+                    itemStyle: {
+                        normal: {
+                            color: colors[0],
+                            shadowBlur: 100 * scale,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    data: [{
+                        value: 40,
+                        name: '手机拍的现场版'
+                    }, {
+                        value: 30,
+                        name: '翻唱'
+                    }, {
+                        value: 18,
+                        name: '尤克里里的演奏'
+                    }, {
+                        value: 10,
+                        name: '该视频已被删除'
+                    }, {
+                        value: 2,
+                        name: '找到了'
+                    }].sort(function (a, b) {
+                        return a.value - b.value;
+                    }),
+                },
+            ].map(item => {
+                return $.extend(true, {}, seri_pie, item)
+            })
+        })
+    }
 };
 Index.init();
-
-
-//旅客级别 - 环形图
-function ec01_circle_getMemberLevel_d(seriesData) {
-    let chart = echarts.init($("#ec01_circle_passengerLevel")[0]);
-    charts.ec01_circle_passengerLevel = chart;
-    chart.setOption(opt_circle);
-    chart.setOption({
-        title: {
-            text: '团散客人数占比',
-            textStyle: {
-                color: '#fff',
-                fontSize: 16 * scale
-            },
-            x: 'center',
-            y: 'bottom'
-        },
-        series: [{
-            startAngle: 0,
-            center: ['50%', '45%'],
-            label: {
-                height: 60 * scale,
-                formatter: '{b}\n{c}%',
-                fontSize: 18 * scale
-            },
-            labelLine: {length: 24 * scale},
-            data: seriesData
-        }].map(function (item, index) {
-            return $.extend(true, {}, com_circleSeries, item);
-        })
-    })
-}
-
-
-
-
-
-

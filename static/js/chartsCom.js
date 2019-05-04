@@ -17,7 +17,7 @@ let com_charts = {
     },
     legend: {
         itemWidth: 20 * scale,
-        itemHeight: 5 * scale,
+        itemHeight: 10 * scale,
         inactiveColor: '#666',
         lineHeight: 10 * scale,
         textStyle: {
