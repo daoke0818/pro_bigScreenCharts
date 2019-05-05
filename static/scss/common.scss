@@ -127,8 +127,11 @@ h5 {
 
     .logo {
       position: absolute;
-      padding:1rem;
-      outline: 1px dashed wheat;
+      //padding:1rem;
+      //outline: 1px dashed wheat;
+      img{
+        width: 8rem;
+      }
     }
 
     h1 {
