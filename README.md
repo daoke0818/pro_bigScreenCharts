@@ -21,6 +21,7 @@
 8. 增加地球和地图两个页面
 9. 以后可能用vue等重构
 10. logo制作
+##### 演示地址：http://e-art.top/projects/bigScreenCharts/pages/
 
 #### 目前存在问题
 1. 不刷新时的自动缩放图表只能改变图表图形，而图表内文字(如label标签)不会缩放。
