@@ -3,9 +3,10 @@
 #### 缘起
 笔者入行前端以来，参与过一些大屏图表开发项目，
 因经常看到一些前端工作几年的小伙伴们对可视化大屏的等比例缩放的实现不理想，也遇到过图表配置非常冗余导致维护繁琐的情况，
-于是笔者总结了一些开发经验，业余时间里系统的完善了一下常见需求，整理一个demo开源出来供需要的小伙伴们参考。
+所以笔者一直想总结相关开发经验供大家参考。这次正好借这个五一小长假+调休，拿出3天时间(感谢家里的支持，没让我5天都在家看孩子)系统的完善了一下常见需求，整理一个demo开源出来供需要的小伙伴们参考，后期看情况会继续维护。
 由于笔者水平有限，代码中难免有不合理不优雅的地方，大家可以通过issue或pr或邮箱daoke_li@qq.com一起参与建设。
-
+#### 演示地址：
+http://e-art.top/projects/bigScreenCharts/pages/
 #### 功能和特点（打对勾的已完成）
 1. 页面内容自动等比例缩放适应大屏。√
 2. 图表的配置项抽取各层级公用部分，以对象的合并方式(jquery的extend方法)实现最简配置。√
@@ -21,13 +22,6 @@
 8. 增加地球和地图两个页面
 9. 以后可能用vue等重构
 10. logo制作
-##### 演示地址：http://e-art.top/projects/bigScreenCharts/pages/
-
-#### 目前存在问题
-1. 不刷新时的自动缩放图表只能改变图表图形，而图表内文字(如label标签)不会缩放。
-4. 配色待优化
-5. 多行图例的间距
-
 
 #### 软件架构
 * HTML5结构
@@ -41,24 +35,24 @@
 1. 先配置设计图尺寸、刷新频率、天气预报更新周期、主题颜色等参数
     ``` 
     const Cfg = {
-              designW: settings.designW || 1920, //设计图宽度
-              designH: settings.designH || 1080, //设计图高度
-              getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
-              chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
-              colors: settings.colors || 'default',
-              colorData: {//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
-                  default: ['lightskyblue', 'orange', 'greenyellow', 'limegreen',
-                      'mediumturquoise', 'mediumpurple'],
-                  spring: ['#BEDC6E', '#FA8C8C', '#FAAAC8', '#FAC8C8',
-                      '#FFFFE6', '#6E6464'],
-                  summer: ['#FFAE00', '#FF5200', '#007AFF', '#00BF05',
-                      '#DCFFFF', '#505064'],
-                  autumn: ['#c1ad2f',/*'#A5912D',*/ '#782323', '#783723', '#A05027',
-                      '#FAE6DC', '#283C14'],
-                  winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
-                      '#E1E1F0', '#281E1E'],
-              }
-          };
+        designW: settings.designW || 1920, //设计图宽度
+        designH: settings.designH || 1080, //设计图高度
+        getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
+        chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
+        colors: settings.colors || 'default',
+        colorData: {//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
+          default: ['lightskyblue', 'orange', 'greenyellow', 'limegreen',
+              'mediumturquoise', 'mediumpurple'],
+          spring: ['#BEDC6E', '#FA8C8C', '#FAAAC8', '#FAC8C8',
+              '#FFFFE6', '#6E6464'],
+          summer: ['#FFAE00', '#FF5200', '#007AFF', '#00BF05',
+              '#DCFFFF', '#505064'],
+          autumn: ['#c1ad2f',/*'#A5912D',*/ '#782323', '#783723', '#A05027',
+              '#FAE6DC', '#283C14'],
+          winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
+              '#E1E1F0', '#281E1E'],
+        }
+    };
     ```
     <!--尺寸用62.5%的HTML字号，即1rem=10px。-->
 2. 开发过程中，遇到图表先用最简单必须的代码画出来，然后再根据设计图梳理一下，哪些配置是共性，哪些是个性，共性的就在chartsCom.js里修改，个性的就在图表实例下修改。
