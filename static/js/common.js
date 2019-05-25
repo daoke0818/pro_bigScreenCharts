@@ -5,6 +5,7 @@ const settings = JSON.parse(localStorage.getItem('settings')) || {};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
+    zoomMode:settings.zoomMode||'contain',
     getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
     chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
     colors: settings.colors || 'default',
@@ -167,13 +168,25 @@ const Public = {
     //页面缩放
     pageResize() {
         [pageH, pageW] = [$(window).height(), $(window).width()];
-        if (pageW / pageH > Cfg.designW / Cfg.designH) {
-            $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
-            scale = pageH / Cfg.designH;
-        } else {
-            $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
-            scale = pageW / Cfg.designW;
+        if(Cfg.zoomMode==='contain'){
+            if (pageW / pageH > Cfg.designW / Cfg.designH) {
+                $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
+                scale = pageH / Cfg.designH;
+            } else {
+                $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
+                scale = pageW / Cfg.designW;
+            }
+        }else{ // cover
+            if (pageW / pageH > Cfg.designW / Cfg.designH) {
+                $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
+                scale = pageW / Cfg.designW;
+            } else {
+                $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
+                scale = pageH / Cfg.designH;
+            }
+            $("html,body").css('overflow','initial')
         }
+
         $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
@@ -241,15 +254,21 @@ $(function () {
     $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
     $("#designW").val(settings.designW || 1920);
     $("#designH").val(settings.designH || 1080);
+    if(Cfg.zoomMode==='contain'){
+        $('[name=zoomMode]:eq(0)').prop('checked',true)
+    }else{
+        $('[name=zoomMode]:eq(1)').prop('checked',true)
+    }
     let $colors = $("body>aside .colors");
     Object.keys(Cfg.colorData).forEach(item => {
         $colors.append(`
             <label for="colors_${item}">
-                <input type="radio" id="colors_${item}" name="colors" ${settings.colors === item ? 'checked' : ''}><span>${item}</span>
+                <input type="radio" id="colors_${item}" name="colors" ${Cfg.colors === item ? 'checked' : ''}><span>${item}</span>
             </label>
         `)
     });
 
+    // 保存设置
     $("#saveSetting").click(function () {
         let settings = {
             getWeatherPeriod: $("#getWeatherPeriod").val(),
@@ -257,6 +276,7 @@ $(function () {
             designW: $("#designW").val(),
             designH: $("#designH").val(),
             colors: $("body>aside input[type=radio][name=colors]:checked").next().text(),
+            zoomMode: $("body>aside input[type=radio][name=zoomMode]:checked").next().text(),
         };
         localStorage.setItem('settings', JSON.stringify(settings));
         window.location.reload();
