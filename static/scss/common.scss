@@ -118,6 +118,31 @@ h5 {
     overflow: hidden;
   }
 }
+/*风筝动画*/
+@keyframes logoAnimation {
+  from{
+    transform:skew(0) scale(1);
+  }
+  25%{
+    transform:skewX(1deg) rotateX(30deg) scale(.9) translate(-.125rem,-.25rem);
+  }
+  40%{
+    transform:scale(.85);
+    opacity:.7
+  }
+  60%{
+    transform:skewX(-15deg) skewY(-10deg);
+  }
+  70%{
+    transform:skewX(-15deg) skewY(-10deg) rotateZ(10deg);
+  }
+  90%{
+    transform:skewY(5deg);
+  }
+  to{
+    transform: skew(0) scale(1);
+  }
+}
 
 #container {
   //头部
@@ -127,6 +152,7 @@ h5 {
 
     .logo {
       position: absolute;
+      animation: 20s logoAnimation infinite ease;
       //padding:1rem;
       //outline: 1px dashed wheat;
       img{

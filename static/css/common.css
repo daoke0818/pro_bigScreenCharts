@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @media all {
   html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
     margin: 0;
@@ -89,11 +90,29 @@ h5 {
     vertical-align: -0.5em;
     fill: currentColor;
     overflow: hidden; } }
+/*风筝动画*/
+@keyframes logoAnimation {
+  from {
+    transform: skew(0) scale(1); }
+  25% {
+    transform: skewX(1deg) rotateX(30deg) scale(0.9) translate(-0.125rem, -0.25rem); }
+  40% {
+    transform: scale(0.85);
+    opacity: 0.7; }
+  60% {
+    transform: skewX(-15deg) skewY(-10deg); }
+  70% {
+    transform: skewX(-15deg) skewY(-10deg) rotateZ(10deg); }
+  90% {
+    transform: skewY(5deg); }
+  to {
+    transform: skew(0) scale(1); } }
 #container > header {
   position: relative;
   padding: 2rem 2rem 1.5rem; }
   #container > header .logo {
-    position: absolute; }
+    position: absolute;
+    animation: 20s logoAnimation infinite ease; }
     #container > header .logo img {
       width: 8rem; }
   #container > header h1 {
