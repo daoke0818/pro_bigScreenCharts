@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2019/4/19.
  */
-const settings = JSON.parse(localStorage.getItem('settings'))||{};
+const settings = JSON.parse(localStorage.getItem('settings')) || {};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
@@ -142,10 +142,9 @@ const Public = {
     getWeather(currTime) {
         // 获取地理位置
         $.get({
-            url: 'https://api.asilu.com/weather_v2/',
-            type: 'get',
+            //这里的url不能写到data对象的外面
+            url:'https://api.asilu.com/weather_v2/',
             dataType: 'jsonp',  // 请求方式为jsonp
-            jsonpCallback: "onBack",    // 自定义回调函数名
             success: function (data) {
                 const city = data.forecasts[0].city;
                 let temperatureTxt = '';
@@ -224,7 +223,7 @@ const Public = {
 };
 
 //jsonP
-function onBack (data) {
+function onBack(data) {
 }
 
 Public.pageResize();
@@ -238,10 +237,10 @@ $(window).resize(() => {
 
 $(function () {
     Public.setHeaderTime(); // 页面顶部时间
-    $("#getWeatherPeriod").val(settings.getWeatherPeriod||5);
-    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod||10);
-    $("#designW").val(settings.designW||1920);
-    $("#designH").val(settings.designH||1080);
+    $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
+    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
+    $("#designW").val(settings.designW || 1920);
+    $("#designH").val(settings.designH || 1080);
     let $colors = $("body>aside .colors");
     Object.keys(Cfg.colorData).forEach(item => {
         $colors.append(`
