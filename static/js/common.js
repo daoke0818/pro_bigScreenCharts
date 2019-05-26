@@ -175,28 +175,22 @@ const Public = {
             case "contain":
                 if (isWider) {
                     $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
-                    scale = scaleH;
                 } else {
                     $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
-                    scale = scaleW;
                 }
+                scale = isWider?scaleH:scaleW;
                 break;
             case 'cover':
+                $("html,body").css('overflow', 'initial');
                 if (isWider) {
                     $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
-                    scale = scaleW;
                 } else {
                     $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
-                    scale = scaleH;
                 }
-                $("html,body").css('overflow', 'initial');
+                scale = isWider?scaleW:scaleH;
                 break;
             case 'stretch':
-                if (isWider) {
-                    scale = scaleH;
-                } else {
-                    scale = scaleW;
-                }
+                scale = isWider?scaleH:scaleW;
                 $container.css({width: '100%'}, {height: '100%'});
                 break;
         }
@@ -221,7 +215,7 @@ const Public = {
     chartsReDraw(charts, t = Cfg.chartRefreshPeriod, noRefresh, someRefresh) {
         let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
-                if (noRefresh.includes(item) && !someRefresh.includes(item)) return;
+                if (noRefresh&&noRefresh.includes(item) && !someRefresh.includes(item)) return;
                 let chart = charts[item];
                 let opt = chart.getOption();
                 chart.clear();
