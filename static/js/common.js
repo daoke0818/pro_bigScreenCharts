@@ -5,7 +5,7 @@ const settings = JSON.parse(localStorage.getItem('settings')) || {};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
-    zoomMode:settings.zoomMode||'contain',
+    zoomMode: settings.zoomMode || 'contain',
     getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
     chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
     colors: settings.colors || 'default',
@@ -144,7 +144,7 @@ const Public = {
         // 获取地理位置
         $.get({
             //这里的url不能写到data对象的外面
-            url:'https://api.asilu.com/weather_v2/',
+            url: 'https://api.asilu.com/weather_v2/',
             dataType: 'jsonp',  // 请求方式为jsonp
             success: function (data) {
                 const city = data.forecasts[0].city;
@@ -168,25 +168,38 @@ const Public = {
     //页面缩放
     pageResize() {
         [pageH, pageW] = [$(window).height(), $(window).width()];
-        if(Cfg.zoomMode==='contain'){
-            if (pageW / pageH > Cfg.designW / Cfg.designH) {
-                $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
-                scale = pageH / Cfg.designH;
-            } else {
-                $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
-                scale = pageW / Cfg.designW;
-            }
-        }else{ // cover
-            if (pageW / pageH > Cfg.designW / Cfg.designH) {
-                $("#container").css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
-                scale = pageW / Cfg.designW;
-            } else {
-                $("#container").css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
-                scale = pageH / Cfg.designH;
-            }
-            $("html,body").css('overflow','initial')
+        let isWider = pageW / pageH > Cfg.designW / Cfg.designH;
+        let [scaleW, scaleH] = [pageW / Cfg.designW, pageH / Cfg.designH];
+        let $container = $("#container");
+        switch (Cfg.zoomMode) {
+            case "contain":
+                if (isWider) {
+                    $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
+                    scale = scaleH;
+                } else {
+                    $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
+                    scale = scaleW;
+                }
+                break;
+            case 'cover':
+                if (isWider) {
+                    $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
+                    scale = scaleW;
+                } else {
+                    $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
+                    scale = scaleH;
+                }
+                $("html,body").css('overflow', 'initial');
+                break;
+            case 'stretch':
+                if (isWider) {
+                    scale = scaleH;
+                } else {
+                    scale = scaleW;
+                }
+                $container.css({width: '100%'}, {height: '100%'});
+                break;
         }
-
         $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
@@ -254,11 +267,7 @@ $(function () {
     $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
     $("#designW").val(settings.designW || 1920);
     $("#designH").val(settings.designH || 1080);
-    if(Cfg.zoomMode==='contain'){
-        $('[name=zoomMode]:eq(0)').prop('checked',true)
-    }else{
-        $('[name=zoomMode]:eq(1)').prop('checked',true)
-    }
+    $("#" + Cfg.zoomMode).prop('checked', true);
     let $colors = $("body>aside .colors");
     Object.keys(Cfg.colorData).forEach(item => {
         $colors.append(`
