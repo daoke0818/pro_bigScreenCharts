@@ -215,7 +215,7 @@ const Public = {
     chartsReDraw(charts, t = Cfg.chartRefreshPeriod, noRefresh, someRefresh) {
         let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
-                if (noRefresh&&noRefresh.includes(item) && !someRefresh.includes(item)) return;
+                if (noRefresh&&noRefresh.includes(item) && !(someRefresh&&someRefresh.includes(item))) return;
                 let chart = charts[item];
                 let opt = chart.getOption();
                 chart.clear();
