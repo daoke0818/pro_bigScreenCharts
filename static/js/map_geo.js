@@ -16,10 +16,12 @@ let MapGeo = {
         map.addControl(new BMap.NavigationControl());
     },
     ec01_map_geoMap() {
+/*
         let map = new BMap.Map('ec01_map_geoMap');
         var point = new BMap.Point(116.404, 39.915);
         map.centerAndZoom(point, 15);
         map.addControl(new BMap.NavigationControl());
+*/
 
         let chart = echarts.init($("#ec01_map_geoMap")[0]); //初始化图表，注意命名的规范合理
         this.charts.ec01_map_geoMap = chart; //放入charts对象方便后面的刷新缩放以及其他操作
@@ -35,8 +37,8 @@ let MapGeo = {
                 bottom: '5%'
             },
             bmap: {
-                center: [116.5274, 39.7789],
-                zoom: 13,
+                center: [100.404, 36.915],
+                zoom: 5,
                 roam: true,
                 mapStyle: {
                     'styleJson': [
