@@ -7,8 +7,20 @@ let MapGeo = {
     },
     loadData() {
         this.ec01_map_geoMap();//
+        // this.ec01_map_BMap();//
+    },
+    ec01_map_BMap(){
+        let map = new BMap.Map('ec01_map_geoMap');
+        var point = new BMap.Point(116.404, 39.915);
+        map.centerAndZoom(point, 15);
+        map.addControl(new BMap.NavigationControl());
     },
     ec01_map_geoMap() {
+        let map = new BMap.Map('ec01_map_geoMap');
+        var point = new BMap.Point(116.404, 39.915);
+        map.centerAndZoom(point, 15);
+        map.addControl(new BMap.NavigationControl());
+
         let chart = echarts.init($("#ec01_map_geoMap")[0]); //初始化图表，注意命名的规范合理
         this.charts.ec01_map_geoMap = chart; //放入charts对象方便后面的刷新缩放以及其他操作
         chart.setOption(com_charts); // 设置这个类型（折线图）图表的共性
@@ -19,14 +31,142 @@ let MapGeo = {
             },
             legend: {
                 orient: 'vertical',
-                right: 0,
-                bottom: 0
+                right: '2%',
+                bottom: '5%'
             },
-            geo: {
+            bmap: {
+                center: [116.5274, 39.7789],
+                zoom: 13,
+                roam: true,
+                mapStyle: {
+                    'styleJson': [
+                        {
+                            'featureType': 'water',
+                            'elementType': 'all',
+                            'stylers': {
+                                'color': '#031628'
+                            }
+                        },
+                        {
+                            'featureType': 'land',
+                            'elementType': 'geometry',
+                            'stylers': {
+                                'color': '#000102'
+                            }
+                        },
+                        {
+                            'featureType': 'highway',
+                            'elementType': 'all',
+                            'stylers': {
+                                'visibility': 'off'
+                            }
+                        },
+                        {
+                            'featureType': 'arterial',
+                            'elementType': 'geometry.fill',
+                            'stylers': {
+                                'color': '#000000'
+                            }
+                        },
+                        {
+                            'featureType': 'arterial',
+                            'elementType': 'geometry.stroke',
+                            'stylers': {
+                                'color': '#0b3d51'
+                            }
+                        },
+                        {
+                            'featureType': 'local',
+                            'elementType': 'geometry',
+                            'stylers': {
+                                'color': '#000000'
+                            }
+                        },
+                        {
+                            'featureType': 'railway',
+                            'elementType': 'geometry.fill',
+                            'stylers': {
+                                'color': '#000000'
+                            }
+                        },
+                        {
+                            'featureType': 'railway',
+                            'elementType': 'geometry.stroke',
+                            'stylers': {
+                                'color': '#08304b'
+                            }
+                        },
+                        {
+                            'featureType': 'subway',
+                            'elementType': 'geometry',
+                            'stylers': {
+                                'lightness': -70
+                            }
+                        },
+                        {
+                            'featureType': 'building',
+                            'elementType': 'geometry.fill',
+                            'stylers': {
+                                'color': '#000000'
+                            }
+                        },
+                        {
+                            'featureType': 'all',
+                            'elementType': 'labels.text.fill',
+                            'stylers': {
+                                'color': '#857f7f'
+                            }
+                        },
+                        {
+                            'featureType': 'all',
+                            'elementType': 'labels.text.stroke',
+                            'stylers': {
+                                'color': '#000000'
+                            }
+                        },
+                        {
+                            'featureType': 'building',
+                            'elementType': 'geometry',
+                            'stylers': {
+                                'color': '#022338'
+                            }
+                        },
+                        {
+                            'featureType': 'green',
+                            'elementType': 'geometry',
+                            'stylers': {
+                                'color': '#062032'
+                            }
+                        },
+                        {
+                            'featureType': 'boundary',
+                            'elementType': 'all',
+                            'stylers': {
+                                'color': '#465b6c'
+                            }
+                        },
+                        {
+                            'featureType': 'manmade',
+                            'elementType': 'all',
+                            'stylers': {
+                                'color': '#022338'
+                            }
+                        },
+                        {
+                            'featureType': 'label',
+                            'elementType': 'all',
+                            'stylers': {
+                                'visibility': 'off'
+                            }
+                        }
+                    ]
+                }
+            },
+           /* geo: {
                 map: 'world',
                 roam: true,
-                center: [99.85, 32.56],
-                zoom: 4.59,
+                center: [103.1492, 36.2776],
+                zoom: 5.554,
                 itemStyle: {
                     areaColor: 'rgba(255,255,255,.13)',
                     borderColor:'rgba(255,255,255,.33)'
@@ -36,12 +176,12 @@ let MapGeo = {
                         areaColor: 'rgba(255,255,255,.33)'
                     },
                 }
-            },
+            },*/
             series: [
                 {
                     name: '我的位置',
                     type: 'effectScatter',
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'bmap',
                     symbolSize: 8 * scale,
                     itemStyle: {color: 'red'},
                     rippleEffect: {
@@ -52,7 +192,7 @@ let MapGeo = {
                     name: '玄奘取经路线(去)',
                     zlevel: 1,
                     type: 'lines',
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'bmap',
                     polyline: true,
                     lineStyle: {color: colors[0]},
                     effect:{
@@ -73,7 +213,7 @@ let MapGeo = {
                         formatter: param => {
                             return param.value[2].oldName;
                         },
-                        fontSize: 22 * scale,
+                        fontSize: 16 * scale,
                         position: 'top'
                     },
                     tooltip:{
@@ -84,13 +224,13 @@ let MapGeo = {
                         },
                     },
                     itemStyle: {color: colors[0]},
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'bmap',
                     data: []
                 }, {
                     name: '鉴真东渡路线',
                     zlevel: 1,
                     type: 'lines',
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'bmap',
                     polyline: true,
                     lineStyle: {color: colors[1]},
                     effect:{
@@ -111,7 +251,7 @@ let MapGeo = {
                         formatter: param => {
                             return param.value[2].oldName;
                         },
-                        fontSize: 22 * scale,
+                        fontSize: 16 * scale,
                         position: 'top'
                     },
                     tooltip:{
@@ -122,7 +262,30 @@ let MapGeo = {
                         },
                     },
                     itemStyle: {color: colors[1]},
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'bmap',
+                    data: []
+                }, {
+                    name: '我去过的地方',
+                    zlevel: 1,
+                    coordinateSystem: 'bmap',
+                    type: 'scatter',
+                    symbol: 'arrow',
+                    symbolSize: 18 * scale,
+                    label: {
+                        show: true,
+                        formatter: param => {
+                            return param.value[2].name;
+                        },
+                        fontSize: 16 * scale,
+                        position: 'bottom'
+                    },
+                    tooltip:{
+                        formatter: param => {
+                            return `${param.value[2].name}<br>
+                                    ${param.value[2].remark}`
+                        },
+                    },
+                    itemStyle: {color: colors[2]},
                     data: []
                 }
             ]
@@ -206,7 +369,34 @@ let MapGeo = {
         opt = chart.getOption();
         opt.series[3].data = [{coords: jianZhenLine}];
         opt.series[4].data = jianZhenPoints;
-        chart.setOption(opt)
+        chart.setOption(opt);
+
+        opt.series[5].data = [
+            // 宝鸡，青岛，西安，乌鲁木齐，库尔勒，阿克苏，克拉玛依，昌吉，奎屯，吐鲁番，北京，大连，哈尔滨，杭州，苏州，西塘，上海，济南。
+            {name: '宝鸡',remark: '家乡'},
+            {name: '青岛',remark: '求学之地'},
+            {name: '西安',remark: '家乡省城'},
+            {name: '乌鲁木齐',remark: '出差'},
+            {name: '库尔勒',remark: '有美丽的孔雀河'},
+            {name: '阿克苏',remark: '馕正宗，'},
+            {name: '克拉玛依',remark: '油田上的磕头机很多'},
+            {name: '昌吉',remark: '和乌鲁木齐邻居'},
+            {name: '奎屯',remark: '遇见两个伊利小姑娘'},
+            {name: '吐鲁番',remark: '鄯善县到处是葡萄屋'},
+            {name: '北京',remark: '北漂那些年'},
+            {name: '大连',remark: '出差，大黑山，野山上的樱桃'},
+            {name: '哈尔滨',remark: '出差，8月的地下室穿军大衣'},
+            {name: '杭州',remark: '旅行，西湖，西塘'},
+            {name: '苏州',remark: '平江路上和王之一父亲帮弹古筝的小姑娘调琴'},
+            {name: '西塘',remark: '如画的江南风景'},
+            {name: '上海',remark: '陆家嘴和注射器三件套'},
+            {name: '济南',remark: '没看到趵突泉喷水，没听到大明湖的蛙鸣'},
+        ].map(item => {
+            if (!geoCoordMap[item.name]) return false;
+            item = geoCoordMap[item.name].concat(item);
+            return item
+        }).filter(item => item);
+        chart.setOption(opt);
     },
 };
 MapGeo.init();
