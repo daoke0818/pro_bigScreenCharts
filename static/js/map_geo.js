@@ -7,26 +7,11 @@ let MapGeo = {
     },
     loadData() {
         this.ec01_map_geoMap();//
-        // this.ec01_map_BMap();//
     },
-    ec01_map_BMap(){
-        let map = new BMap.Map('ec01_map_geoMap');
-        var point = new BMap.Point(116.404, 39.915);
-        map.centerAndZoom(point, 15);
-        map.addControl(new BMap.NavigationControl());
-    },
-    ec01_map_geoMap() {
-/*
-        let map = new BMap.Map('ec01_map_geoMap');
-        var point = new BMap.Point(116.404, 39.915);
-        map.centerAndZoom(point, 15);
-        map.addControl(new BMap.NavigationControl());
-*/
-
+    ec01_map_geoMap(param={}) {
         let chart = echarts.init($("#ec01_map_geoMap")[0]); //初始化图表，注意命名的规范合理
         this.charts.ec01_map_geoMap = chart; //放入charts对象方便后面的刷新缩放以及其他操作
         chart.setOption(com_charts); // 设置这个类型（折线图）图表的共性
-
         chart.setOption({
             grid: {
                 top: '5%'
@@ -36,7 +21,7 @@ let MapGeo = {
                 right: '2%',
                 bottom: '5%'
             },
-            bmap: {
+           /* bmap: {
                 center: [100.404, 36.915],
                 zoom: 5,
                 roam: true,
@@ -163,8 +148,8 @@ let MapGeo = {
                         }
                     ]
                 }
-            },
-           /* geo: {
+            },*/
+            geo: {
                 map: 'world',
                 roam: true,
                 center: [103.1492, 36.2776],
@@ -178,12 +163,11 @@ let MapGeo = {
                         areaColor: 'rgba(255,255,255,.33)'
                     },
                 }
-            },*/
+            },
             series: [
                 {
                     name: '我的位置',
                     type: 'effectScatter',
-                    coordinateSystem: 'bmap',
                     symbolSize: 8 * scale,
                     itemStyle: {color: 'red'},
                     rippleEffect: {
@@ -192,9 +176,7 @@ let MapGeo = {
                     }
                 }, {
                     name: '玄奘取经路线(去)',
-                    zlevel: 1,
                     type: 'lines',
-                    coordinateSystem: 'bmap',
                     polyline: true,
                     lineStyle: {color: colors[0]},
                     effect:{
@@ -204,9 +186,8 @@ let MapGeo = {
                         trailLength:0.5*scale
                     },
                     data: []
-                }, { // markPoint不支持地理位置故不能用
+                }, {
                     name: '玄奘取经路线(去)',
-                    zlevel: 1,
                     type: 'scatter',
                     symbol: 'pin',
                     symbolSize: 24 * scale,
@@ -226,13 +207,10 @@ let MapGeo = {
                         },
                     },
                     itemStyle: {color: colors[0]},
-                    coordinateSystem: 'bmap',
                     data: []
                 }, {
                     name: '鉴真东渡路线',
-                    zlevel: 1,
                     type: 'lines',
-                    coordinateSystem: 'bmap',
                     polyline: true,
                     lineStyle: {color: colors[1]},
                     effect:{
@@ -242,9 +220,8 @@ let MapGeo = {
                         trailLength:0.5*scale
                     },
                     data: []
-                }, { // markPoint不支持地理位置故不能用
+                }, {
                     name: '鉴真东渡路线',
-                    zlevel: 1,
                     type: 'scatter',
                     symbol: 'pin',
                     symbolSize: 24 * scale,
@@ -264,12 +241,9 @@ let MapGeo = {
                         },
                     },
                     itemStyle: {color: colors[1]},
-                    coordinateSystem: 'bmap',
                     data: []
                 }, {
                     name: '我去过的地方',
-                    zlevel: 1,
-                    coordinateSystem: 'bmap',
                     type: 'scatter',
                     symbol: 'arrow',
                     symbolSize: 18 * scale,
@@ -290,7 +264,12 @@ let MapGeo = {
                     itemStyle: {color: colors[2]},
                     data: []
                 }
-            ]
+            ].map(item=>{
+                return $.extend(true,item,{
+                    coordinateSystem: param.type==='bmap'?'bmap':'geo',
+                    zlevel: 1,
+                })
+            })
         });
         $.get({
                 url: 'https://api.asilu.com/geo/',
