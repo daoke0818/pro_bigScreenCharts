@@ -10,6 +10,18 @@ main {
   .l {
     flex: 0 0 66.66%;
     padding: 1rem;
+    .chart-wrap{
+      position: relative;
+      .radioGroup{
+        position: absolute;
+        right: 2rem;
+        top: 4rem;
+        z-index: 1;
+        input{
+          vertical-align: middle;
+        }
+      }
+    }
   }
 
   .r {

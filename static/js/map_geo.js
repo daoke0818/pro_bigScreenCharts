@@ -6,13 +6,25 @@ let MapGeo = {
         Public.chartsReDraw(this.charts,null,['ec01_map_geoMap'])
     },
     loadData() {
+        const that = this;
         this.ec01_map_geoMap();//
+        $("#ec01_map_geoMap").prev().find('[type=radio]').change(function () {
+            that.charts.ec01_map_geoMap.dispose();
+            let type = 'geo';
+            if($(this).val()==='geo'){
+                type = 'geo';
+            }else{
+                type = 'bmap';
+            }
+            that.ec01_map_geoMap({type:type});
+        });
     },
-    ec01_map_geoMap(param={}) {
+    ec01_map_geoMap(param={type:'geo'}) {
         let chart = echarts.init($("#ec01_map_geoMap")[0]); //初始化图表，注意命名的规范合理
+        chart.clear();
         this.charts.ec01_map_geoMap = chart; //放入charts对象方便后面的刷新缩放以及其他操作
         chart.setOption(com_charts); // 设置这个类型（折线图）图表的共性
-        chart.setOption({
+        let opts = {
             grid: {
                 top: '5%'
             },
@@ -21,9 +33,135 @@ let MapGeo = {
                 right: '2%',
                 bottom: '5%'
             },
-           /* bmap: {
-                center: [100.404, 36.915],
-                zoom: 5,
+
+            series: [
+                {
+                    name: '我的位置',
+                    type: 'effectScatter',
+                    symbolSize: 8 * scale,
+                    itemStyle: {color: 'red'},
+                    rippleEffect: {
+                        scale: 10 * scale,
+                        brushType: 'stroke'
+                    }
+                }, {
+                    name: '玄奘取经路线(去)',
+                    type: 'lines',
+                    polyline: true,
+                    lineStyle: {color: colors[0]},
+                    effect:{
+                        show:true,
+                        symbolSize:8*scale,
+                        constantSpeed:50*scale,
+                        trailLength:0.5*scale
+                    },
+                    data: []
+                }, {
+                    name: '玄奘取经路线(去)',
+                    type: 'scatter',
+                    symbol: 'pin',
+                    symbolSize: 24 * scale,
+                    label: {
+                        show: true,
+                        formatter: param => {
+                            return param.value[2].oldName;
+                        },
+                        fontSize: 16 * scale,
+                        position: 'top'
+                    },
+                    tooltip:{
+                        formatter: param => {
+                            return `${param.value[2].oldName}<br>
+                                    今 ${param.value[2].name}
+                                    <br>${param.value[2].remark||''}`;
+                        },
+                    },
+                    itemStyle: {color: colors[0]},
+                    data: []
+                }, {
+                    name: '鉴真东渡路线',
+                    type: 'lines',
+                    polyline: true,
+                    lineStyle: {color: colors[1]},
+                    effect:{
+                        show:true,
+                        symbolSize:8*scale,
+                        constantSpeed:50*scale,
+                        trailLength:0.5*scale
+                    },
+                    data: []
+                }, {
+                    name: '鉴真东渡路线',
+                    type: 'scatter',
+                    symbol: 'pin',
+                    symbolSize: 24 * scale,
+                    label: {
+                        show: true,
+                        formatter: param => {
+                            return param.value[2].oldName;
+                        },
+                        fontSize: 16 * scale,
+                        position: 'top'
+                    },
+                    tooltip:{
+                        formatter: param => {
+                            return `${param.value[2].oldName}<br>
+                                    今 ${param.value[2].name}
+                                    <br>${param.value[2].remark||''}`;
+                        },
+                    },
+                    itemStyle: {color: colors[1]},
+                    data: []
+                }, {
+                    name: '我去过的地方',
+                    type: 'scatter',
+                    symbol: 'arrow',
+                    symbolSize: 18 * scale,
+                    label: {
+                        show: true,
+                        formatter: param => {
+                            return param.value[2].name;
+                        },
+                        fontSize: 16 * scale,
+                        position: 'bottom'
+                    },
+                    tooltip:{
+                        formatter: param => {
+                            return `${param.value[2].name}<br>
+                                    ${param.value[2].remark}`
+                        },
+                    },
+                    itemStyle: {color: colors[2]},
+                    data: []
+                }
+            ].map(item=>{
+                return $.extend(true,item,{
+                    coordinateSystem: param.type==='geo'?'geo':'bmap',
+                    zlevel: 1,
+                })
+            })
+        };
+        if(param.type==='geo'){
+            opts.geo={
+                    map: 'world',
+                    roam: true,
+                    center: [103.1492, 36.2776],
+                    zoom: 5.554,
+                    itemStyle: {
+                        areaColor: 'rgba(255,255,255,.13)',
+                        borderColor:'rgba(255,255,255,.33)'
+                    },
+                    emphasis:{
+                        itemStyle: {
+                            areaColor: 'rgba(255,255,255,.33)'
+                        },
+                    }
+                }
+        }else{
+            opts.bmap= {
+                // center: [100.404, 36.915],
+                center: [103.1492, 36.2776],
+                zoom: 5.554,
                 roam: true,
                 mapStyle: {
                     'styleJson': [
@@ -148,129 +286,10 @@ let MapGeo = {
                         }
                     ]
                 }
-            },*/
-            geo: {
-                map: 'world',
-                roam: true,
-                center: [103.1492, 36.2776],
-                zoom: 5.554,
-                itemStyle: {
-                    areaColor: 'rgba(255,255,255,.13)',
-                    borderColor:'rgba(255,255,255,.33)'
-                },
-                emphasis:{
-                    itemStyle: {
-                        areaColor: 'rgba(255,255,255,.33)'
-                    },
-                }
-            },
-            series: [
-                {
-                    name: '我的位置',
-                    type: 'effectScatter',
-                    symbolSize: 8 * scale,
-                    itemStyle: {color: 'red'},
-                    rippleEffect: {
-                        scale: 10 * scale,
-                        brushType: 'stroke'
-                    }
-                }, {
-                    name: '玄奘取经路线(去)',
-                    type: 'lines',
-                    polyline: true,
-                    lineStyle: {color: colors[0]},
-                    effect:{
-                        show:true,
-                        symbolSize:8*scale,
-                        constantSpeed:50*scale,
-                        trailLength:0.5*scale
-                    },
-                    data: []
-                }, {
-                    name: '玄奘取经路线(去)',
-                    type: 'scatter',
-                    symbol: 'pin',
-                    symbolSize: 24 * scale,
-                    label: {
-                        show: true,
-                        formatter: param => {
-                            return param.value[2].oldName;
-                        },
-                        fontSize: 16 * scale,
-                        position: 'top'
-                    },
-                    tooltip:{
-                        formatter: param => {
-                            return `${param.value[2].oldName}<br>
-                                    今 ${param.value[2].name}
-                                    <br>${param.value[2].remark||''}`;
-                        },
-                    },
-                    itemStyle: {color: colors[0]},
-                    data: []
-                }, {
-                    name: '鉴真东渡路线',
-                    type: 'lines',
-                    polyline: true,
-                    lineStyle: {color: colors[1]},
-                    effect:{
-                        show:true,
-                        symbolSize:8*scale,
-                        constantSpeed:50*scale,
-                        trailLength:0.5*scale
-                    },
-                    data: []
-                }, {
-                    name: '鉴真东渡路线',
-                    type: 'scatter',
-                    symbol: 'pin',
-                    symbolSize: 24 * scale,
-                    label: {
-                        show: true,
-                        formatter: param => {
-                            return param.value[2].oldName;
-                        },
-                        fontSize: 16 * scale,
-                        position: 'top'
-                    },
-                    tooltip:{
-                        formatter: param => {
-                            return `${param.value[2].oldName}<br>
-                                    今 ${param.value[2].name}
-                                    <br>${param.value[2].remark||''}`;
-                        },
-                    },
-                    itemStyle: {color: colors[1]},
-                    data: []
-                }, {
-                    name: '我去过的地方',
-                    type: 'scatter',
-                    symbol: 'arrow',
-                    symbolSize: 18 * scale,
-                    label: {
-                        show: true,
-                        formatter: param => {
-                            return param.value[2].name;
-                        },
-                        fontSize: 16 * scale,
-                        position: 'bottom'
-                    },
-                    tooltip:{
-                        formatter: param => {
-                            return `${param.value[2].name}<br>
-                                    ${param.value[2].remark}`
-                        },
-                    },
-                    itemStyle: {color: colors[2]},
-                    data: []
-                }
-            ].map(item=>{
-                return $.extend(true,item,{
-                    coordinateSystem: param.type==='bmap'?'bmap':'geo',
-                    zlevel: 1,
-                })
-            })
-        });
+            }
+        }
+        chart.setOption(opts);
+
         $.get({
                 url: 'https://api.asilu.com/geo/',
                 dataType: 'jsonp',
@@ -378,6 +397,7 @@ let MapGeo = {
             return item
         }).filter(item => item);
         chart.setOption(opt);
+        console.log(chart.getOption())
     },
 };
 MapGeo.init();
