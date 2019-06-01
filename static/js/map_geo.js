@@ -128,12 +128,12 @@ let MapGeo = {
                 }
             ].map(item => {
                 return $.extend(true, item, {
-                    coordinateSystem: 'bmap',
+                    coordinateSystem: 'geo',
                     zlevel: 1,
                 })
             })
         };
-        let opt_geo = $.extend(com_opt, {
+        let opt_geo = $.extend(true,{},com_opt, {
             geo: {
                 map: 'world',
                 roam: true,
@@ -150,7 +150,7 @@ let MapGeo = {
                 }
             }
         });
-        let opt_bmap = $.extend(com_opt, {
+        let opt_bmap = $.extend(true,{},com_opt, {
             bmap: {
                 // center: [100.404, 36.915],
                 center: [103.1492, 36.2776],
@@ -283,7 +283,7 @@ let MapGeo = {
         });
         chart_geo.setOption(opt_geo);
         chart_bmap.setOption(opt_bmap);
-        /*
+        setOpt(chart_geo,'geo')
             function setOpt(chart,type){
 
 
@@ -394,16 +394,17 @@ let MapGeo = {
                 chart_bmap.setOption(opt);
                 console.log(chart.getOption())
                 }
-        */
-        $("#ec01_map_geoMap").prev().find('[type=radio]').change(function () {
+        $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').change(function () {
             if ($(this).val() === 'geo') {
-                $("#ec01_map_geoMap").show().next().hide();
-                that.charts.ec01_map_geoMap.resize();
+                // alert(0)
+                $("#ec01_map_geoMap").show().siblings().hide();
+                // that.charts.ec01_map_geoMap.resize();
             } else {
-                $("#ec01_map_bMap").show().prev().hide();
-                that.charts.ec01_map_bMap.resize();
+                // alert(1)
+                $("#ec01_map_bMap").show().siblings().hide();
+                // that.charts.ec01_map_bMap.resize();
             }
-            that.ec01_map_geoMap();
+            // that.ec01_map_geoMap();
         });
 
     },

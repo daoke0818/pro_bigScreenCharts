@@ -43,9 +43,12 @@ main {
     flex: 1;
     flex-direction: column;
 
-    .chart {
+    .chartGroup {
       flex: 1;
       height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
+      .chart{
+        height: 100%;
+      }
     }
   }
 
