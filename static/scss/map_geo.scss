@@ -43,11 +43,14 @@ main {
     flex: 1;
     flex-direction: column;
 
-    .chartGroup {
+    .chart-box {
       flex: 1;
-      height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      //height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
       .chart{
-        height: 100%;
+        height: 53.125rem;
       }
     }
   }

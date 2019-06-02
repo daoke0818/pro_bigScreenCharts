@@ -36,12 +36,14 @@
             <div class="chart-wrap">
                 <h3>玄奘取经和鉴真东渡</h3>
                 <div class="radioGroup">
-                    <label><input type="radio" name="mapType" value="geo" checked>geo地图</label>
-                    <label><input type="radio" name="mapType" value="bmap">百度地图</label>
+                    <label><input type="radio" name="mapType" value="geo">geo地图</label>
+                    <label><input type="radio" name="mapType" value="bmap" checked>百度地图</label>
                 </div>
-                <div class="chartGroup">
+                <div class="chart-box">
                     <div class="chart" id="ec01_map_geoMap"></div>
-                    <div class="chart" id="ec01_map_bMap" hidden></div>
+                </div>
+                <div class="chart-box">
+                    <div class="chart" id="ec01_map_bMap"></div>
                 </div>
 
             </div>
@@ -50,14 +52,14 @@
         <div class="r">
             <div class="r-t">
                 <div class="chart-wrap">
-<!--                    <h3>一周时间分布</h3>-->
-<!--                    <div class="chart" id="ec05_lineBar_timeDistribute"></div>-->
+                    <!--                    <h3>一周时间分布</h3>-->
+                    <!--                    <div class="chart" id="ec05_lineBar_timeDistribute"></div>-->
                 </div>
             </div>
             <div class="r-b">
                 <div class="chart-wrap">
-<!--                    <h3>当在网上找某首歌的时候</h3>-->
-<!--                    <div class="chart" id="ec06_pie_findSong"></div>-->
+                    <!--                    <h3>当在网上找某首歌的时候</h3>-->
+                    <!--                    <div class="chart" id="ec06_pie_findSong"></div>-->
                 </div>
             </div>
         </div>
@@ -98,7 +100,8 @@
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
 <script src="../static/assets/js/world2.js"></script>
 <script type="text/javascript" src="../static/assets/js/bmap.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui"></script>
+<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui"></script>-->
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
 <!--<script src="../static/assets/js/map.js"></script>-->
 <script src="../static/js/chartsCom.js"></script>
 <script src="../static/js/map_geo.js"></script>
