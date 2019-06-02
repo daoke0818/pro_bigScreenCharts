@@ -41,7 +41,17 @@
   #container {
     display: flex;
     flex-direction: column;
-    margin: 0 auto; } }
+    margin: 0 auto; }
+    #container nav {
+      text-align: right;
+      padding-right: 2rem; }
+      #container nav a {
+        color: orange;
+        font-style: italic; }
+        #container nav a:visited {
+          color: orangered; }
+        #container nav a:hover {
+          text-decoration: underline; } }
 @font-face {
   font-family: digitalNumber;
   src: url("../assets/font/digitalNumber.TTF"); }

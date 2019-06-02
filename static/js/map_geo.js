@@ -422,6 +422,7 @@ let MapGeo = {
             },
             xAxis: {
                 // name:'年龄',
+                nameGap:5*scale,
                 data: xData
             },
             yAxis: {
@@ -429,6 +430,9 @@ let MapGeo = {
                 nameGap:5*scale,
                 min: -110,
                 max: 110
+            },
+            toolTip:{
+
             },
             dataZoom: { // 本图表option的个性
                 type: 'inside',
