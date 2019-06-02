@@ -7,27 +7,38 @@ main {
     display: flex;
     overflow: hidden; //可以让元素严格按照百分比显示，而防止被内部大尺寸元素撑住
   }
+h3 .more{
+  position: absolute;
+  right: 2rem;
+  font-style: italic;
+  font-size: 1.25rem;
+}
   .l {
     flex: 0 0 66.66%;
     padding: 1rem;
-    .chart-wrap{
+
+    .chart-wrap {
       position: relative;
-      .radioGroup{
+
+      .radioGroup {
         position: absolute;
         right: 2rem;
         top: 4rem;
         z-index: 1;
-        input{
+
+        input {
           vertical-align: middle;
         }
       }
+
       .chart-box {
         flex: 1;
         position: absolute;
         width: 100%;
         bottom: 0;
+        //height: 100%;
         //height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
-        .chart{
+        .chart {
           height: 53.125rem;
         }
       }
@@ -37,17 +48,21 @@ main {
   .r {
     flex: 0 0 33.33%;
     flex-direction: column;
+
     > div {
       display: flex;
       flex: 0 0 50%;
       padding: 1rem;
-      .chart-wrap{
+
+      .chart-wrap {
         position: relative;
-        .blessings-input-wrap{
+
+        .blessings-input-wrap {
           position: absolute;
           right: 3rem;
           padding-top: 7rem;
-          #blessings_input{
+
+          #blessings_input {
 
             position: relative;
             transform: rotate(-90deg);
@@ -56,26 +71,42 @@ main {
             width: 16rem;
 
           }
-          label{
+
+          label {
             position: absolute;
             right: -2rem;
-            #blessings_input_show{
+
+            #blessings_input_show {
               //position: absolute;
               //top: 0;
             }
-          }        }
-        .startTime-input-wrap{
+          }
+          .label1,.label2{
+            position: absolute;
+            right: 0;
+          }
+          .label1{
+            top: 8.5rem;
+          }
+          .label2{
+            top: 23rem;
+          }
+
+        }
+
+        .startTime-input-wrap {
           position: relative;
           height: 3rem;
           z-index: 1;
-          label{
+          label {
             position: absolute;
-            top: 2rem;
-            left: 4rem;
-          }
-          #startTime_input{
+            top: 0;
+            right: 4rem;
+           }
+          #startTime_input {
             position: absolute;
-            left: 4rem;
+            top: 1rem;
+            left: 3rem;
             width: 29rem;
           }
         }

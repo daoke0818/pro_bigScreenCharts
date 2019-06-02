@@ -52,14 +52,17 @@
         <div class="r">
             <div class="r-t">
                 <div class="chart-wrap">
-                    <h3>福报(运气)趋势预测</h3>
+                    <h3>福报(运气)趋势预测<button class="more">更多…</button></h3>
                     <div class="input-group startTime-input-wrap">
-                        <label for="startTime_input">开始时间：<output id="startTime_input_show">36</output></label>
-                        <input id="startTime_input" type="range" value="36" min="0" max="150" >
+                        <label for="startTime_input">开始年龄：<output id="startTime_input_show">36</output>岁</label>
+                        <input id="startTime_input" type="range" value="36" min="0" max="120" >
                     </div>
                     <div class="chart" id="ec03_line_blessings"></div>
                     <div class="input-group blessings-input-wrap">
-                        <label for="blessings_input">付出：<output id="blessings_input_show">0</output></label>
+                        <label for="blessings_input">付出：
+                            <output id="blessings_input_show">0</output>
+                        </label>
+                        <span class="label1">善</span><span class="label2">恶</span>
                         <input id="blessings_input" type="range" value="0" min="-100" max="100" >
                     </div>
             </div>

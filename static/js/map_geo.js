@@ -417,12 +417,16 @@ let MapGeo = {
 
         chart.setOption({
             grid: {
-                top: '5%'
+                top: '11%',
+                right:'13%'
             },
             xAxis: {
+                // name:'年龄',
                 data: xData
             },
             yAxis: {
+                name:'福报',
+                nameGap:5*scale,
                 min: -110,
                 max: 110
             },
@@ -437,7 +441,7 @@ let MapGeo = {
                 max: 100,
                 inRange: {
                     // color: ['#000', 'lightblue'],
-                    color: ['red','yellow', 'lightgreen'],
+                    color: ['red', 'yellow', 'lightgreen'],
                     // symbolSize: [30, 100]
                 }
             }],
@@ -445,6 +449,7 @@ let MapGeo = {
                 data: data,
                 markLine: {
                     silent: true,
+                    label:{show:false},
                     symbolSize: 15 * scale,
                     data: [{
                         yAxis: -100
@@ -465,9 +470,6 @@ let MapGeo = {
             '\n极善之人。数固拘他不定。极恶之人。数亦拘他不定。（而极善极恶之人才能逃脱命运束缚）';
         let setOpt = (param) => {
             let [startTime, val] = [$("#startTime_input_show").val(), $('#blessings_input').val()];
-            if (["100", "-100"].includes(val)) {
-                alert(message)
-            }
 
             dataNew = data.map((item, index) => {
                 if (index < startTime) {
@@ -477,7 +479,8 @@ let MapGeo = {
                     return val
                 }
                 let range = (1 - (val > 0 ? item : -item) / 100);
-                return range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10)
+                let tempVal = range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10);
+                return tempVal > 100 ? 100 : (tempVal < -100 ? -100 : tempVal);
             });
             chart.setOption({
                 series: [{
@@ -497,6 +500,9 @@ let MapGeo = {
                     return $.extend(true, {}, seri_line, item)
                 })
             })
+            if (["100", "-100"].includes(val)) {
+                alert(message)
+            }
         }
         $('#blessings_input').change(function () {
             let val = $(this).val();

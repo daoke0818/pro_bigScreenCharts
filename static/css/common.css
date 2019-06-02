@@ -61,7 +61,8 @@ h3 {
   font-size: 1.5rem;
   letter-spacing: .0625rem;
   color: var(--c_mainWhite);
-  background: linear-gradient(to right, var(--c_mainBlue), transparent); }
+  background: linear-gradient(to right, var(--c_mainBlue), transparent);
+  z-index: 1; }
   h3.en {
     margin-top: .3rem;
     color: #999;
