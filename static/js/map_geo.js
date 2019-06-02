@@ -3,21 +3,20 @@ let MapGeo = {
         this.charts = {};
         this.loadData();
         // 地图最好不要根据窗口大小来缩放，否则容易因dom变化而报错
-        Public.chartsResize(this.charts,{notResize:['ec01_map_geoMap','ec01_map_bMap']});
-        Public.chartsReDraw(this.charts, null, ['ec01_map_geoMap','ec01_map_bMap'])
+        Public.chartsResize(this.charts, {notResize: ['ec01_map_geoMap', 'ec02_map_bMap']});
+        Public.chartsReDraw(this.charts, null, ['ec01_map_geoMap', 'ec02_map_bMap'])
     },
     loadData() {
         const that = this;
-        this.ec01_map('ec01_map_geoMap');//
-        this.ec01_map('ec01_map_bMap');//
+        this.ec01_map('ec01_map_geoMap'); //geo地图
+        this.ec01_map('ec02_map_bMap'); //百度地图
+        this.ec03_line_blessings();
         // 地图切换事件
         $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
             if ($(this).val() === 'geo') {
                 $("#ec01_map_geoMap").parent().show().siblings('.chart-box').hide();
-                // that.charts.ec01_map_geoMap.resize();
             } else {
-                $("#ec01_map_bMap").parent().show().siblings('.chart-box').hide();
-                // that.charts.ec01_map_bMap.resize();
+                $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
             }
         });
 
@@ -405,8 +404,111 @@ let MapGeo = {
         chart.setOption(opt);
 
 
-
     },
+    ec03_line_blessings() {
+        const chart = echarts.init($("#ec03_line_blessings")[0]);
+        chart.setOption(opt_line);
+        let [xData, data] = [[], []];
+        let [xDataNew, dataNew] = [[], []];
+        for (let i = 0; i <= 120; i++) {
+            xData.push(i);
+            data.push(Math.random() * 200 - 100)
+        }
+
+        chart.setOption({
+            grid: {
+                top: '5%'
+            },
+            xAxis: {
+                data: xData
+            },
+            yAxis: {
+                min: -110,
+                max: 110
+            },
+            dataZoom: { // 本图表option的个性
+                type: 'inside',
+            },
+            visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 0,
+                min: -100,
+                max: 100,
+                inRange: {
+                    // color: ['#000', 'lightblue'],
+                    color: ['red','yellow', 'lightgreen'],
+                    // symbolSize: [30, 100]
+                }
+            }],
+            series: [{
+                data: data,
+                markLine: {
+                    silent: true,
+                    symbolSize: 15 * scale,
+                    data: [{
+                        yAxis: -100
+                    }, {
+                        yAxis: 0
+                    }, {
+                        yAxis: 100
+                    }]
+                },
+            }].map(item => {
+                return $.extend(true, {}, seri_line, item)
+            })
+        });
+
+        let message = '云谷禅师曰：' +
+            '\n人未能无心（凡人都会起心动念），终为阴阳所缚，安得无数（所以有命运）？' +
+            '\n但惟凡人有数（不过只有凡人是这样）。' +
+            '\n极善之人。数固拘他不定。极恶之人。数亦拘他不定。（而极善极恶之人才能逃脱命运束缚）';
+        let setOpt = (param) => {
+            let [startTime, val] = [$("#startTime_input_show").val(), $('#blessings_input').val()];
+            if (["100", "-100"].includes(val)) {
+                alert(message)
+            }
+
+            dataNew = data.map((item, index) => {
+                if (index < startTime) {
+                    return item;
+                }
+                if (["100", "-100"].includes(val)) {
+                    return val
+                }
+                let range = (1 - (val > 0 ? item : -item) / 100);
+                return range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10)
+            });
+            chart.setOption({
+                series: [{
+                    data: dataNew,
+                    markLine: {
+                        silent: true,
+                        symbolSize: 15 * scale,
+                        data: [{
+                            yAxis: -100
+                        }, {
+                            yAxis: val
+                        }, {
+                            yAxis: 100
+                        }]
+                    },
+                }].map(item => {
+                    return $.extend(true, {}, seri_line, item)
+                })
+            })
+        }
+        $('#blessings_input').change(function () {
+            let val = $(this).val();
+            $("#blessings_input_show").val($(this).val());
+            setOpt();
+        });
+        $('#startTime_input').change(function () {
+            $("#startTime_input_show").val($(this).val());
+            setOpt('startTime');
+        });
+
+    }
 };
 MapGeo.init();
 

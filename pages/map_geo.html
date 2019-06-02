@@ -43,7 +43,7 @@
                     <div class="chart" id="ec01_map_geoMap"></div>
                 </div>
                 <div class="chart-box">
-                    <div class="chart" id="ec01_map_bMap"></div>
+                    <div class="chart" id="ec02_map_bMap"></div>
                 </div>
 
             </div>
@@ -52,10 +52,18 @@
         <div class="r">
             <div class="r-t">
                 <div class="chart-wrap">
-                    <!--                    <h3>一周时间分布</h3>-->
-                    <!--                    <div class="chart" id="ec05_lineBar_timeDistribute"></div>-->
-                </div>
+                    <h3>福报(运气)趋势预测</h3>
+                    <div class="input-group startTime-input-wrap">
+                        <label for="startTime_input">开始时间：<output id="startTime_input_show">36</output></label>
+                        <input id="startTime_input" type="range" value="36" min="0" max="150" >
+                    </div>
+                    <div class="chart" id="ec03_line_blessings"></div>
+                    <div class="input-group blessings-input-wrap">
+                        <label for="blessings_input">付出：<output id="blessings_input_show">0</output></label>
+                        <input id="blessings_input" type="range" value="0" min="-100" max="100" >
+                    </div>
             </div>
+             </div>
             <div class="r-b">
                 <div class="chart-wrap">
                     <!--                    <h3>当在网上找某首歌的时候</h3>-->
@@ -101,7 +109,8 @@
 <script src="../static/assets/js/world2.js"></script>
 <script type="text/javascript" src="../static/assets/js/bmap.js"></script>
 <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui"></script>-->
-<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
 <!--<script src="../static/assets/js/map.js"></script>-->
 <script src="../static/js/chartsCom.js"></script>
 <script src="../static/js/map_geo.js"></script>
