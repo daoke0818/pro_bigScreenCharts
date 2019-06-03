@@ -4,7 +4,7 @@ let MapGeo = {
         this.loadData();
         // 地图最好不要根据窗口大小来缩放，否则容易因dom变化而报错
         Public.chartsResize(this.charts, {notResize: ['ec01_map_geoMap', 'ec02_map_bMap']});
-        Public.chartsReDraw(this.charts, null, ['ec01_map_geoMap', 'ec02_map_bMap'])
+        // Public.chartsReDraw(this.charts, null, ['ec01_map_geoMap', 'ec02_map_bMap'])
     },
     loadData() {
         const that = this;
@@ -19,7 +19,7 @@ let MapGeo = {
                 $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
             }
         });
-
+        this.ec04_pie_life();
     },
     ec01_map(id) {
         const that = this;
@@ -407,6 +407,7 @@ let MapGeo = {
     },
     ec03_line_blessings() {
         const chart = echarts.init($("#ec03_line_blessings")[0]);
+        this.charts.ec03_line_blessings = chart;
         chart.setOption(opt_line);
         let [xData, data] = [[], []];
         let [xDataNew, dataNew] = [[], []];
@@ -418,22 +419,20 @@ let MapGeo = {
         chart.setOption({
             grid: {
                 top: '11%',
-                right:'13%'
+                right: '13%'
             },
             xAxis: {
                 // name:'年龄',
-                nameGap:5*scale,
+                nameGap: 5 * scale,
                 data: xData
             },
             yAxis: {
-                name:'福报',
-                nameGap:5*scale,
+                name: '福报',
+                nameGap: 5 * scale,
                 min: -110,
                 max: 110
             },
-            toolTip:{
-
-            },
+            toolTip: {},
             dataZoom: { // 本图表option的个性
                 type: 'inside',
             },
@@ -453,7 +452,7 @@ let MapGeo = {
                 data: data,
                 markLine: {
                     silent: true,
-                    label:{show:false},
+                    label: {show: false},
                     symbolSize: 15 * scale,
                     data: [{
                         yAxis: -100
@@ -504,7 +503,7 @@ let MapGeo = {
                     return $.extend(true, {}, seri_line, item)
                 })
             })
-            if (["100", "-100"].includes(val)) {
+            if (param !== 'startTime' && ["100", "-100"].includes(val)) {
                 alert(message)
             }
         }
@@ -518,6 +517,45 @@ let MapGeo = {
             setOpt('startTime');
         });
 
+    },
+    ec04_pie_life() {
+        let chart = echarts.init($("#ec04_pie_life")[0]);
+        this.charts.ec04_pie_life = chart;
+        chart.setOption(opt_pie);
+        chart.setOption({
+            legend:{show:false},
+            series:[{
+                center:['30%','50%'],
+                radius:[0,'45%'],
+                data: [
+                    {name: '基本寿命\n(无意外)', value: 60},
+                    {name: '心态', value: 9},
+                    {name: '情绪', value: 6},
+                    {name: '身体', value: 6},
+                    {name: '作息', value: 3},
+                    {name: '饮食', value: 3},
+                    {name: '习惯', value: 3},
+                    {name: '剩余',
+                        value: 30,
+                        itemStyle:{
+                        color:"rgba(255,255,255,.13)"
+                        }
+                    },
+
+                ]
+            }].map(item=>{
+                return $.extend(true, {},seri_pie, item)
+            })
+
+        })
+        /*
+        * 平时心态30，消极沮丧：积极乐观
+        * 遇事情绪20，急躁易怒：谦和淡定
+        * 身体20，羸弱不运动：坚持锻炼
+        * 作息10，熬夜，睡懒觉：早起早睡
+        * 饮食10，暴饮暴食重口味：规律清淡
+        * 习惯爱好10，吸烟酗酒(尚未引起器官严重病变)：兴趣高雅
+        * */
     }
 };
 MapGeo.init();

@@ -114,6 +114,20 @@ h3 .more{
       }
 
     }
+    .r-b{
+      .input-group{
+        position: absolute;
+        right: 1rem;
+        top: 4rem;
+        label{
+          display: block;
+          input{
+            vertical-align: middle;
+            width: 7rem;
+          }
+        }
+      }
+    }
   }
 
 

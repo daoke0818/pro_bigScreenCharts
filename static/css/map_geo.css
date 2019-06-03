@@ -67,6 +67,15 @@ main .r {
           top: 1rem;
           left: 3rem;
           width: 29rem; }
+  main .r .r-b .input-group {
+    position: absolute;
+    right: 1rem;
+    top: 4rem; }
+    main .r .r-b .input-group label {
+      display: block; }
+      main .r .r-b .input-group label input {
+        vertical-align: middle;
+        width: 7rem; }
 main .chart-wrap {
   border: 0.0625rem solid rgba(76, 180, 231, 0.33);
   display: flex;
