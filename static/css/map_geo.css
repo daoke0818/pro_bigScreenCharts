@@ -1,3 +1,4 @@
+@charset "UTF-8";
 main > * {
   display: flex;
   overflow: hidden; }
@@ -74,8 +75,19 @@ main .r {
     main .r .r-b .input-group label {
       display: block; }
       main .r .r-b .input-group label input {
+        position: relative;
         vertical-align: middle;
         width: 7rem; }
+        main .r .r-b .input-group label input:before, main .r .r-b .input-group label input:after {
+          font-size: .857rem;
+          position: absolute;
+          top: -1rem; }
+        main .r .r-b .input-group label input:before {
+          content: '消极沮丧';
+          left: 0; }
+        main .r .r-b .input-group label input:after {
+          right: 0;
+          content: '积极乐观'; }
 main .chart-wrap {
   border: 0.0625rem solid rgba(76, 180, 231, 0.33);
   display: flex;

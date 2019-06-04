@@ -122,8 +122,22 @@ h3 .more{
         label{
           display: block;
           input{
+            position: relative;
             vertical-align: middle;
             width: 7rem;
+            &:before,&:after{
+              font-size: .857rem;
+              position: absolute;
+              top: -1rem;
+            }
+            &:before{
+              content: '消极沮丧';
+              left: 0;
+            }
+            &:after{
+              right: 0;
+              content: '积极乐观';
+            }
           }
         }
       }
