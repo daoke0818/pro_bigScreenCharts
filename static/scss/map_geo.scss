@@ -117,12 +117,17 @@ h3 .more{
     .r-b{
       .input-group{
         position: absolute;
-        right: 1rem;
+        right: 1.5rem;
         top: 4rem;
         label{
           display: block;
+          output{
+            display: inline-block;
+            width: 1rem;
+          }
           input{
             position: relative;
+            margin: .75rem 0;
             vertical-align: middle;
             width: 7rem;
             &:before,&:after{
@@ -131,13 +136,24 @@ h3 .more{
               top: -1rem;
             }
             &:before{
-              content: '消极沮丧';
-              left: 0;
+              left: -1rem;
             }
             &:after{
-              right: 0;
-              content: '积极乐观';
+              right: -1rem;
             }
+
+          }
+          &:nth-of-type(1) input:before{
+            content: '消极沮丧';
+          }
+          &:nth-of-type(1) input:after{
+            content: '积极乐观';
+          }
+          &:nth-of-type(2) input:before{
+            content: '急躁易怒';
+          }
+          &:nth-of-type(2) input:after{
+            content: '谦和淡定';
           }
         }
       }

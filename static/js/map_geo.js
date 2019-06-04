@@ -523,10 +523,10 @@ let MapGeo = {
         this.charts.ec04_pie_life = chart;
         chart.setOption(opt_pie);
         chart.setOption({
-            legend:{show:false},
-            series:[{
-                center:['30%','50%'],
-                radius:[0,'45%'],
+            legend: {show: false},
+            series: [{
+                center: ['30%', '50%'],
+                radius: [0, '45%'],
                 data: [
                     {name: '基本寿命\n(无意外)', value: 60},
                     {name: '心态', value: 9},
@@ -535,17 +535,41 @@ let MapGeo = {
                     {name: '作息', value: 3},
                     {name: '饮食', value: 3},
                     {name: '习惯', value: 3},
-                    {name: '剩余',
+                    {
+                        name: '剩余',
                         value: 30,
-                        itemStyle:{
-                        color:"rgba(255,255,255,.13)"
+                        itemStyle: {
+                            color: "rgba(255,255,255,.13)"
                         }
                     },
 
                 ]
-            }].map(item=>{
-                return $.extend(true, {},seri_pie, item)
+            }].map(item => {
+                return $.extend(true, {}, seri_pie, item)
             })
+
+        });
+        $('.ec04_pie_life').find('input').change(function () {
+            let score = 0;
+            let [id, val] = [$(this).attr('id'), $(this).val()];
+            $(this).prev().val(val);
+            $('.ec04_pie_life').find('input').each(function (index, item) {
+                let rate = 0;
+                switch (id) {
+                    case 'mindset':
+                        rate = 0.3;
+                        break;
+                    case 'mind' :
+                    case 'body':
+                        rate = 0.2;
+                        break;
+                }
+                score += 60 * rate * (val - 0 + 5) / 10;
+            });
+            let opt = chart.getOption();
+            opt.series[0].data[$(this).parent().index()+1] = val-0;
+            alert(60 + score)
+
 
         })
         /*
