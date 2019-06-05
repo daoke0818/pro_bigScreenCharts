@@ -574,15 +574,13 @@ let MapGeo = {
                 }
                 score += 90 * rate * (val - 0) / 10;
             });
-            $("#score").text(Math.ceil(score) + 60)
+            $("#score").text(Math.ceil(score) + 60);
             let opt = chart.getOption();
             opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0) / 10;
             opt.series[0].data[7].value = 90 - score;
             chart.setOption(opt);
-
-
         })
-        $('.ec04_pie_life').find('input').change()
+        // $('.ec04_pie_life').find('input').change()
         /*
         * 平时心态30，消极沮丧：积极乐观
         * 遇事情绪20，急躁易怒：谦和淡定
