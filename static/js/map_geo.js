@@ -529,17 +529,17 @@ let MapGeo = {
                 radius: [0, '45%'],
                 data: [
                     {name: '基本寿命\n(无意外)', value: 60},
-                    {name: '心态', value: 9},
-                    {name: '情绪', value: 6},
-                    {name: '身体', value: 6},
-                    {name: '作息', value: 3},
-                    {name: '饮食', value: 3},
-                    {name: '习惯', value: 3},
+                    {name: '心态', value: 13.5},
+                    {name: '情绪', value: 9},
+                    {name: '身体', value: 9},
+                    {name: '作息', value: 4.5},
+                    {name: '饮食', value: 4.5},
+                    {name: '习惯', value: 4.5},
                     {
                         name: '剩余',
-                        value: 30,
+                        value: 45,
                         itemStyle: {
-                            color: "rgba(255,255,255,.13)"
+                            color: "#aaa"
                         }
                     },
 
@@ -551,10 +551,10 @@ let MapGeo = {
         });
         $('.ec04_pie_life').find('input').change(function () {
             let score = 0;
-            let [id, val] = [$(this).attr('id'), $(this).val()];
-            $(this).prev().val(val);
+            let [curRate, curVal, curId] = [0,  $(this).val(), $(this).attr('id')]
+            $(this).prev().val($(this).val());
             $('.ec04_pie_life').find('input').each(function (index, item) {
-                let rate = 0;
+                let [rate, val, id] = [0, $(this).val(), $(this).attr('id')];
                 switch (id) {
                     case 'mindset':
                         rate = 0.3;
@@ -563,22 +563,33 @@ let MapGeo = {
                     case 'body':
                         rate = 0.2;
                         break;
+                    case 'workAndRest':
+                    case 'diet':
+                    case 'interest':
+                        rate = 0.1;
+                        break;
                 }
-                score += 60 * rate * (val - 0 + 5) / 10;
+                if (id === curId) {
+                    curRate = rate
+                }
+                score += 90 * rate * (val - 0 + 5) / 10;
             });
+            $("#score").text(Math.ceil(score) + 60)
             let opt = chart.getOption();
-            opt.series[0].data[$(this).parent().index()+1] = val-0;
-            alert(60 + score)
+            opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0 + 5) / 10;
+            opt.series[0].data[7].value = 90 - score;
+            chart.setOption(opt);
 
 
         })
+        $('.ec04_pie_life').find('input').change()
         /*
         * 平时心态30，消极沮丧：积极乐观
         * 遇事情绪20，急躁易怒：谦和淡定
-        * 身体20，羸弱不运动：坚持锻炼
-        * 作息10，熬夜，睡懒觉：早起早睡
-        * 饮食10，暴饮暴食重口味：规律清淡
-        * 习惯爱好10，吸烟酗酒(尚未引起器官严重病变)：兴趣高雅
+        * 身体20，懒散不动：坚持锻炼
+        * 作息10，熬夜嗜睡：早起早睡
+        * 饮食10，暴食重口、：规律清淡
+        * 习惯爱好10，吸烟酗酒(尚未引起器官严重病变)：高雅艺术
         * */
     }
 };

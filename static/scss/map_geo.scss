@@ -115,10 +115,19 @@ h3 .more{
 
     }
     .r-b{
+      .text{
+        position: absolute;
+        top: 4rem;
+        left: 2rem;
+        width: 20rem;
+        strong{
+          font-size: 2rem;
+        }
+      }
       .input-group{
         position: absolute;
-        right: 1.5rem;
-        top: 4rem;
+        right: 2rem;
+        bottom: .5rem;
         label{
           display: block;
           output{
@@ -130,6 +139,7 @@ h3 .more{
             margin: .75rem 0;
             vertical-align: middle;
             width: 7rem;
+            height: 2rem;
             &:before,&:after{
               font-size: .857rem;
               position: absolute;
@@ -154,6 +164,30 @@ h3 .more{
           }
           &:nth-of-type(2) input:after{
             content: '谦和淡定';
+          }
+          &:nth-of-type(3) input:before{
+            content: '懒散不动';
+          }
+          &:nth-of-type(3) input:after{
+            content: '坚持锻炼';
+          }
+          &:nth-of-type(4) input:before{
+            content: '熬夜嗜睡';
+          }
+          &:nth-of-type(4) input:after{
+            content: '早起早睡';
+          }
+          &:nth-of-type(5) input:before{
+            content: '暴食重口';
+          }
+          &:nth-of-type(5) input:after{
+            content: '规律清淡';
+          }
+          &:nth-of-type(6) input:before{
+            content: '吸烟酗酒';
+          }
+          &:nth-of-type(6) input:after{
+            content: '高雅艺术';
           }
         }
       }

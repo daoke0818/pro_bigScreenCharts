@@ -61,9 +61,7 @@
   background-repeat: no-repeat; }
 
 strong {
-  font-weight: normal;
-  color: var(--c_mainBlue);
-  letter-spacing: .125rem; }
+  color: var(--c_mainBlue); }
 
 h3 {
   margin-bottom: 1rem;
@@ -174,6 +172,7 @@ h5 {
   padding: 0 1rem 2rem; }
 
 body > aside {
+  z-index: 1;
   position: absolute;
   bottom: 2rem;
   border: .5rem solid transparent;

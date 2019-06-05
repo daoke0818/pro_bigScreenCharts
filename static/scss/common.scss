@@ -83,9 +83,7 @@
 }
 
 strong {
-  font-weight: normal;
   color: var(--c_mainBlue);
-  letter-spacing: .125rem;
 }
 
 h3 {
@@ -245,6 +243,7 @@ h5 {
 }
 //设置面板
 body>aside{
+  z-index: 1;
   position: absolute;
   bottom: 2rem;
   border: .5rem solid transparent;
