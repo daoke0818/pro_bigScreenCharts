@@ -13,17 +13,19 @@
 http://e-art.top/projects/bigScreenCharts/pages/
 
 #### 功能和特点
-1. 页面内容自动等比例缩放适应大屏。
+1. 页面内容适应各种比例的大屏。可以设置为自动等比例缩放(contain和cover两种模式)，也可以设置为拉伸来铺满窗口。
 2. 图表的配置项抽取各层级公用部分，以对象的合并方式(jquery的extend方法)实现最简配置。
 3. 窗口缩放时图表自动缩放无需刷新，可通过调浏览器窗口大小测试。
-4. 图表定时刷新重绘效果，可分别指定需要和不需要刷新的图表。这里仅是前端展示用，也可配合异步加载数据后重绘图表
+4. 图表定时刷新重绘效果，可分别指定需要和不需要刷新的图表。这里仅是前端展示用，也可配合异步加载数据后重绘图表。
 5. 页面显示时钟、城市定位和天气。
+6. 除了常规图表，还有引入geoJson和百度地图的两种地图模式。
 6. 四套皮肤更换（含春夏秋冬四季）。
 7. 配置面板，配置内容如下：
     1. 设计图尺寸
-    2. 图表自动刷新频率
-    3. 天气预报更新周期
-    4. 指定皮肤
+    2. 页面缩放模式
+    3. 图表自动刷新频率
+    4. 天气预报更新周期
+    5. 指定皮肤
 
 #### 软件架构
 * HTML5结构
@@ -34,25 +36,26 @@ http://e-art.top/projects/bigScreenCharts/pages/
 * 缩放原理是通过计算页面和原始尺寸的比例，控制html的fontSize来进行所有元素的尺寸缩放，元素尺寸单位用rem。
 
 #### 使用说明
-1. 先配置设计图尺寸、刷新频率、天气预报更新周期、主题颜色等参数
+1. 可以先配置设计图尺寸、缩放模式、刷新频率、天气预报更新周期、主题颜色等参数(在common.js里如下代码)，也可以在页面设置面板中配置，但后者只能存储到本地的localStorage
     ``` 
     const Cfg = {
         designW: settings.designW || 1920, //设计图宽度
         designH: settings.designH || 1080, //设计图高度
+        zoomMode: settings.zoomMode || 'contain',
         getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
         chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
         colors: settings.colors || 'default',
         colorData: {//配色方案，部分色彩参考 http://rmco.jp/coloringroom/haisyoku_rei/haisyoku_haru.html
-          default: ['lightskyblue', 'orange', 'greenyellow', 'limegreen',
-              'mediumturquoise', 'mediumpurple'],
-          spring: ['#BEDC6E', '#FA8C8C', '#FAAAC8', '#FAC8C8',
-              '#FFFFE6', '#6E6464'],
-          summer: ['#FFAE00', '#FF5200', '#007AFF', '#00BF05',
-              '#DCFFFF', '#505064'],
-          autumn: ['#c1ad2f',/*'#A5912D',*/ '#782323', '#783723', '#A05027',
-              '#FAE6DC', '#283C14'],
-          winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
-              '#E1E1F0', '#281E1E'],
+            default: ['lightskyblue', 'orange', 'greenyellow', 'limegreen',
+                'mediumturquoise', 'mediumpurple'],
+            spring: ['#BEDC6E', '#FA8C8C', '#FAAAC8', '#FAC8C8',
+                '#FFFFE6', '#6E6464'],
+            summer: ['#FFAE00', '#FF5200', '#007AFF', '#00BF05',
+                '#DCFFFF', '#505064'],
+            autumn: ['#c1ad2f',/*'#A5912D',*/ '#782323', '#783723', '#A05027',
+                '#FAE6DC', '#283C14'],
+            winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
+                '#E1E1F0', '#281E1E'],
         }
     };
     ```
@@ -98,7 +101,7 @@ http://e-art.top/projects/bigScreenCharts/pages/
 **关中刀客在青岛**，男，汉族。
 
 2008年毕业于青岛某不知名大学，随后从事过硬件电路、系统仪器、视频后期、淘宝多媒体服务、开花店、视频配乐等工作。
-接触编程时已经30岁，决定学前端时31岁，也由于年龄关系，学习效率不比年轻人，学习时间也非常有限，但生活所迫仍奋斗在代码前线上。[更多介绍 >>](http://e-art.top/page/aboutMe.html)
+接触编程时已经30岁，决定学前端时31岁，也由于年龄关系，学习时间非常有限，效率也不比年轻人，但生活所迫仍奋斗在代码前线上。[更多介绍 >>](http://e-art.top/page/aboutMe.html)
 
 在这里也希望所有转行过来的it小伙伴们能坚持下去，平时有空多学习多总结，三五年就能有小成，这些经验可以让自己着手做些喜欢的事，而不像我这样急促——大部分业余时间不得不花在家里。
 

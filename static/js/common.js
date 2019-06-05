@@ -198,10 +198,11 @@ const Public = {
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
     //图表缩放
-    chartsResize(charts) {
+    chartsResize(charts,param) {
         $(window).resize(() => {
-            Object.keys(charts).forEach(item => {
-                charts[item].resize();
+            Object.keys(charts).forEach(id => {
+                if(param.notResize.includes(id)){return}
+                charts[id].resize();
             })
         });
     },

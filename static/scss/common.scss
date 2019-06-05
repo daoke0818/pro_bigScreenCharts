@@ -49,10 +49,43 @@
     outline: none;
   }
 
+  @keyframes linkTo {
+    from,80%,90%,to{
+      left: 0;
+    }
+    85%,95%{
+      left: .5rem;
+    }
+  }
   #container {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+
+    nav {
+      text-align: right;
+      padding-right: 2rem;
+
+      a {
+        color: lightskyblue;
+        font-style: italic;
+
+        &:visited {
+          //color: orangered;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+        &:before{
+          content: '→ ';
+          position: relative;
+          left: 0;
+          animation: linkTo 5s ease-out;
+          animation-iteration-count: infinite;
+        }
+      }
+    }
   }
 }
 
@@ -69,9 +102,7 @@
 }
 
 strong {
-  font-weight: normal;
   color: var(--c_mainBlue);
-  letter-spacing: .125rem;
 }
 
 h3 {
@@ -81,6 +112,7 @@ h3 {
   letter-spacing: .0625rem;
   color: var(--c_mainWhite);
   background: linear-gradient(to right, var(--c_mainBlue), transparent);
+  z-index: 1;
 
   &.en {
     margin-top: .3rem;
@@ -118,28 +150,29 @@ h5 {
     overflow: hidden;
   }
 }
+
 /*风筝动画*/
 @keyframes logoAnimation {
-  from{
-    transform:skew(0) scale(1);
+  from {
+    transform: skew(0) scale(1);
   }
-  25%{
-    transform:skewX(1deg) rotateX(30deg) scale(.9) translate(-.125rem,-.25rem);
+  25% {
+    transform: skewX(1deg) rotateX(30deg) scale(.9) translate(-.125rem, -.25rem);
   }
-  40%{
-    transform:scale(.85);
-    opacity:.7
+  40% {
+    transform: scale(.85);
+    opacity: .7
   }
-  60%{
-    transform:skewX(-15deg) skewY(-10deg);
+  60% {
+    transform: skewX(-15deg) skewY(-10deg);
   }
-  70%{
-    transform:skewX(-15deg) skewY(-10deg) rotateZ(10deg);
+  70% {
+    transform: skewX(-15deg) skewY(-10deg) rotateZ(10deg);
   }
-  90%{
-    transform:skewY(5deg);
+  90% {
+    transform: skewY(5deg);
   }
-  to{
+  to {
     transform: skew(0) scale(1);
   }
 }
@@ -155,7 +188,7 @@ h5 {
       animation: 20s logoAnimation infinite ease;
       //padding:1rem;
       //outline: 1px dashed wheat;
-      img{
+      img {
         width: 8rem;
       }
     }
@@ -175,9 +208,11 @@ h5 {
       font-size: 1.125rem;
       letter-spacing: .0625rem;
       margin-right: 1rem;
-      &>span{
+
+      & > span {
         display: block;
       }
+
       .digital-num {
         font-family: "digitalNumber", serif;
         font-size: 1.5rem;
@@ -214,7 +249,8 @@ h5 {
       ul {
         font-size: 1.125rem;
         display: inline-block;
-        .temperature{
+
+        .temperature {
           margin-bottom: .25rem;
         }
       }
@@ -229,8 +265,10 @@ h5 {
   }
 
 }
+
 //设置面板
-body>aside{
+body > aside {
+  z-index: 1;
   position: absolute;
   bottom: 2rem;
   border: .5rem solid transparent;
@@ -240,7 +278,8 @@ body>aside{
   box-shadow: 0 0 0.5rem 0.5rem deepskyblue;
   transform: translateX(-27rem);
   transition: all .3s ease;
-  &:after{
+
+  &:after {
     content: '';
     display: block;
     position: absolute;
@@ -251,44 +290,55 @@ body>aside{
     transform: translateX(2rem);
 
   }
-  &:hover{
+
+  &:hover {
     transform: initial;
   }
-  .input-group~.input-group{
+
+  .input-group ~ .input-group {
     border-top: .0625rem solid rgba(135, 206, 235, 0.63);
   }
-  .input-group{
+
+  .input-group {
     padding: 1rem .5rem;
-    &:last-child{
+
+    &:last-child {
       text-align: center;
     }
-    h4{
+
+    h4 {
       margin-bottom: .5rem;
     }
-    label{
+
+    label {
       margin: 0 .5rem 0 1rem;
       white-space: nowrap;
     }
-    &.colors label{
+
+    &.colors label {
       margin-left: 0;
     }
-    &.other label{
+
+    &.other label {
       line-height: 2.5rem;
     }
-    input{
+
+    input {
       padding: .125rem .25rem;
       width: 6rem;
       font-size: 1.125rem;
       color: #fff;
-      border: .0625rem solid rgba(255,255,255,.5);
+      border: .0625rem solid rgba(255, 255, 255, .5);
       background: transparent;
-      &[type=radio]{
+
+      &[type=radio] {
         width: auto;
         height: 1rem;
         vertical-align: top;
       }
     }
-    button{
+
+    button {
       margin-top: .5rem;
       padding: .25rem 1rem;
       font-size: 1.25rem;
@@ -297,10 +347,12 @@ body>aside{
       border: none;
       border-radius: .25rem;
       cursor: pointer;
-      &:hover{
-        background:#4EA3D6
+
+      &:hover {
+        background: #4EA3D6
       }
-      &:active{
+
+      &:active {
         background: #4e93c6
       }
     }
