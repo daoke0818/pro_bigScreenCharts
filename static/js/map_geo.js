@@ -572,11 +572,11 @@ let MapGeo = {
                 if (id === curId) {
                     curRate = rate
                 }
-                score += 90 * rate * (val - 0 + 5) / 10;
+                score += 90 * rate * (val - 0) / 10;
             });
             $("#score").text(Math.ceil(score) + 60)
             let opt = chart.getOption();
-            opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0 + 5) / 10;
+            opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0) / 10;
             opt.series[0].data[7].value = 90 - score;
             chart.setOption(opt);
 
