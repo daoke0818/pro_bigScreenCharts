@@ -91,7 +91,7 @@ main .r {
         width: 7rem;
         height: 2rem; }
         main .r .r-b .input-group label input:before, main .r .r-b .input-group label input:after {
-          font-size: .857rem;
+          font-size: .9125rem;
           position: absolute;
           top: -1rem; }
         main .r .r-b .input-group label input:before {
@@ -119,7 +119,7 @@ main .r {
       main .r .r-b .input-group label:nth-of-type(5) input:after {
         content: '规律清淡'; }
       main .r .r-b .input-group label:nth-of-type(6) input:before {
-        content: '吸烟酗酒'; }
+        content: '颓废庸俗'; }
       main .r .r-b .input-group label:nth-of-type(6) input:after {
         content: '高雅艺术'; }
 main .chart-wrap {

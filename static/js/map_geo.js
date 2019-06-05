@@ -542,16 +542,14 @@ let MapGeo = {
                             color: "#aaa"
                         }
                     },
-
                 ]
             }].map(item => {
                 return $.extend(true, {}, seri_pie, item)
             })
-
         });
         $('.ec04_pie_life').find('input').change(function () {
             let score = 0;
-            let [curRate, curVal, curId] = [0,  $(this).val(), $(this).attr('id')]
+            let [curRate, curVal, curId] = [0,  $(this).val(), $(this).attr('id')];
             $(this).prev().val($(this).val());
             $('.ec04_pie_life').find('input').each(function (index, item) {
                 let [rate, val, id] = [0, $(this).val(), $(this).attr('id')];
@@ -579,15 +577,14 @@ let MapGeo = {
             opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0) / 10;
             opt.series[0].data[7].value = 90 - score;
             chart.setOption(opt);
-        })
-        // $('.ec04_pie_life').find('input').change()
+        }).eq(0).change()
         /*
         * 平时心态30，消极沮丧：积极乐观
         * 遇事情绪20，急躁易怒：谦和淡定
         * 身体20，懒散不动：坚持锻炼
         * 作息10，熬夜嗜睡：早起早睡
         * 饮食10，暴食重口、：规律清淡
-        * 习惯爱好10，吸烟酗酒(尚未引起器官严重病变)：高雅艺术
+        * 习惯爱好10，颓废庸俗：高雅艺术
         * */
     }
 };
