@@ -79,31 +79,31 @@
 					<div class="chart" id="ec04_pie_life"></div>
 					<div class="input-group">
 						<label for="mindset">心态:
-							<output id="mindset_out">0</output>
+							<output id="mindset_out">5</output>
 							<input id="mindset" type="range" value="5" min="0" max="10">
 						</label>
 						<label for="mind">情绪:
-							<output id="mind_out">0</output>
+							<output id="mind_out">5</output>
 							<input id="mind" type="range" value="5" min="0" max="10">
 						</label>
 						<label for="body">身体:
-							<output id="body_out">0</output>
+							<output id="body_out">5</output>
 							<input id="body" type="range" value="5" min="0" max="10">
 						</label>
 						<label for="workAndRest">作息:
-							<output id="workAndRest_out">0</output>
+							<output id="workAndRest_out">5</output>
 							<input id="workAndRest" type="range" value="5" min="0" max="10">
 						</label>
 						<label for="diet">饮食:
-							<output id="diet_out">0</output>
+							<output id="diet_out">5</output>
 							<input id="diet" type="range" value="5" min="0" max="10">
 						</label>
 						<label for="interest">爱好:
-							<output id="interest_out">0</output>
+							<output id="interest_out">5</output>
 							<input id="interest" type="range" value="5" min="0" max="10">
 						</label>
 					</div>
-					<p class="text">据说各方面做到最好能活到150岁，根据右侧打分情况，预测您的寿命大约是 <strong id="score"></strong> 岁</p>
+					<p class="text">据说各方面做到最好能活到150岁，根据右侧打分情况，预测您的寿命大约是<br> <strong id="score"></strong> 岁</p>
 				</div>
 			</div>
 		</div>
@@ -136,18 +136,22 @@
 		<input id="getWeatherPeriod" type="number" min="1" value="5">
 		<label for="chartRefreshPeriod">图表刷新频率(秒):</label>
 		<input id="chartRefreshPeriod" type="number" min="1" value="10">
+		<label ><input id="notebookOptim" type="checkbox">低分辨率优化</label>
 	</div>
 	<div class="input-group">
 		<button id="saveSetting">保存并刷新</button>
 	</div>
 </aside>
+<script>
+	if(notebookOptim){
+		$('.ec04_pie_life .input-group>label,.r-b .text,#blessings_input,#startTime_input,.blessings-input-wrap .label2').addClass('notebook');
+	}
+</script>
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
 <script src="../static/assets/js/world2.js"></script>
 <script type="text/javascript" src="../static/assets/js/bmap.js"></script>
-<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui"></script>-->
 <script type="text/javascript"
         src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
-<!--<script src="../static/assets/js/map.js"></script>-->
 <script src="../static/js/chartsCom.js"></script>
 <script src="../static/js/map_geo.js"></script>
 </body>

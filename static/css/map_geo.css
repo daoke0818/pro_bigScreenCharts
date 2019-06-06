@@ -45,6 +45,9 @@ main .r {
           transform-origin: right top;
           top: 1.5rem;
           width: 16rem; }
+          main .r > div .chart-wrap .blessings-input-wrap #blessings_input.notebook {
+            top: 1rem;
+            width: 10rem; }
         main .r > div .chart-wrap .blessings-input-wrap label {
           position: absolute;
           right: -2rem; }
@@ -55,6 +58,8 @@ main .r {
           top: 8.5rem; }
         main .r > div .chart-wrap .blessings-input-wrap .label2 {
           top: 23rem; }
+          main .r > div .chart-wrap .blessings-input-wrap .label2.notebook {
+            top: 16.5rem; }
       main .r > div .chart-wrap .startTime-input-wrap {
         position: relative;
         height: 3rem;
@@ -68,11 +73,15 @@ main .r {
           top: 1rem;
           left: 3rem;
           width: 29rem; }
+          main .r > div .chart-wrap .startTime-input-wrap #startTime_input.notebook {
+            width: 22rem; }
   main .r .r-b .text {
     position: absolute;
     top: 4rem;
     left: 2rem;
     width: 20rem; }
+    main .r .r-b .text.notebook {
+      width: 13.5rem; }
     main .r .r-b .text strong {
       font-size: 2rem; }
   main .r .r-b .input-group {
@@ -81,6 +90,8 @@ main .r {
     bottom: .5rem; }
     main .r .r-b .input-group label {
       display: block; }
+      main .r .r-b .input-group label.notebook {
+        height: 2.5rem; }
       main .r .r-b .input-group label output {
         display: inline-block;
         width: 1rem; }

@@ -50,10 +50,10 @@
   }
 
   @keyframes linkTo {
-    from,80%,90%,to{
+    from, 80%, 90%, to {
       left: 0;
     }
-    85%,95%{
+    85%, 95% {
       left: .5rem;
     }
   }
@@ -77,7 +77,8 @@
         &:hover {
           text-decoration: underline;
         }
-        &:before{
+
+        &:before {
           content: '→ ';
           position: relative;
           left: 0;
@@ -336,28 +337,32 @@ body > aside {
         height: 1rem;
         vertical-align: top;
       }
-    }
 
-    button {
-      margin-top: .5rem;
-      padding: .25rem 1rem;
-      font-size: 1.25rem;
-      color: #fff;
-      background: var(--c_mainBlue);
-      border: none;
-      border-radius: .25rem;
-      cursor: pointer;
-
-      &:hover {
-        background: #4EA3D6
+      &[type=checkbox] {
+        width: auto;
+        vertical-align: middle;
       }
 
-      &:active {
-        background: #4e93c6
+      button {
+        margin-top: .5rem;
+        padding: .25rem 1rem;
+        font-size: 1.25rem;
+        color: #fff;
+        background: var(--c_mainBlue);
+        border: none;
+        border-radius: .25rem;
+        cursor: pointer;
+
+        &:hover {
+          background: #4EA3D6
+        }
+
+        &:active {
+          background: #4e93c6
+        }
       }
     }
   }
-
 }
 
 

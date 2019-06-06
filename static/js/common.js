@@ -6,6 +6,7 @@ const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
     zoomMode: settings.zoomMode || 'contain',
+    notebookOptim: ['undefined', true].includes(settings.notebookOptim),
     getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
     chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
     colors: settings.colors || 'default',
@@ -24,6 +25,7 @@ const Cfg = {
 };
 let hasGetWeather = false;
 let scale = 1;
+let notebookOptim = true;
 let colonShow = true;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const weather2Code = {
@@ -178,7 +180,7 @@ const Public = {
                 } else {
                     $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
                 }
-                scale = isWider?scaleH:scaleW;
+                scale = isWider ? scaleH : scaleW;
                 break;
             case 'cover':
                 $("html,body").css('overflow', 'initial');
@@ -187,21 +189,24 @@ const Public = {
                 } else {
                     $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
                 }
-                scale = isWider?scaleW:scaleH;
+                scale = isWider ? scaleW : scaleH;
                 break;
             case 'stretch':
-                scale = isWider?scaleH:scaleW;
+                scale = isWider ? scaleH : scaleW;
                 $container.css({width: '100%'}, {height: '100%'});
                 break;
         }
         $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
+        notebookOptim = Cfg.notebookOptim && scale < .75;
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
     //图表缩放
-    chartsResize(charts,param) {
+    chartsResize(charts, param) {
         $(window).resize(() => {
             Object.keys(charts).forEach(id => {
-                if(param.notResize.includes(id)){return}
+                if (param.notResize.includes(id)) {
+                    return
+                }
                 charts[id].resize();
             })
         });
@@ -216,7 +221,7 @@ const Public = {
     chartsReDraw(charts, t = Cfg.chartRefreshPeriod, noRefresh, someRefresh) {
         let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
-                if (noRefresh&&noRefresh.includes(item) && !(someRefresh&&someRefresh.includes(item))) return;
+                if (noRefresh && noRefresh.includes(item) && !(someRefresh && someRefresh.includes(item))) return;
                 let chart = charts[item];
                 let opt = chart.getOption();
                 chart.clear();
@@ -260,6 +265,7 @@ $(function () {
     Public.setHeaderTime(); // 页面顶部时间
     $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
     $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
+    $("#notebookOptim").attr('checked',['undefined', true].includes(settings.notebookOptim));
     $("#designW").val(settings.designW || 1920);
     $("#designH").val(settings.designH || 1080);
     $("#" + Cfg.zoomMode).prop('checked', true);
@@ -277,6 +283,7 @@ $(function () {
         let settings = {
             getWeatherPeriod: $("#getWeatherPeriod").val(),
             chartRefreshPeriod: $("#chartRefreshPeriod").val(),
+            notebookOptim: $("#notebookOptim").is(":checked"),
             designW: $("#designW").val(),
             designH: $("#designH").val(),
             colors: $("body>aside input[type=radio][name=colors]:checked").next().text(),

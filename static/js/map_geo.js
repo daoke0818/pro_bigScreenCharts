@@ -525,8 +525,8 @@ let MapGeo = {
         chart.setOption({
             legend: {show: false},
             series: [{
-                center: ['30%', '50%'],
-                radius: [0, '45%'],
+                center: notebookOptim ? ['26%', '60%'] : ['30%', '55%'],
+                radius: [0, notebookOptim ? '33%' : '45%'],
                 data: [
                     {name: '基本寿命\n(无意外)', value: 60},
                     {name: '心态', value: 13.5},
@@ -549,7 +549,7 @@ let MapGeo = {
         });
         $('.ec04_pie_life').find('input').change(function () {
             let score = 0;
-            let [curRate, curVal, curId] = [0,  $(this).val(), $(this).attr('id')];
+            let [curRate, curVal, curId] = [0, $(this).val(), $(this).attr('id')];
             $(this).prev().val($(this).val());
             $('.ec04_pie_life').find('input').each(function (index, item) {
                 let [rate, val, id] = [0, $(this).val(), $(this).attr('id')];

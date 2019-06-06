@@ -39,9 +39,9 @@
     outline: none; }
 
   @keyframes linkTo {
-    from,80%,90%,to {
+    from, 80%, 90%, to {
       left: 0; }
-    85%,95% {
+    85%, 95% {
       left: .5rem; } }
   #container {
     display: flex;
@@ -228,18 +228,21 @@ body > aside {
         width: auto;
         height: 1rem;
         vertical-align: top; }
-    body > aside .input-group button {
-      margin-top: .5rem;
-      padding: .25rem 1rem;
-      font-size: 1.25rem;
-      color: #fff;
-      background: var(--c_mainBlue);
-      border: none;
-      border-radius: .25rem;
-      cursor: pointer; }
-      body > aside .input-group button:hover {
-        background: #4EA3D6; }
-      body > aside .input-group button:active {
-        background: #4e93c6; }
+      body > aside .input-group input[type=checkbox] {
+        width: auto;
+        vertical-align: middle; }
+      body > aside .input-group input button {
+        margin-top: .5rem;
+        padding: .25rem 1rem;
+        font-size: 1.25rem;
+        color: #fff;
+        background: var(--c_mainBlue);
+        border: none;
+        border-radius: .25rem;
+        cursor: pointer; }
+        body > aside .input-group input button:hover {
+          background: #4EA3D6; }
+        body > aside .input-group input button:active {
+          background: #4e93c6; }
 
 /*# sourceMappingURL=common.css.map */

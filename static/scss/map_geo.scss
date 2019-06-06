@@ -7,12 +7,14 @@ main {
     display: flex;
     overflow: hidden; //可以让元素严格按照百分比显示，而防止被内部大尺寸元素撑住
   }
-h3 .more{
-  position: absolute;
-  right: 2rem;
-  font-style: italic;
-  font-size: 1.25rem;
-}
+
+  h3 .more {
+    position: absolute;
+    right: 2rem;
+    font-style: italic;
+    font-size: 1.25rem;
+  }
+
   .l {
     flex: 0 0 66.66%;
     padding: 1rem;
@@ -70,6 +72,11 @@ h3 .more{
             top: 1.5rem;
             width: 16rem;
 
+            &.notebook {
+              top: 1rem;
+              width: 10rem;
+            }
+
           }
 
           label {
@@ -81,15 +88,22 @@ h3 .more{
               //top: 0;
             }
           }
-          .label1,.label2{
+
+          .label1, .label2 {
             position: absolute;
             right: 0;
           }
-          .label1{
+
+          .label1 {
             top: 8.5rem;
           }
-          .label2{
+
+          .label2 {
             top: 23rem;
+
+            &.notebook {
+              top: 16.5rem;
+            }
           }
 
         }
@@ -98,95 +112,128 @@ h3 .more{
           position: relative;
           height: 3rem;
           z-index: 1;
+
           label {
             position: absolute;
             top: 0;
             right: 4rem;
-           }
+          }
+
           #startTime_input {
             position: absolute;
             top: 1rem;
             left: 3rem;
             width: 29rem;
+
+            &.notebook {
+              width: 22rem;
+            }
           }
         }
-
       }
-
     }
-    .r-b{
-      .text{
+
+    .r-b {
+      .text {
         position: absolute;
         top: 4rem;
         left: 2rem;
         width: 20rem;
-        strong{
+
+        &.notebook {
+          width: 13.5rem;
+        }
+
+        strong {
           font-size: 2rem;
         }
       }
-      .input-group{
+
+      .input-group {
         position: absolute;
         right: 2rem;
         bottom: .5rem;
-        label{
+
+        label {
+          &.notebook {
+            height: 2.5rem;
+          }
+
           display: block;
-          output{
+
+          output {
             display: inline-block;
             width: 1rem;
           }
-          input{
+
+          input {
             position: relative;
             margin: .75rem 0;
             vertical-align: middle;
             width: 7rem;
             height: 2rem;
-            &:before,&:after{
+
+            &:before, &:after {
               font-size: .9125rem;
               position: absolute;
               top: -1rem;
             }
-            &:before{
+
+            &:before {
               left: -1rem;
             }
-            &:after{
+
+            &:after {
               right: -1rem;
             }
 
           }
-          &:nth-of-type(1) input:before{
+
+          &:nth-of-type(1) input:before {
             content: '消极沮丧';
           }
-          &:nth-of-type(1) input:after{
+
+          &:nth-of-type(1) input:after {
             content: '积极乐观';
           }
-          &:nth-of-type(2) input:before{
+
+          &:nth-of-type(2) input:before {
             content: '急躁易怒';
           }
-          &:nth-of-type(2) input:after{
+
+          &:nth-of-type(2) input:after {
             content: '谦和淡定';
           }
-          &:nth-of-type(3) input:before{
+
+          &:nth-of-type(3) input:before {
             content: '懒散不动';
           }
-          &:nth-of-type(3) input:after{
+
+          &:nth-of-type(3) input:after {
             content: '坚持锻炼';
           }
-          &:nth-of-type(4) input:before{
+
+          &:nth-of-type(4) input:before {
             content: '熬夜嗜睡';
           }
-          &:nth-of-type(4) input:after{
+
+          &:nth-of-type(4) input:after {
             content: '早起早睡';
           }
-          &:nth-of-type(5) input:before{
+
+          &:nth-of-type(5) input:before {
             content: '暴食重口';
           }
-          &:nth-of-type(5) input:after{
+
+          &:nth-of-type(5) input:after {
             content: '规律清淡';
           }
-          &:nth-of-type(6) input:before{
+
+          &:nth-of-type(6) input:before {
             content: '颓废庸俗';
           }
-          &:nth-of-type(6) input:after{
+
+          &:nth-of-type(6) input:after {
             content: '高雅艺术';
           }
         }
