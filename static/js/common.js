@@ -99,9 +99,6 @@ const weather2Code = {
     "未知": 999,
 };
 const Public = {
-    ajaxHeaders: {
-        token: ''
-    },
     hasVal(val) {
         if (val === null) {
             return '-';
@@ -141,7 +138,7 @@ const Public = {
             Public.setHeaderTime();
         }, 500)
     },
-    //获取天气情况
+    // 获取天气情况
     getWeather(currTime) {
         // 获取地理位置
         $.get({
@@ -262,24 +259,31 @@ $(window).resize(() => {
 });
 
 $(function () {
-    Public.setHeaderTime(); // 页面顶部时间
-    $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
-    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
-    $("#notebookOptim").attr('checked',['undefined', true].includes(settings.notebookOptim));
-    $("#designW").val(settings.designW || 1920);
-    $("#designH").val(settings.designH || 1080);
-    $("#" + Cfg.zoomMode).prop('checked', true);
-    let $colors = $("body>aside .colors");
-    Object.keys(Cfg.colorData).forEach(item => {
-        $colors.append(`
+    // 加载源不能写成body>header>*,原因不明
+    $('#container>header').load('common.html header>*', function () {
+    // $('#container>header').load('common.html', function () {
+        Public.setHeaderTime(); // 页面顶部时间
+    });
+    // 加载设置面板
+    $('body>aside').load('common.html aside >*', function () {
+        $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
+        $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
+        $("#notebookOptim").attr('checked', ['undefined', true].includes(settings.notebookOptim));
+        $("#designW").val(settings.designW || 1920);
+        $("#designH").val(settings.designH || 1080);
+        $("#" + Cfg.zoomMode).prop('checked', true);
+        let $colors = $("body>aside .colors");
+        Object.keys(Cfg.colorData).forEach(item => {
+            $colors.append(`
             <label for="colors_${item}">
                 <input type="radio" id="colors_${item}" name="colors" ${Cfg.colors === item ? 'checked' : ''}><span>${item}</span>
             </label>
         `)
+        });
     });
 
     // 保存设置
-    $("#saveSetting").click(function () {
+    $("body ").on('click', '#saveSetting', function () {
         let settings = {
             getWeatherPeriod: $("#getWeatherPeriod").val(),
             chartRefreshPeriod: $("#chartRefreshPeriod").val(),

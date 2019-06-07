@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<title>大屏图表适配解决方案</title>
+	<link rel="stylesheet" href="../static/assets/css/iconfont.css">
+	<link rel="stylesheet" href="../static/css/common.css">
+	<link rel="stylesheet" href="../static/css/map_geo.css">
+	<script src="../static/assets/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body id="investmentRisk">
+<div id="container">
+	<script src="../static/js/common.js"></script>
+	<header></header>
+	<nav>
+		<a href="index.html">回首页</a>
+	</nav>
+	
+	<main>
+		<!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
+		<div class="l">
+			<div class="chart-wrap">
+				<h3>玄奘取经和鉴真东渡</h3>
+				<div class="radioGroup">
+					<label><input type="radio" name="mapType" value="geo">geo地图</label>
+					<label><input type="radio" name="mapType" value="bmap" checked>百度地图</label>
+				</div>
+				<div class="chart-box">
+					<div class="chart" id="ec01_map_geoMap"></div>
+				</div>
+				<div class="chart-box">
+					<div class="chart" id="ec02_map_bMap"></div>
+				</div>
+			
+			</div>
+		</div>
+		
+		<div class="r">
+			<div class="r-t">
+				<div class="chart-wrap">
+					<h3>福报/运气趋势预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
+					<div class="input-group startTime-input-wrap">
+						<label for="startTime_input">开始年龄：
+							<output id="startTime_input_show">36</output>
+							岁</label>
+						<input id="startTime_input" type="range" value="36" min="0" max="120">
+					</div>
+					<div class="chart" id="ec03_line_blessings"></div>
+					<div class="input-group blessings-input-wrap">
+						<label for="blessings_input">付出：
+							<output id="blessings_input_show">0</output>
+						</label>
+						<span class="label1">善</span><span class="label2">恶</span>
+						<input id="blessings_input" type="range" value="0" min="-100" max="100">
+					</div>
+				</div>
+			</div>
+			<div class="r-b">
+				<div class="chart-wrap ec04_pie_life">
+					<h3>寿命预测(仅供娱乐)</h3>
+					<div class="chart" id="ec04_pie_life"></div>
+					<div class="input-group">
+						<label for="mindset">心态:
+							<output id="mindset_out">5</output>
+							<input id="mindset" type="range" value="5" min="0" max="10">
+						</label>
+						<label for="mind">情绪:
+							<output id="mind_out">5</output>
+							<input id="mind" type="range" value="5" min="0" max="10">
+						</label>
+						<label for="body">身体:
+							<output id="body_out">5</output>
+							<input id="body" type="range" value="5" min="0" max="10">
+						</label>
+						<label for="workAndRest">作息:
+							<output id="workAndRest_out">5</output>
+							<input id="workAndRest" type="range" value="5" min="0" max="10">
+						</label>
+						<label for="diet">饮食:
+							<output id="diet_out">5</output>
+							<input id="diet" type="range" value="5" min="0" max="10">
+						</label>
+						<label for="interest">爱好:
+							<output id="interest_out">5</output>
+							<input id="interest" type="range" value="5" min="0" max="10">
+						</label>
+					</div>
+					<p class="text">据说各方面做到最好能活到150岁，根据右侧打分情况，预测您的寿命大约是<br> <strong id="score"></strong> 岁</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+<aside></aside>
+<script>
+	if(notebookOptim){
+		$('.ec04_pie_life .input-group>label,.r-b .text,#blessings_input,#startTime_input,.blessings-input-wrap .label2').addClass('notebook');
+	}
+</script>
+<script src="../static/assets/js/echarts-4.2.0.min.js"></script>
+<script src="../static/assets/js/world2.js"></script>
+<script type="text/javascript" src="../static/assets/js/bmap.js"></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
+<script src="../static/js/chartsCom.js"></script>
+<script src="../static/js/map2d.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
