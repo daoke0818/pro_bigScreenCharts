@@ -295,7 +295,8 @@ $(function () {
 
     const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
     if (!(sessionData && sessionData.settingTip)) {
-        alert('请把鼠标移动到屏幕左侧边靠下的位置，可以滑出设置面板。');
+        alert('请把鼠标移动到屏幕左侧边靠下的位置，可以滑出设置面板。' +
+            '\n如果浏览器已经解除最小字号限制，请在设置面板中取消“低分辨率优化”的勾选。');
         sessionStorage.setItem('sessionData', JSON.stringify({settingTip: true}))
     }
 

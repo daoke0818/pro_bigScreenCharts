@@ -229,6 +229,7 @@ body > aside {
         height: 1rem;
         vertical-align: top; }
       body > aside .input-group input[type=checkbox] {
+        margin-left: 0;
         width: auto;
         vertical-align: middle; }
       body > aside .input-group input button {
