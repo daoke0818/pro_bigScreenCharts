@@ -295,11 +295,12 @@ let MapGeo = {
 
 
         $.get({
-                url: 'https://api.asilu.com/geo/',
+                // url: 'https://api.asilu.com/geo/',
+                url: 'https://api.map.baidu.com/location/ip?ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&coor=bd09ll',
                 dataType: 'jsonp',
             }, data => {
                 let opt = chart.getOption();
-                opt.series[0].data = [[data.bd09.lng, data.bd09.lat]];
+                opt.series[0].data = [[data.content.point.x, data.content.point.y]];
                 chart.setOption(opt);
             }
         );
