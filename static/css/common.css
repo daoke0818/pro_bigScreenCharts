@@ -127,7 +127,8 @@ h5 {
     transform: skew(0) scale(1); } }
 #container > header {
   position: relative;
-  padding: 1.5rem 2rem 1rem; }
+  padding: 1.5rem 2rem 1rem;
+  height: 6.25rem; }
   #container > header .logo {
     position: absolute;
     animation: 20s logoAnimation infinite ease; }

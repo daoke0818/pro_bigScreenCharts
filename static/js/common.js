@@ -6,7 +6,7 @@ const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
     zoomMode: settings.zoomMode || 'contain',
-    notebookOptim: ['undefined', true].includes(settings.notebookOptim),
+    notebookOptim: [undefined, true].includes(settings.notebookOptim),
     getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
     chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
     colors: settings.colors || 'default',
@@ -194,14 +194,14 @@ const Public = {
                 break;
         }
         $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
-        notebookOptim = Cfg.notebookOptim && scale < .75;
+        notebookOptim = !(Cfg.notebookOptim === false || scale > .75);
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
     //图表缩放
     chartsResize(charts, param) {
         $(window).resize(() => {
             Object.keys(charts).forEach(id => {
-                if (param.notResize.includes(id)) {
+                if (param && param.notResize.includes(id)) {
                     return
                 }
                 charts[id].resize();
@@ -261,14 +261,14 @@ $(window).resize(() => {
 $(function () {
     // 加载源不能写成body>header>*,原因不明
     $('#container>header').load('common.html header>*', function () {
-    // $('#container>header').load('common.html', function () {
+        // $('#container>header').load('common.html', function () {
         Public.setHeaderTime(); // 页面顶部时间
     });
     // 加载设置面板
     $('body>aside').load('common.html aside >*', function () {
         $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
         $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
-        $("#notebookOptim").attr('checked', ['undefined', true].includes(settings.notebookOptim));
+        $("#notebookOptim").attr('checked', [undefined, true].includes(settings.notebookOptim));
         $("#designW").val(settings.designW || 1920);
         $("#designH").val(settings.designH || 1080);
         $("#" + Cfg.zoomMode).prop('checked', true);
