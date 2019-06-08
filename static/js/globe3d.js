@@ -24,6 +24,7 @@ let MapGeo = {
         const that = this;
         let chart = echarts.init($("#ec01_map3d_globe")[0]);
         this.charts.ec01_map3d_globe = chart;
+        chart.setOption(com_charts);
         let opt = {
             legend: {
                 orient: 'vertical',
@@ -33,8 +34,9 @@ let MapGeo = {
             series: [
                 {
                     name: '我的位置',
-                    type: 'effectScatter',
-                    symbolSize: 8 * scale,
+                    type: 'scatter3D',
+                    symbolSize: 32 * scale,
+                    symbol:'pin',
                     itemStyle: {color: 'red'},
                     rippleEffect: {
                         scale: 10 * scale,
@@ -42,7 +44,7 @@ let MapGeo = {
                     }
                 }, {
                     name: '玄奘取经路线(去)',
-                    type: 'lines',
+                    type: 'lines3D',
                     polyline: true,
                     lineStyle: {color: colors[0]},
                     effect: {
@@ -54,7 +56,7 @@ let MapGeo = {
                     data: []
                 }, {
                     name: '玄奘取经路线(去)',
-                    type: 'scatter',
+                    type: 'scatter3D',
                     symbol: 'pin',
                     symbolSize: 24 * scale,
                     label: {
@@ -76,7 +78,7 @@ let MapGeo = {
                     data: []
                 }, {
                     name: '鉴真东渡路线',
-                    type: 'lines',
+                    type: 'lines3D',
                     polyline: true,
                     lineStyle: {color: colors[1]},
                     effect: {
@@ -88,7 +90,7 @@ let MapGeo = {
                     data: []
                 }, {
                     name: '鉴真东渡路线',
-                    type: 'scatter',
+                    type: 'scatter3D',
                     symbol: 'pin',
                     symbolSize: 24 * scale,
                     label: {
@@ -110,7 +112,7 @@ let MapGeo = {
                     data: []
                 }, {
                     name: '我去过的地方',
-                    type: 'scatter',
+                    type: 'scatter3D',
                     symbol: 'arrow',
                     symbolSize: 18 * scale,
                     label: {
@@ -132,16 +134,16 @@ let MapGeo = {
                 }
             ].map(item => {
                 return $.extend(true, item, {
-                    coordinateSystem: 'geo',
+                    coordinateSystem: 'globe',
                     zlevel: 1,
                 })
             }),
             globe: {
-                // baseTexture: "data-gl/asset/world.topo.bathy.200401.jpg",
-                // heightTexture: "data-gl/asset/world.topo.bathy.200401.jpg",
+                baseTexture: "../static/img/world.topo.bathy.200401.jpg",
+                heightTexture: "../static/img/world.topo.bathy.200401.jpg",
                 displacementScale: 0.04,
                 shading: 'realistic',
-                // environment: 'data-gl/asset/starfield.jpg',
+                // environment: '../static/img/starfield.jpg',
                 realisticMaterial: {
                     roughness: 0.9
                 },
@@ -150,12 +152,15 @@ let MapGeo = {
                 },
                 light: {
                     main: {
-                        intensity: 5,
+                        intensity: .8,
                         shadow: true
                     },
+                    ambient:{
+                        intensity: 1,
+                    },
                     ambientCubemap: {
-                        texture: 'data-gl/asset/pisa.hdr',
-                        diffuseIntensity: 0.2
+                        // texture: '../static/img/pisa.hdr',
+                        // diffuseIntensity: 3
                     }
                 }
             }
@@ -173,7 +178,6 @@ let MapGeo = {
         );
         opt = chart.getOption();
         //详细版：https://baijiahao.baidu.com/s?id=1596010378178932953&wfr=spider&for=pc
-/*
         let xuanZangToPoints = [
             {name: '西安', oldName: '长安'},
             // {name: '天水', oldName: '秦州'},
@@ -272,7 +276,6 @@ let MapGeo = {
         }).filter(item => item);
         chart.setOption(opt);
 
-*/
     },
 
     ec03_line_blessings() {

@@ -51,6 +51,7 @@
       text-align: right;
       padding-right: 2rem; }
       #container nav a {
+        padding-left: 1rem;
         color: lightskyblue;
         font-style: italic; }
         #container nav a:hover {
