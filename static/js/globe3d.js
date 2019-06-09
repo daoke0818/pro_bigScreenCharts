@@ -111,6 +111,40 @@ let MapGeo = {
                     itemStyle: {color: colors[1]},
                     data: []
                 }, {
+                    name: '麦哲伦环球航行路线',
+                    type: 'lines3D',
+                    polyline: true,
+                    lineStyle: {color: colors[3]},
+                    effect: {
+                        show: true,
+                        symbolSize: 8 * scale,
+                        constantSpeed: 50 * scale,
+                        trailLength: 0.5 * scale
+                    },
+                    data: []
+                },{
+                    name: '麦哲伦环球航行路线',
+                    type: 'scatter3D',
+                    symbol: 'pin',
+                    symbolSize: 24 * scale,
+                    label: {
+                        show: true,
+                        formatter: param => {
+                            return param.value[2].name;
+                        },
+                        fontSize: 16 * scale,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        formatter: param => {
+                            return `${param.value[2].time}<br>
+                                    ${param.value[2].name}
+                                    <br>${param.value[2].remark || ''}`;
+                        },
+                    },
+                    itemStyle: {color: colors[2]},
+                    data: []
+                }, {
                     name: '我去过的地方',
                     type: 'scatter3D',
                     symbol: 'arrow',
@@ -177,7 +211,7 @@ let MapGeo = {
             }
         );
         opt = chart.getOption();
-        //详细版：https://baijiahao.baidu.com/s?id=1596010378178932953&wfr=spider&for=pc
+
         let xuanZangToPoints = [
             {name: '西安', oldName: '长安'},
             // {name: '天水', oldName: '秦州'},
@@ -214,7 +248,7 @@ let MapGeo = {
             {name: '那烂陀寺', oldName: '摩揭陀国的那烂陀寺', remark: '今印度比哈尔邦王舍城附近'},
             {name: '', oldName: '', remark: ''},
             {name: '', oldName: '', remark: ''},
-        ];
+        ];//详细版：https://baijiahao.baidu.com/s?id=1596010378178932953&wfr=spider&for=pc
         let xuanZangToline = xuanZangToPoints.map(item => geoCoordMap[item.name]).filter(item => item);
         xuanZangToPoints = xuanZangToPoints.map(item => {
             if (!geoCoordMap[item.name]) return false;
@@ -249,7 +283,38 @@ let MapGeo = {
         opt.series[3].data = [{coords: jianZhenLine}];
         opt.series[4].data = jianZhenPoints;
 
-        opt.series[5].data = [
+        let MagellanPoints = [
+            {name: '塞维利亚', oldName: '',time:'1519年8月10日', remark: ''},
+            {name: '桑卢卡尔－德巴拉梅达', oldName: '',time:'1519年9月20日', remark: '离开西班牙'},
+            {name: '加纳利群岛', oldName: '',time:'1519年9月26日', remark: ''},
+            {name: '里约热内卢', oldName: '桑塔露琪亚湾',time:'1519年12月13日', remark: ''},
+            {name: '拉普拉塔河', oldName: '索利斯河',time:'1520年1月10日', remark: '初以为发现海峡'},
+            {name: '圣胡利安湾', oldName: '',time:'1520年3月31日', remark: '1520年4月7日，圣胡利安湾叛变，麦哲伦平乱'},
+            // {name: '圣胡利安湾', oldName: '',time:'1520年4月7日', remark: '圣胡利安湾叛变，麦哲伦平乱'},
+            {name: '', oldName: '',time:'1520年5月22日', remark: '“圣地亚哥”号沉没，船员获救'},
+            {name: '维尔赫纳斯角', oldName: '',time:'1520年10月21日', remark: '经纬度是从地图目测选取的'},
+            {name: '麦哲伦海峡', oldName: '',time:'', remark: '1520年11月,“圣安东尼奥”号逃跑回西班牙'},
+            {name: '希望角', oldName: '',time:'1520年11月28日', remark: ''},
+            {name: '圣保罗岛', oldName: '',time:'1521年1月24日', remark: ''},
+            {name: '提布龙岛', oldName: '',time:'1521年2月4日', remark: ''},
+            {name: '强盗岛', oldName: '',time:'1521年3月6日', remark: ''},
+            {name: '菲律宾群岛', oldName: '',time:'1521年3月16日', remark: ''},
+            {name: '马萨瓦群岛', oldName: '',time:'1521年3月28日', remark: '马来奴隶恩里克听见家乡话，终于证实地球是一个圆球体'},
+            {name: '宿雾岛', oldName: '',time:'1521年4月7日', remark: '抵达宿雾岛'},
+            {name: '马克坦', oldName: '',time:'1521年4月27日', remark: '麦哲伦介入部落间的战斗，在马克坦丧生'},
+            {name: '塞维利亚港', oldName: '',time:'1522年9月8日', remark: '“维多利亚”号独自返回西班牙塞维利亚港'},
+        ];
+        let MagellanLine = MagellanPoints.map(item => geoCoordMap[item.name]).filter(item => item);
+        MagellanPoints = MagellanPoints.map(item => {
+            if (!geoCoordMap[item.name]) return false;
+            item = geoCoordMap[item.name].concat(item);
+            return item
+        }).filter(item => item);
+        opt.series[5].data = [{coords: MagellanPoints}];
+        opt.series[6].data = MagellanPoints;
+
+
+        opt.series[7].data = [
             // 宝鸡，青岛，西安，乌鲁木齐，库尔勒，阿克苏，克拉玛依，昌吉，奎屯，吐鲁番，北京，大连，哈尔滨，杭州，苏州，西塘，上海，济南。
             {name: '宝鸡', remark: '家乡'},
             {name: '青岛', remark: '求学之地'},
