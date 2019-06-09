@@ -9,7 +9,7 @@ let globe3d = {
     loadData() {
         const that = this;
         this.ec01_map();
-        this.ec03_line_blessings();
+        this.ec02_pie_spouseDirection();
         // 地图切换事件
 /*
         $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
@@ -372,118 +372,19 @@ let globe3d = {
         chart.setOption(opt);
 
     },
-
-    ec03_line_blessings() {
-        const chart = echarts.init($("#ec03_line_blessings")[0]);
+/*Math.asin(.5)/Math.PI*180
+* https://www.sojson.com/open/api/lunar/json.shtml?date=1985-10-02*/
+    ec02_pie_spouseDirection() {
+        const chart = echarts.init($("#ec02_pie_spouseDirection")[0]);
         this.charts.ec03_line_blessings = chart;
-        chart.setOption(opt_line);
-        let [xData, data] = [[], []];
-        let [xDataNew, dataNew] = [[], []];
-        for (let i = 0; i <= 120; i++) {
-            xData.push(i);
-            data.push(Math.random() * 200 - 100)
-        }
+        chart.setOption(opt_pie);
+        $('#spouseDirection_input').change(function () {
+            $.get({url:'https://www.sojson.com/open/api/lunar/json.shtml?date='+$(this).val(),
+                dataType:'jsonp',success:(data) =>{
+                console.log(data)
+            }})
 
-        chart.setOption({
-            grid: {
-                top: '11%',
-                right: '13%'
-            },
-            xAxis: {
-                // name:'年龄',
-                nameGap: 5 * scale,
-                data: xData
-            },
-            yAxis: {
-                name: '福报',
-                nameGap: 5 * scale,
-                min: -110,
-                max: 110
-            },
-            toolTip: {},
-            dataZoom: { // 本图表option的个性
-                type: 'inside',
-            },
-            visualMap: [{
-                show: false,
-                type: 'continuous',
-                seriesIndex: 0,
-                min: -100,
-                max: 100,
-                inRange: {
-                    // color: ['#000', 'lightblue'],
-                    color: ['red', 'yellow', 'lightgreen'],
-                    // symbolSize: [30, 100]
-                }
-            }],
-            series: [{
-                data: data,
-                markLine: {
-                    silent: true,
-                    label: {show: false},
-                    symbolSize: 15 * scale,
-                    data: [{
-                        yAxis: -100
-                    }, {
-                        yAxis: 0
-                    }, {
-                        yAxis: 100
-                    }]
-                },
-            }].map(item => {
-                return $.extend(true, {}, seri_line, item)
-            })
-        });
-
-        let message = '云谷禅师曰：' +
-            '\n人未能无心（凡人都会起心动念），终为阴阳所缚，安得无数（所以有命运）？' +
-            '\n但惟凡人有数（不过只有凡人是这样）。' +
-            '\n极善之人。数固拘他不定。极恶之人。数亦拘他不定。（而极善极恶之人才能逃脱命运束缚）';
-        let setOpt = (param) => {
-            let [startTime, val] = [$("#startTime_input_show").val(), $('#blessings_input').val()];
-
-            dataNew = data.map((item, index) => {
-                if (index < startTime) {
-                    return item;
-                }
-                if (["100", "-100"].includes(val)) {
-                    return val
-                }
-                let range = (1 - (val > 0 ? item : -item) / 100);
-                let tempVal = range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10);
-                return tempVal > 100 ? 100 : (tempVal < -100 ? -100 : tempVal);
-            });
-            chart.setOption({
-                series: [{
-                    data: dataNew,
-                    markLine: {
-                        silent: true,
-                        symbolSize: 15 * scale,
-                        data: [{
-                            yAxis: -100
-                        }, {
-                            yAxis: val
-                        }, {
-                            yAxis: 100
-                        }]
-                    },
-                }].map(item => {
-                    return $.extend(true, {}, seri_line, item)
-                })
-            })
-            if (param !== 'startTime' && ["100", "-100"].includes(val)) {
-                alert(message)
-            }
-        }
-        $('#blessings_input').change(function () {
-            let val = $(this).val();
-            $("#blessings_input_show").val($(this).val());
-            setOpt();
-        });
-        $('#startTime_input').change(function () {
-            $("#startTime_input_show").val($(this).val());
-            setOpt('startTime');
-        });
+        })
 
     },
     ec04_pie_life() {
