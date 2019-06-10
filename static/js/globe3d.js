@@ -11,15 +11,15 @@ let globe3d = {
         this.ec01_map();
         this.ec02_pie_spouseDirection();
         // 地图切换事件
-/*
-        $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
-            if ($(this).val() === 'geo') {
-                $("#ec01_map_geoMap").parent().show().siblings('.chart-box').hide();
-            } else {
-                $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
-            }
-        });
-*/
+        /*
+                $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
+                    if ($(this).val() === 'geo') {
+                        $("#ec01_map_geoMap").parent().show().siblings('.chart-box').hide();
+                    } else {
+                        $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
+                    }
+                });
+        */
         this.ec04_pie_life();
     },
     ec01_map() {
@@ -32,8 +32,8 @@ let globe3d = {
                 orient: 'vertical',
                 right: '2%',
                 bottom: '5%',
-                selected:{
-                    '我去过的地方':false
+                selected: {
+                    '我去过的地方': false
                 }
             },
             series: [
@@ -41,7 +41,7 @@ let globe3d = {
                     name: '我的位置',
                     type: 'scatter3D',
                     symbolSize: 32 * scale,
-                    symbol:'pin',
+                    symbol: 'pin',
                     itemStyle: {color: 'red'},
                     rippleEffect: {
                         scale: 10 * scale,
@@ -119,10 +119,10 @@ let globe3d = {
                     name: '麦哲伦环球航行路线',
                     type: 'lines3D',
                     polyline: true,
-                    distance:200,
+                    distance: 200,
                     lineStyle: {
                         color: colors[3],
-                        width:2*scale
+                        width: 2 * scale
                     },
                     effect: {
                         show: true,
@@ -131,7 +131,7 @@ let globe3d = {
                         trailLength: 0.5 * scale
                     },
                     data: []
-                },{
+                }, {
                     name: '麦哲伦环球航行路线',
                     type: 'scatter3D',
                     symbol: 'pin',
@@ -186,11 +186,11 @@ let globe3d = {
                 heightTexture: "../static/img/world.topo.bathy.200401.jpg",
                 displacementScale: 0.04,
                 // globeRadius:50,
-                globeOuterRadius:240, //对lines3d无效
+                globeOuterRadius: 240, //对lines3d无效
                 shading: 'realistic',
-                viewControl:{
-                    autoRotate:false,
-                    minDistance:20,
+                viewControl: {
+                    autoRotate: false,
+                    minDistance: 20,
                     targetCoord: [120.38, 36.07],
                 },
                 // environment: '../static/img/starfield.jpg',
@@ -205,7 +205,7 @@ let globe3d = {
                         intensity: .8,
                         shadow: true
                     },
-                    ambient:{
+                    ambient: {
                         intensity: 1,
                     },
                     ambientCubemap: {
@@ -300,39 +300,39 @@ let globe3d = {
         opt.series[4].data = jianZhenPoints;
 
         let MagellanPoints = [
-            {name: '塞维利亚', oldName: '',time:'1519年8月10日', remark: ''},
-            {name: '桑卢卡尔－德巴拉梅达', oldName: '',time:'1519年9月20日', remark: '离开西班牙'},
-            {name: '加纳利群岛', oldName: '',time:'1519年9月26日', remark: ''},
-            {name: '大西洋辅助点1', oldName: '',time:'', remark: ''},
-            {name: '大西洋辅助点2', oldName: '',time:'', remark: ''},
-            {name: '大西洋辅助点3', oldName: '',time:'', remark: ''},
-            {name: '里约热内卢', oldName: '桑塔露琪亚湾',time:'1519年12月13日', remark: ''},
-            {name: '拉普拉塔河', oldName: '索利斯河',time:'1520年1月10日', remark: '初以为发现海峡'},
-            {name: '圣胡利安湾', oldName: '',time:'1520年3月31日', remark: '1520年4月7日，圣胡利安湾叛变，麦哲伦平乱'},
+            {name: '塞维利亚', oldName: '', time: '1519年8月10日', remark: ''},
+            {name: '桑卢卡尔－德巴拉梅达', oldName: '', time: '1519年9月20日', remark: '离开西班牙'},
+            {name: '加纳利群岛', oldName: '', time: '1519年9月26日', remark: ''},
+            {name: '大西洋辅助点1', oldName: '', time: '', remark: ''},
+            {name: '大西洋辅助点2', oldName: '', time: '', remark: ''},
+            {name: '大西洋辅助点3', oldName: '', time: '', remark: ''},
+            {name: '里约热内卢', oldName: '桑塔露琪亚湾', time: '1519年12月13日', remark: ''},
+            {name: '拉普拉塔河', oldName: '索利斯河', time: '1520年1月10日', remark: '初以为发现海峡'},
+            {name: '圣胡利安湾', oldName: '', time: '1520年3月31日', remark: '1520年4月7日，圣胡利安湾叛变，麦哲伦平乱'},
             // {name: '圣胡利安湾', oldName: '',time:'1520年4月7日', remark: '圣胡利安湾叛变，麦哲伦平乱'},
-            {name: '', oldName: '',time:'1520年5月22日', remark: '“圣地亚哥”号沉没，船员获救'},
-            {name: '维尔赫纳斯角', oldName: '',time:'1520年10月21日', remark: '经纬度是从地图目测选取的'},
-            {name: '麦哲伦海峡', oldName: '万圣海峡',time:'', remark: '1520年11月,“圣安东尼奥”号逃跑回西班牙'},
-            {name: '希望角', oldName: '',time:'1520年11月28日', remark: ''},
-            {name: '太平洋辅助点1', oldName: '',time:'', remark: ''},
-            {name: '太平洋辅助点2', oldName: '',time:'', remark: ''},
-            {name: '普卡普卡岛', oldName: '鲨鱼群岛',time:'', remark: ''},
-            {name: '弗林特岛', oldName: '圣保罗岛',time:'1521年1月24日', remark: ''},
+            {name: '', oldName: '', time: '1520年5月22日', remark: '“圣地亚哥”号沉没，船员获救'},
+            {name: '维尔赫纳斯角', oldName: '', time: '1520年10月21日', remark: '经纬度是从地图目测选取的'},
+            {name: '麦哲伦海峡', oldName: '万圣海峡', time: '', remark: '1520年11月,“圣安东尼奥”号逃跑回西班牙'},
+            {name: '希望角', oldName: '', time: '1520年11月28日', remark: ''},
+            {name: '太平洋辅助点1', oldName: '', time: '', remark: ''},
+            {name: '太平洋辅助点2', oldName: '', time: '', remark: ''},
+            {name: '普卡普卡岛', oldName: '鲨鱼群岛', time: '', remark: ''},
+            {name: '弗林特岛', oldName: '圣保罗岛', time: '1521年1月24日', remark: ''},
             // {name: '提布龙岛', oldName: '',time:'1521年2月4日', remark: ''},
-            {name: '马里亚纳群岛', oldName: '强盗岛',time:'1521年3月6日', remark: ''},
-            {name: '萨玛1', oldName: '',time:'1521年3月16日', remark: ''},
-            {name: '萨玛2', oldName: '',time:'1521年3月16日', remark: ''},
-            {name: '霍蒙洪岛', oldName: '',time:'1521年3月17日', remark: ''},
-            {name: '利马萨瓦', oldName: '',time:'1521年3月28日', remark: '马来奴隶恩里克听见家乡话，终于证实地球是一个圆球体'},
-            {name: '宿雾岛', oldName: '',time:'1521年4月7日', remark: '抵达宿雾岛'},
-            {name: '麦克坦', oldName: '',time:'1521年4月27日', remark: '麦哲伦介入部落间的战斗，在麦克坦丧生'},
-            {name: '巴拉望', oldName: '',time:'', remark: ''},
-            {name: '文莱', oldName: '',time:'', remark: ''},
-            {name: '蒂多雷', oldName: '',time:'1521年11月8日', remark: ''},
-            {name: '安汶岛', oldName: '',time:'1521年12月29日', remark: ''},
-            {name: '帝汶', oldName: '',time:'1522年1月25日', remark: ''},
-            {name: '好望角', oldName: '',time:'1522年5月19日', remark: ''},
-            {name: '塞维利亚', oldName: '',time:'1522年9月6日', remark: '“维多利亚”号独自返回西班牙塞维利亚港'},
+            {name: '马里亚纳群岛', oldName: '强盗岛', time: '1521年3月6日', remark: ''},
+            {name: '萨玛1', oldName: '', time: '1521年3月16日', remark: ''},
+            {name: '萨玛2', oldName: '', time: '1521年3月16日', remark: ''},
+            {name: '霍蒙洪岛', oldName: '', time: '1521年3月17日', remark: ''},
+            {name: '利马萨瓦', oldName: '', time: '1521年3月28日', remark: '马来奴隶恩里克听见家乡话，终于证实地球是一个圆球体'},
+            {name: '宿雾岛', oldName: '', time: '1521年4月7日', remark: '抵达宿雾岛'},
+            {name: '麦克坦', oldName: '', time: '1521年4月27日', remark: '麦哲伦介入部落间的战斗，在麦克坦丧生'},
+            {name: '巴拉望', oldName: '', time: '', remark: ''},
+            {name: '文莱', oldName: '', time: '', remark: ''},
+            {name: '蒂多雷', oldName: '', time: '1521年11月8日', remark: ''},
+            {name: '安汶岛', oldName: '', time: '1521年12月29日', remark: ''},
+            {name: '帝汶', oldName: '', time: '1522年1月25日', remark: ''},
+            {name: '好望角', oldName: '', time: '1522年5月19日', remark: ''},
+            {name: '塞维利亚', oldName: '', time: '1522年9月6日', remark: '“维多利亚”号独自返回西班牙塞维利亚港'},
         ];
         let MagellanLine = MagellanPoints.map(item => geoCoordMap[item.name]).filter(item => item);
         MagellanPoints = MagellanPoints.map(item => {
@@ -372,17 +372,71 @@ let globe3d = {
         chart.setOption(opt);
 
     },
-/*Math.asin(.5)/Math.PI*180
-* https://www.sojson.com/open/api/lunar/json.shtml?date=1985-10-02*/
+    /*Math.asin(.5)/Math.PI*180
+    * https://www.sojson.com/open/api/lunar/json.shtml?date=1985-10-02*/
     ec02_pie_spouseDirection() {
+        $('#spouseDirection_submit').click(function () {
+            let [mon, date] = [$("#spouseDirection_input_m").val(), $("#spouseDirection_input_d").val()];
+            if (!((mon <= 12 && mon >= 1) && (date <= 30 && date >= 1))) {
+                alert('请输入正确的生日')
+            }
+
+        })
         const chart = echarts.init($("#ec02_pie_spouseDirection")[0]);
         this.charts.ec03_line_blessings = chart;
         chart.setOption(opt_pie);
+        chart.setOption({
+            legend: {show: false},
+            series: [{
+                data: '子丑寅卯辰巳午未申酉戌亥'.split('').map((item) => {
+                    return {
+                        name: item,
+                        value: 1
+                    }
+                })
+            }, {
+                data: [
+                    {
+                        name: '',
+                        value: 30,
+                        itemStyle: {
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor:'red',
+                        }
+                    },
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
+                    {
+                        name: '',
+                        value: 30,
+                        itemStyle: {
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor:'red',
+                        }
+                    },
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
+                ]
+            }].map(item => {
+                return $.extend(true, {}, seri_pie, item, {
+                    silent: true,
+                    label: {
+                        position: 'inside',
+                        verticalAlign: 'top'
+                    },
+                    center: notebookOptim ? ['26%', '60%'] : ['50%', '55%'],
+                    radius: [0, notebookOptim ? '33%' : '80%'],
+                    startAngle: '105',
+                })
+            })
+        })
         $('#spouseDirection_input').change(function () {
-            $.get({url:'https://www.sojson.com/open/api/lunar/json.shtml?date='+$(this).val(),
-                dataType:'jsonp',success:(data) =>{
-                console.log(data)
-            }})
+            $.get({
+                url: 'https://www.sojson.com/open/api/lunar/json.shtml?date=' + $(this).val(),
+                dataType: 'jsonp', success: (data) => {
+                    console.log(data)
+                }
+            })
 
         })
 

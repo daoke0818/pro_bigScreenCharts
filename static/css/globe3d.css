@@ -35,6 +35,8 @@ main .r {
     padding: 1rem; }
     main .r > div .chart-wrap {
       position: relative; }
+main .r-t .chart-wrap .input-group {
+  margin-left: 1rem; }
 main .r-b .text {
   position: absolute;
   top: 4rem;
