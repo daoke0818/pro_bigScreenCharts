@@ -37,6 +37,11 @@ main .r {
       position: relative; }
 main .r-t .chart-wrap .input-group {
   margin-left: 1rem; }
+main .r-t .chart-wrap .text {
+  position: absolute;
+  width: 38%;
+  right: 1rem;
+  top: 8rem; }
 main .r-b .text {
   position: absolute;
   top: 4rem;

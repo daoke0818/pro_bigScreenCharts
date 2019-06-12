@@ -376,7 +376,7 @@ let globe3d = {
     * https://www.sojson.com/open/api/lunar/json.shtml?date=1985-10-02*/
     ec02_pie_spouseDirection() {
         const chart = echarts.init($("#ec02_pie_spouseDirection")[0]);
-        this.charts.ec03_line_blessings = chart;
+        this.charts.ec02_pie_spouseDirection = chart;
         chart.setOption(opt_pie);
         chart.setOption({
             legend: {show: false},
@@ -419,22 +419,29 @@ let globe3d = {
                         verticalAlign: 'top'
                     },
                     animationDurationUpdate:2000,
-                    center: notebookOptim ? ['26%', '60%'] : ['50%', '55%'],
-                    radius: [0, notebookOptim ? '33%' : '80%'],
+                    animationEasing:'exponentialOut',
+                    center: ['30%', '50%'],
+                    radius: [0,'80%'],
                 }, item)
             })
-        })
+        });
         let opt = chart.getOption();
         $('#spouseDirection_submit').click(function () {
+            opt.series[1].startAngle %= 360;
+            opt.series[1].animationDurationUpdate = 0;
+            chart.setOption(opt);
             let [mon, date] = [$("#spouseDirection_input_m").val(), $("#spouseDirection_input_d").val()];
             if (!((mon <= 12 && mon >= 1) && (date <= 30 && date >= 1))) {
-                alert('请输入正确的生日')
+                alert('请输入正确的生日');
                 return
             }
-            let num = mon - 0 + (date - 0);
-            opt.series[1].startAngle = -(num-1)*30-105+3600;
-            chart.setOption(opt)
-            alert(num)
+            setTimeout(function () {
+                let num = mon - 0 + (date - 0);
+                opt.series[1].startAngle = -(num-1)*30-105-1800;
+                opt.series[1].animationDurationUpdate = 5000;
+                chart.setOption(opt);
+            },0)
+
 
         })
 
