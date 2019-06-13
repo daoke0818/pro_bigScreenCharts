@@ -48,6 +48,9 @@ main .r {
     position: absolute;
     left: 9.75rem;
     top: 1rem; }
+  main .r .r-t .chart-wrap .chart.notebook:before {
+    left: 7.75rem;
+    top: .5rem; }
   main .r .r-t .chart-wrap .input-group {
     margin-left: 1rem; }
   main .r .r-t .chart-wrap .text {
@@ -55,6 +58,9 @@ main .r {
     width: 38%;
     right: 1rem;
     top: 9rem; }
+    main .r .r-t .chart-wrap .text.notebook {
+      width: 13rem;
+      top: 7rem; }
   main .r .r-b .text {
     position: absolute;
     top: 4rem;

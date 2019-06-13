@@ -419,16 +419,16 @@ let MapGeo = {
                         value: 1
                     }
                 }),
+                startAngle: '105',
                 label:{
-                    height: 2456,
                     fontSize:16*scale,
-                    verticalAlign:'bottom',
                     textShadowColor:'#000',
                     textShadowBlur:.5*scale,
                     textShadowOffsetX:scale,
                     textShadowOffsetY:scale,
                 }
             }, {
+                startAngle: '45',
                 data: [
                     {
                         name: '',
@@ -453,13 +453,11 @@ let MapGeo = {
                 ]
             }].map(item => {
                 return $.extend(true, {}, seri_pie, {
-                    startAngle: '105',
                     silent: true,
                     label: {
                         position: 'inside',
                         verticalAlign: 'top'
                     },
-                    animationDurationUpdate:2000,
                     animationEasing:'exponentialOut',
                     center: ['30%', '55%'],
                     radius: [0,'76%'],

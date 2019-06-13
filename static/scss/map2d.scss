@@ -80,6 +80,10 @@ main {
             left: 9.75rem;
             top: 1rem;
           }
+          &.notebook:before{
+            left: 7.75rem;
+            top: .5rem;
+          }
         }
         .input-group{
           margin-left: 1rem;
@@ -89,6 +93,10 @@ main {
           width: 38%;
           right: 1rem;
           top: 9rem;
+          &.notebook{
+            width: 13rem;
+            top: 7rem;
+          }
         }
       }
     }

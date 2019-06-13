@@ -46,8 +46,8 @@
 					<h3>配偶方位预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
 					<div class="input-group">
 						<label>你的生日(农历)：
-							<input type="number" id="spouseDirection_input_m" min="1" max="12" value="7"> 月
-							<input type="number" id="spouseDirection_input_d" min="1" max="30" value="7"> 日
+							<input type="number" id="spouseDirection_input_m" min="1" max="12" value="1"> 月
+							<input type="number" id="spouseDirection_input_d" min="1" max="30" value="1"> 日
 							<!--                           <select id="spouseDirection_input_m" >
                                                            <option value="-">请选择</option>
                                                            <option value="1">正月</option>
@@ -145,7 +145,15 @@
 <aside></aside>
 <script>
 	if(notebookOptim){
-		$('.ec04_pie_life .input-group>label,.r-b .text,#blessings_input,#startTime_input,.blessings-input-wrap .label2').addClass('notebook');
+		$(`.ec04_pie_life .input-group>label,
+			.r-t .text,
+			.r-t .chart,
+			.r-b .text,
+			#blessings_input,
+			#startTime_input,
+			.blessings-input-wrap .label2
+
+			`).addClass('notebook');
 	}
 </script>
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
