@@ -10,7 +10,7 @@ let MapGeo = {
         const that = this;
         this.ec01_map('ec01_map_geoMap'); //geo地图
         this.ec01_map('ec02_map_bMap'); //百度地图
-        this.ec03_line_blessings();
+        this.ec02_pie_spouseDirection();
         // 地图切换事件
         $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
             if ($(this).val() === 'geo') {
@@ -406,117 +406,85 @@ let MapGeo = {
 
 
     },
-    ec03_line_blessings() {
-        const chart = echarts.init($("#ec03_line_blessings")[0]);
-        this.charts.ec03_line_blessings = chart;
-        chart.setOption(opt_line);
-        let [xData, data] = [[], []];
-        let [xDataNew, dataNew] = [[], []];
-        for (let i = 0; i <= 120; i++) {
-            xData.push(i);
-            data.push(Math.random() * 200 - 100)
-        }
-
+    ec02_pie_spouseDirection() {
+        const chart = echarts.init($("#ec02_pie_spouseDirection")[0]);
+        this.charts.ec02_pie_spouseDirection = chart;
+        chart.setOption(opt_pie);
         chart.setOption({
-            grid: {
-                top: '11%',
-                right: '13%'
-            },
-            xAxis: {
-                // name:'年龄',
-                nameGap: 5 * scale,
-                data: xData
-            },
-            yAxis: {
-                name: '福报',
-                nameGap: 5 * scale,
-                min: -110,
-                max: 110
-            },
-            toolTip: {},
-            dataZoom: { // 本图表option的个性
-                type: 'inside',
-            },
-            visualMap: [{
-                show: false,
-                type: 'continuous',
-                seriesIndex: 0,
-                min: -100,
-                max: 100,
-                inRange: {
-                    // color: ['#000', 'lightblue'],
-                    color: ['red', 'yellow', 'lightgreen'],
-                    // symbolSize: [30, 100]
-                }
-            }],
+            legend: {show: false},
             series: [{
-                data: data,
-                markLine: {
-                    silent: true,
-                    label: {show: false},
-                    symbolSize: 15 * scale,
-                    data: [{
-                        yAxis: -100
-                    }, {
-                        yAxis: 0
-                    }, {
-                        yAxis: 100
-                    }]
-                },
-            }].map(item => {
-                return $.extend(true, {}, seri_line, item)
-            })
-        });
-
-        let message = '云谷禅师曰：' +
-            '\n人未能无心（凡人都会起心动念），终为阴阳所缚，安得无数（所以有命运）？' +
-            '\n但惟凡人有数（不过只有凡人是这样）。' +
-            '\n极善之人。数固拘他不定。极恶之人。数亦拘他不定。（而极善极恶之人才能逃脱命运束缚）';
-        let setOpt = (param) => {
-            let [startTime, val] = [$("#startTime_input_show").val(), $('#blessings_input').val()];
-
-            dataNew = data.map((item, index) => {
-                if (index < startTime) {
-                    return item;
+                data: '子丑寅卯辰巳午未申酉戌亥'.split('').map((item) => {
+                    return {
+                        name: item,
+                        value: 1
+                    }
+                }),
+                label:{
+                    height: 2456,
+                    fontSize:16*scale,
+                    verticalAlign:'bottom',
+                    textShadowColor:'#000',
+                    textShadowBlur:.5*scale,
+                    textShadowOffsetX:scale,
+                    textShadowOffsetY:scale,
                 }
-                if (["100", "-100"].includes(val)) {
-                    return val
-                }
-                let range = (1 - (val > 0 ? item : -item) / 100);
-                let tempVal = range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10);
-                return tempVal > 100 ? 100 : (tempVal < -100 ? -100 : tempVal);
-            });
-            chart.setOption({
-                series: [{
-                    data: dataNew,
-                    markLine: {
-                        silent: true,
-                        symbolSize: 15 * scale,
-                        data: [{
-                            yAxis: -100
-                        }, {
-                            yAxis: val
-                        }, {
-                            yAxis: 100
-                        }]
+            }, {
+                data: [
+                    {
+                        name: '',
+                        value: 30,
+                        itemStyle: {
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor: 'red',
+                        }
                     },
-                }].map(item => {
-                    return $.extend(true, {}, seri_line, item)
-                })
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
+                    {
+                        name: '',
+                        value: 30,
+                        itemStyle: {
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor: 'red',
+                        }
+                    },
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
+                ]
+            }].map(item => {
+                return $.extend(true, {}, seri_pie, {
+                    startAngle: '105',
+                    silent: true,
+                    label: {
+                        position: 'inside',
+                        verticalAlign: 'top'
+                    },
+                    animationDurationUpdate:2000,
+                    animationEasing:'exponentialOut',
+                    center: ['30%', '55%'],
+                    radius: [0,'76%'],
+                }, item)
             })
-            if (param !== 'startTime' && ["100", "-100"].includes(val)) {
-                alert(message)
+        });
+        let opt = chart.getOption();
+        $('#spouseDirection_submit').click(function () {
+            opt.series[1].startAngle %= 360;
+            opt.series[1].animationDurationUpdate = 0;
+            chart.setOption(opt);
+            let [mon, date] = [$("#spouseDirection_input_m").val(), $("#spouseDirection_input_d").val()];
+            if (!((mon <= 12 && mon >= 1) && (date <= 30 && date >= 1))) {
+                alert('请输入正确的生日');
+                return
             }
-        }
-        $('#blessings_input').change(function () {
-            let val = $(this).val();
-            $("#blessings_input_show").val($(this).val());
-            setOpt();
-        });
-        $('#startTime_input').change(function () {
-            $("#startTime_input_show").val($(this).val());
-            setOpt('startTime');
-        });
+            setTimeout(function () {
+                let num = mon - 0 + (date - 0);
+                opt.series[1].startAngle = -(num-1)*30-105-1800;
+                opt.series[1].animationDurationUpdate = 5000;
+                chart.setOption(opt);
+            },0)
+
+
+        })
 
     },
     ec04_pie_life() {

@@ -43,20 +43,66 @@
 		<div class="r">
 			<div class="r-t">
 				<div class="chart-wrap">
-					<h3>福报/运气趋势预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
-					<div class="input-group startTime-input-wrap">
-						<label for="startTime_input">开始年龄：
-							<output id="startTime_input_show">36</output>
-							岁</label>
-						<input id="startTime_input" type="range" value="36" min="0" max="120">
+					<h3>配偶方位预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
+					<div class="input-group">
+						<label>你的生日(农历)：
+							<input type="number" id="spouseDirection_input_m" min="1" max="12" value="7"> 月
+							<input type="number" id="spouseDirection_input_d" min="1" max="30" value="7"> 日
+							<!--                           <select id="spouseDirection_input_m" >
+                                                           <option value="-">请选择</option>
+                                                           <option value="1">正月</option>
+                                                           <option value="2">二月</option>
+                                                           <option value="3">三月</option>
+                                                           <option value="4">四月</option>
+                                                           <option value="5">五月</option>
+                                                           <option value="6">六月</option>
+                                                           <option value="7">七月</option>
+                                                           <option value="8">八月</option>
+                                                           <option value="9">九月</option>
+                                                           <option value="10">十月</option>
+                                                           <option value="11">冬月</option>
+                                                           <option value="12">腊月</option>
+                                                       </select>
+                                                       <select id="spouseDirection_input_d" >
+                                                           <option value="-">请选择</option>
+                                                           <option value="1">初一</option>
+                                                           <option value="2">初二</option>
+                                                           <option value="3">初三</option>
+                                                           <option value="4">初四</option>
+                                                           <option value="5">初五</option>
+                                                           <option value="6">初六</option>
+                                                           <option value="7">初七</option>
+                                                           <option value="8">初八</option>
+                                                           <option value="9">初九</option>
+                                                           <option value="10">初十</option>
+                                                           <option value="1">十一</option>
+                                                           <option value="2">十二</option>
+                                                           <option value="3">十三</option>
+                                                           <option value="4">十四</option>
+                                                           <option value="5">十五</option>
+                                                           <option value="6">十六</option>
+                                                           <option value="7">十七</option>
+                                                           <option value="8">十八</option>
+                                                           <option value="9">十九</option>
+                                                           <option value="10">二十</option>
+                                                           <option value="1">十一</option>
+                                                           <option value="2">十二</option>
+                                                           <option value="3">十三</option>
+                                                           <option value="4">十四</option>
+                                                           <option value="5">十五</option>
+                                                           <option value="6">十六</option>
+                                                           <option value="7">十七</option>
+                                                           <option value="8">十八</option>
+                                                           <option value="9">十九</option>
+                                                           <option value="10">二十</option>
+                                                       </select>
+                           -->                        </label>
+						<button id="spouseDirection_submit">测一测</button>
 					</div>
-					<div class="chart" id="ec03_line_blessings"></div>
-					<div class="input-group blessings-input-wrap">
-						<label for="blessings_input">付出：
-							<output id="blessings_input_show">0</output>
-						</label>
-						<span class="label1">善</span><span class="label2">恶</span>
-						<input id="blessings_input" type="range" value="0" min="-100" max="100">
+					<div class="chart" id="ec02_pie_spouseDirection"></div>
+					<div class="text">
+						<p>如果找对象，预测结果可以作为一个参考方向；如果已是夫妻，两人测得结果和实际方位都匹配的自然概率是2.78%，其中只有一方匹配的自然概率是16.67%。</p>
+						<p>猜对者请继续保持和谐，猜不对也请继续努力，夫妻相敬如宾，必能幸福长久！</p>
 					</div>
 				</div>
 			</div>

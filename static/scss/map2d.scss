@@ -46,11 +46,22 @@ main {
       }
     }
   }
+  .chart-wrap {
+    border: .0625rem solid rgba(76, 180, 231, 0.33);
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .chart {
+      flex: 1;
+      height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
+    }
+  }
 
   .r {
     flex: 0 0 33.33%;
     flex-direction: column;
-
     > div {
       display: flex;
       flex: 0 0 50%;
@@ -58,80 +69,30 @@ main {
 
       .chart-wrap {
         position: relative;
-
-        .blessings-input-wrap {
-          position: absolute;
-          right: 3rem;
-          padding-top: 7rem;
-
-          #blessings_input {
-
-            position: relative;
-            transform: rotate(-90deg);
-            transform-origin: right top;
-            top: 1.5rem;
-            width: 16rem;
-
-            &.notebook {
-              top: 1rem;
-              width: 10rem;
-            }
-
-          }
-
-          label {
+      }
+    }
+    .r-t {
+      .chart-wrap{
+        .chart{
+          &:before{
+            content: '北↑';
             position: absolute;
-            right: -2rem;
-
-            #blessings_input_show {
-              //position: absolute;
-              //top: 0;
-            }
-          }
-
-          .label1, .label2 {
-            position: absolute;
-            right: 0;
-          }
-
-          .label1 {
-            top: 8.5rem;
-          }
-
-          .label2 {
-            top: 23rem;
-
-            &.notebook {
-              top: 16.5rem;
-            }
-          }
-
-        }
-
-        .startTime-input-wrap {
-          position: relative;
-          height: 3rem;
-          z-index: 1;
-
-          label {
-            position: absolute;
-            top: 0;
-            right: 4rem;
-          }
-
-          #startTime_input {
-            position: absolute;
+            left: 9.75rem;
             top: 1rem;
-            left: 3rem;
-            width: 29rem;
-
-            &.notebook {
-              width: 22rem;
-            }
           }
+        }
+        .input-group{
+          margin-left: 1rem;
+        }
+        .text{
+          position: absolute;
+          width: 38%;
+          right: 1rem;
+          top: 9rem;
         }
       }
     }
+
 
     .r-b {
       .text {
@@ -242,17 +203,5 @@ main {
   }
 
 
-  .chart-wrap {
-    border: .0625rem solid rgba(76, 180, 231, 0.33);
-
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-
-    .chart {
-      flex: 1;
-      height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
-    }
-  }
 
 }

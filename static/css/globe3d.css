@@ -35,13 +35,46 @@ main .r {
     padding: 1rem; }
     main .r > div .chart-wrap {
       position: relative; }
-main .r-t .chart-wrap .input-group {
-  margin-left: 1rem; }
-main .r-t .chart-wrap .text {
-  position: absolute;
-  width: 38%;
-  right: 1rem;
-  top: 8rem; }
+      main .r > div .chart-wrap .blessings-input-wrap {
+        position: absolute;
+        right: 3rem;
+        padding-top: 7rem; }
+        main .r > div .chart-wrap .blessings-input-wrap #blessings_input {
+          position: relative;
+          transform: rotate(-90deg);
+          transform-origin: right top;
+          top: 1.5rem;
+          width: 16rem; }
+          main .r > div .chart-wrap .blessings-input-wrap #blessings_input.notebook {
+            top: 1rem;
+            width: 10rem; }
+        main .r > div .chart-wrap .blessings-input-wrap label {
+          position: absolute;
+          right: -2rem; }
+        main .r > div .chart-wrap .blessings-input-wrap .label1, main .r > div .chart-wrap .blessings-input-wrap .label2 {
+          position: absolute;
+          right: 0; }
+        main .r > div .chart-wrap .blessings-input-wrap .label1 {
+          top: 8.5rem; }
+        main .r > div .chart-wrap .blessings-input-wrap .label2 {
+          top: 23rem; }
+          main .r > div .chart-wrap .blessings-input-wrap .label2.notebook {
+            top: 16.5rem; }
+      main .r > div .chart-wrap .startTime-input-wrap {
+        position: relative;
+        height: 3rem;
+        z-index: 1; }
+        main .r > div .chart-wrap .startTime-input-wrap label {
+          position: absolute;
+          top: 0;
+          right: 4rem; }
+        main .r > div .chart-wrap .startTime-input-wrap #startTime_input {
+          position: absolute;
+          top: 1rem;
+          left: 3rem;
+          width: 29rem; }
+          main .r > div .chart-wrap .startTime-input-wrap #startTime_input.notebook {
+            width: 22rem; }
 main .r-b .text {
   position: absolute;
   top: 4rem;
