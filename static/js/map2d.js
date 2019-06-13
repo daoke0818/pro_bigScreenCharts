@@ -11,6 +11,7 @@ let MapGeo = {
         this.ec01_map('ec01_map_geoMap'); //geo地图
         this.ec01_map('ec02_map_bMap'); //百度地图
         this.ec02_pie_spouseDirection();
+        this.c04_bestLocation();
         // 地图切换事件
         $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
             if ($(this).val() === 'geo') {
@@ -19,7 +20,6 @@ let MapGeo = {
                 $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
             }
         });
-        this.ec04_pie_life();
     },
     ec01_map(id) {
         const that = this;
@@ -485,74 +485,7 @@ let MapGeo = {
         })
 
     },
-    ec04_pie_life() {
-        let chart = echarts.init($("#ec04_pie_life")[0]);
-        this.charts.ec04_pie_life = chart;
-        chart.setOption(opt_pie);
-        chart.setOption({
-            legend: {show: false},
-            series: [{
-                center: notebookOptim ? ['26%', '60%'] : ['30%', '55%'],
-                radius: [0, notebookOptim ? '33%' : '45%'],
-                data: [
-                    {name: '基本寿命\n(无意外)', value: 60},
-                    {name: '心态', value: 13.5},
-                    {name: '情绪', value: 9},
-                    {name: '身体', value: 9},
-                    {name: '作息', value: 4.5},
-                    {name: '饮食', value: 4.5},
-                    {name: '习惯', value: 4.5},
-                    {
-                        name: '剩余',
-                        value: 45,
-                        itemStyle: {
-                            color: "#aaa"
-                        }
-                    },
-                ]
-            }].map(item => {
-                return $.extend(true, {}, seri_pie, item)
-            })
-        });
-        $('.ec04_pie_life').find('input').change(function () {
-            let score = 0;
-            let [curRate, curVal, curId] = [0, $(this).val(), $(this).attr('id')];
-            $(this).prev().val($(this).val());
-            $('.ec04_pie_life').find('input').each(function (index, item) {
-                let [rate, val, id] = [0, $(this).val(), $(this).attr('id')];
-                switch (id) {
-                    case 'mindset':
-                        rate = 0.3;
-                        break;
-                    case 'mind' :
-                    case 'body':
-                        rate = 0.2;
-                        break;
-                    case 'workAndRest':
-                    case 'diet':
-                    case 'interest':
-                        rate = 0.1;
-                        break;
-                }
-                if (id === curId) {
-                    curRate = rate
-                }
-                score += 90 * rate * (val - 0) / 10;
-            });
-            $("#score").text(Math.ceil(score) + 60);
-            let opt = chart.getOption();
-            opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0) / 10;
-            opt.series[0].data[7].value = 90 - score;
-            chart.setOption(opt);
-        }).eq(0).change()
-        /*
-        * 平时心态30，消极沮丧：积极乐观
-        * 遇事情绪20，急躁易怒：谦和淡定
-        * 身体20，懒散不动：坚持锻炼
-        * 作息10，熬夜嗜睡：早起早睡
-        * 饮食10，暴食重口、：规律清淡
-        * 习惯爱好10，颓废庸俗：高雅艺术
-        * */
+    c04_bestLocation() {
     }
 };
 MapGeo.init();

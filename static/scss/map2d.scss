@@ -103,110 +103,24 @@ main {
 
 
     .r-b {
-      .text {
-        position: absolute;
-        top: 4rem;
-        left: 2rem;
-        width: 20rem;
-
-        &.notebook {
-          width: 13.5rem;
-        }
-
-        strong {
-          font-size: 2rem;
-        }
-      }
-
-      .input-group {
-        position: absolute;
-        right: 2rem;
-        bottom: .5rem;
-
-        label {
-          &.notebook {
-            height: 2.5rem;
-          }
-
-          display: block;
-
-          output {
-            display: inline-block;
-            width: 1rem;
-          }
-
-          input {
-            position: relative;
-            margin: .75rem 0;
-            vertical-align: middle;
-            width: 7rem;
-            height: 2rem;
-
-            &:before, &:after {
-              font-size: .9125rem;
-              position: absolute;
-              top: -1rem;
-            }
-
-            &:before {
-              left: -1rem;
-            }
-
-            &:after {
-              right: -1rem;
-            }
-
-          }
-
-          &:nth-of-type(1) input:before {
-            content: '消极沮丧';
-          }
-
-          &:nth-of-type(1) input:after {
-            content: '积极乐观';
-          }
-
-          &:nth-of-type(2) input:before {
-            content: '急躁易怒';
-          }
-
-          &:nth-of-type(2) input:after {
-            content: '谦和淡定';
-          }
-
-          &:nth-of-type(3) input:before {
-            content: '懒散不动';
-          }
-
-          &:nth-of-type(3) input:after {
-            content: '坚持锻炼';
-          }
-
-          &:nth-of-type(4) input:before {
-            content: '熬夜嗜睡';
-          }
-
-          &:nth-of-type(4) input:after {
-            content: '早起早睡';
-          }
-
-          &:nth-of-type(5) input:before {
-            content: '暴食重口';
-          }
-
-          &:nth-of-type(5) input:after {
-            content: '规律清淡';
-          }
-
-          &:nth-of-type(6) input:before {
-            content: '颓废庸俗';
-          }
-
-          &:nth-of-type(6) input:after {
-            content: '高雅艺术';
+      #c04_bestLocation .blocks{
+        display: flex;
+        flex-wrap: wrap;
+        width: 15rem;
+        >div{
+          width: 5rem;
+          height: 5rem;
+          text-align: center;
+          font-size: 3rem;
+          background-color: rgba(255,255,255,.13);
+          border: .125rem solid rgba(255,255,255,.63);
+          transition: all .5s;
+          &.active{
+            background: deepskyblue;
           }
         }
       }
+
     }
   }
 
