@@ -2,53 +2,53 @@
 <html lang="zh-CN">
 
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="renderer" content="webkit">
-	<title>地图-大屏图表适配解决方案</title>
-	<link rel="stylesheet" href="../static/assets/css/iconfont.css">
-	<link rel="stylesheet" href="../static/css/common.css">
-	<link rel="stylesheet" href="../static/css/map2d.css">
-	<script src="../static/assets/js/jquery-3.3.1.min.js"></script>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>地图-大屏图表适配解决方案</title>
+    <link rel="stylesheet" href="../static/assets/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/map2d.css">
+    <script src="../static/assets/js/jquery-3.3.1.min.js"></script>
 </head>
 
 <body id="investmentRisk">
 <div id="container">
-	<script src="../static/js/common.js"></script>
-	<header></header>
-	<nav>
-		<a href="index.html">回首页</a>
-		<a href="globe3d.html">进入3d地球</a>
-	</nav>
-	
-	<main>
-		<!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
-		<div class="l">
-			<div class="chart-wrap">
-				<h3>玄奘取经和鉴真东渡</h3>
-				<div class="radioGroup">
-					<label><input type="radio" name="mapType" value="geo">geo地图</label>
-					<label><input type="radio" name="mapType" value="bmap" checked>百度地图</label>
-				</div>
-				<div class="chart-box">
-					<div class="chart" id="ec01_map_geoMap"></div>
-				</div>
-				<div class="chart-box">
-					<div class="chart" id="ec02_map_bMap"></div>
-				</div>
-			
-			</div>
-		</div>
-		
-		<div class="r">
-			<div class="r-t">
-				<div class="chart-wrap">
-					<h3>配偶方位预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
-					<div class="input-group">
-						<label>你的生日(农历)：
-							<input type="number" id="spouseDirection_input_m" min="1" max="12" value="1"> 月
-							<input type="number" id="spouseDirection_input_d" min="1" max="30" value="1"> 日
-							<!--                           <select id="spouseDirection_input_m" >
+    <script src="../static/js/common.js"></script>
+    <header></header>
+    <nav>
+        <a href="index.html">回首页</a>
+        <a href="globe3d.html">进入3d地球</a>
+    </nav>
+
+    <main>
+        <!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
+        <div class="l">
+            <div class="chart-wrap">
+                <h3>玄奘取经和鉴真东渡</h3>
+                <div class="radioGroup">
+                    <label><input type="radio" name="mapType" value="geo">geo地图</label>
+                    <label><input type="radio" name="mapType" value="bmap" checked>百度地图</label>
+                </div>
+                <div class="chart-box">
+                    <div class="chart" id="ec01_map_geoMap"></div>
+                </div>
+                <div class="chart-box">
+                    <div class="chart" id="ec02_map_bMap"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="r">
+            <div class="r-t">
+                <div class="chart-wrap">
+                    <h3>配偶方位预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
+                    <div class="input-group">
+                        <label>你的生日(农历)：
+                            <input type="number" id="spouseDirection_input_m" min="1" max="12" value="1"> 月
+                            <input type="number" id="spouseDirection_input_d" min="1" max="30" value="1"> 日
+                            <!--                           <select id="spouseDirection_input_m" >
                                                            <option value="-">请选择</option>
                                                            <option value="1">正月</option>
                                                            <option value="2">二月</option>
@@ -97,40 +97,55 @@
                                                            <option value="10">二十</option>
                                                        </select>
                            -->                        </label>
-						<button id="spouseDirection_submit">测一测</button>
-					</div>
-					<div class="chart" id="ec02_pie_spouseDirection"></div>
-					<div class="text">
-						<p>如果找对象，预测结果可以作为一个参考方向；如果已是夫妻，两人测得结果和实际方位都匹配的自然概率是2.78%，其中只有一方匹配的自然概率是16.67%。</p>
-						<p>猜对者请继续保持和谐，猜不对也请继续努力，夫妻相敬如宾，必能幸福长久！</p>
-					</div>
-				</div>
-			</div>
-			<div class="r-b">
-				<div class="chart-wrap c04_bestLocation">
-					<h3>最吉方位预测(仅供娱乐)</h3>
-					<div class="chart" id="c04_bestLocation">
-						<div class="blocks">
-							<div id="block1" class="active">1</div>
-							<div id="block2">2</div>
-							<div id="block3">3</div>
-							<div id="block4">4</div>
-							<div id="block5" class="active">5</div>
-							<div id="block6">6</div>
-							<div id="block7">7</div>
-							<div id="block8">8</div>
-							<div id="block9">9</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+                        <button id="spouseDirection_submit">测一测</button>
+                    </div>
+                    <div class="chart" id="ec02_pie_spouseDirection"></div>
+                    <div class="text">
+                        <p>如果找对象，预测结果可以作为一个参考方向；如果已是夫妻，两人测得结果和实际方位都匹配的自然概率是2.78%，其中只有一方匹配的自然概率是16.67%。</p>
+                        <p>猜对者请继续保持和谐，猜不对也请继续努力，夫妻相敬如宾，必能幸福长久！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="r-b">
+                <div class="chart-wrap c04_bestLocation">
+                    <h3>最吉方位预测(仅供娱乐)</h3>
+                    <div class="chart" id="c04_bestLocation">
+                        <div class="blocks">
+                            <div id="block1" class="active">1</div>
+                            <div id="block2">2</div>
+                            <div id="block3">3</div>
+                            <div id="block4">4</div>
+                            <div id="block5" class="active">5</div>
+                            <div id="block6">6</div>
+                            <div id="block7">7</div>
+                            <div id="block8">8</div>
+                            <div id="block9">9</div>
+                        </div>
+                        <div class="input-group">
+                            <label>楼层：<input id="floorNumber" type="number" value=""></label><br>
+                            <label><span id="direct">住宅</span>门口朝向(出门时面向哪边)：</label>
+                            <label><input type="radio" name="direct" value="7">东</label>
+                            <label><input type="radio" name="direct" value="6">东南</label>
+                            <label><input type="radio" name="direct" value="1">南</label>
+                            <label><input type="radio" name="direct" value="8">西南</label>
+                              <label>出生季节(立春到立夏之间为春季，余类推)：</label>
+                            <label><input type="radio" name="season" value="6">春</label>
+                            <label><input type="radio" name="season" value="1">夏</label>
+                            <label><input type="radio" name="season" value="4">秋</label>
+                            <label><input type="radio" name="season" value="9">冬</label>
+                            <button id="bestLocation_submit">测一测</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 <aside></aside>
 <script>
-	if(notebookOptim){
-		$(`.ec04_pie_life .input-group>label,
+    if (notebookOptim) {
+        $(`.ec04_pie_life .input-group>label,
 			.r-t .text,
 			.r-t .chart,
 			.r-b .text,
@@ -139,7 +154,7 @@
 			.blessings-input-wrap .label2
 
 			`).addClass('notebook');
-	}
+    }
 </script>
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
 <script src="../static/assets/js/world2.js"></script>
