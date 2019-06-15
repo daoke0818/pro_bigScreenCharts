@@ -61,19 +61,35 @@ main .r {
     main .r .r-t .chart-wrap .text.notebook {
       width: 13rem;
       top: 7rem; }
-  main .r .r-b #c04_bestLocation .blocks {
-    display: flex;
-    flex-wrap: wrap;
-    width: 15rem; }
-    main .r .r-b #c04_bestLocation .blocks > div {
-      width: 5rem;
-      height: 5rem;
-      text-align: center;
-      font-size: 3rem;
-      background-color: rgba(255, 255, 255, 0.13);
-      border: 0.125rem solid rgba(255, 255, 255, 0.63);
-      transition: all .5s; }
-      main .r .r-b #c04_bestLocation .blocks > div.active {
-        background: deepskyblue; }
+  main .r .r-b #c04_bestLocation {
+    flex: 0;
+    display: flex; }
+    main .r .r-b #c04_bestLocation .blocks {
+      display: flex;
+      position: relative;
+      flex-wrap: wrap;
+      width: 19rem;
+      top: 2rem;
+      left: 2rem; }
+      main .r .r-b #c04_bestLocation .blocks > div {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        line-height: 4rem;
+        font-size: 2rem;
+        background-color: rgba(255, 255, 255, 0.13);
+        border: 0.125rem solid rgba(255, 255, 255, 0.63);
+        transition: all .5s; }
+        main .r .r-b #c04_bestLocation .blocks > div.active {
+          background: deepskyblue; }
+    main .r .r-b #c04_bestLocation form {
+      margin-top: 2rem;
+      width: 17rem; }
+      main .r .r-b #c04_bestLocation form .input-group {
+        margin-bottom: .5rem; }
+        main .r .r-b #c04_bestLocation form .input-group button {
+          margin-left: 0; }
+        main .r .r-b #c04_bestLocation form .input-group #floorNumber {
+          width: 4rem; }
 
 /*# sourceMappingURL=map2d.css.map */

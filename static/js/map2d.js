@@ -420,12 +420,12 @@ let MapGeo = {
                     }
                 }),
                 startAngle: '105',
-                label:{
-                    fontSize:16*scale,
-                    textShadowColor:'#000',
-                    textShadowBlur:.5*scale,
-                    textShadowOffsetX:scale,
-                    textShadowOffsetY:scale,
+                label: {
+                    fontSize: 16 * scale,
+                    textShadowColor: '#000',
+                    textShadowBlur: .5 * scale,
+                    textShadowOffsetX: scale,
+                    textShadowOffsetY: scale,
                 }
             }, {
                 startAngle: '45',
@@ -458,9 +458,9 @@ let MapGeo = {
                         position: 'inside',
                         verticalAlign: 'top'
                     },
-                    animationEasing:'exponentialOut',
+                    animationEasing: 'exponentialOut',
                     center: ['30%', '55%'],
-                    radius: [0,'76%'],
+                    radius: [0, '76%'],
                 }, item)
             })
         });
@@ -476,10 +476,10 @@ let MapGeo = {
             }
             setTimeout(function () {
                 let num = mon - 0 + (date - 0);
-                opt.series[1].startAngle = -(num-1)*30-105-1800;
+                opt.series[1].startAngle = -(num - 1) * 30 - 105 - 1800;
                 opt.series[1].animationDurationUpdate = 5000;
                 chart.setOption(opt);
-            },0)
+            }, 0)
 
 
         })
@@ -492,6 +492,25 @@ let MapGeo = {
         * 秋缺木-巽-四绿
         * 冬缺火-离-九紫
         * */
+        let indexOrder = [5, 9, 6, 7, 2, 8, 3, 4, 1];
+        let $blocks = $(".blocks");
+        $("#bestLocation_submit").click(function () {
+            let season = $('[name=season]:checked').val();
+            // alert(season)
+            indexOrder.forEach(function (item, index) {
+                if (index + 1 > season) {return}
+                setTimeout(function () {
+                    $blocks.find('#block' + item).addClass('active').siblings().removeClass('active');
+                }, index * 500)
+            })
+        });
+        $("#floorNumber").change(function () {
+            if($(this).val()>4){
+                $("#direct").text('住宅或单位')
+            }else{
+                $("#direct").text('小区')
+            }
+        })
     }
 };
 MapGeo.init();

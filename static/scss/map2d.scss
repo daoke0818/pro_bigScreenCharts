@@ -103,22 +103,44 @@ main {
 
 
     .r-b {
-      #c04_bestLocation .blocks{
-        display: flex;
-        flex-wrap: wrap;
-        width: 15rem;
-        >div{
-          width: 5rem;
-          height: 5rem;
-          text-align: center;
-          font-size: 3rem;
-          background-color: rgba(255,255,255,.13);
-          border: .125rem solid rgba(255,255,255,.63);
-          transition: all .5s;
-          &.active{
-            background: deepskyblue;
+      #c04_bestLocation{
+          flex: 0;
+          display: flex;
+        .blocks{
+          display: flex;
+          position: relative;
+          flex-wrap: wrap;
+          width: 19rem;
+          top: 2rem;
+          left: 2rem;
+          >div{
+            width: 5rem;
+            height: 5rem;
+            text-align: center;
+            line-height: 4rem;
+            font-size: 2rem;
+            background-color: rgba(255,255,255,.13);
+            border: .125rem solid rgba(255,255,255,.63);
+            transition: all .5s;
+            &.active{
+              background: deepskyblue;
+            }
           }
         }
+        form{
+          margin-top: 2rem;
+          width: 17rem;
+          .input-group{
+            margin-bottom: .5rem;
+            button{
+              margin-left: 0;
+            }
+            #floorNumber{
+              width: 4rem ;
+            }
+          }
+        }
+
       }
 
     }
