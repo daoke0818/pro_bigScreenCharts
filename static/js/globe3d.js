@@ -427,6 +427,7 @@ let globe3d = {
                 }
             }],
             series: [{
+                animationDurationUpdate: 1000,
                 data: data,
                 markLine: {
                     silent: true,
@@ -444,7 +445,6 @@ let globe3d = {
                 return $.extend(true, {}, seri_line, item)
             })
         });
-
         let message = '云谷禅师曰：' +
             '\n人未能无心（凡人都会起心动念），终为阴阳所缚，安得无数（所以有命运）？' +
             '\n但惟凡人有数（不过只有凡人是这样）。' +

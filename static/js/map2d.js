@@ -497,12 +497,30 @@ let MapGeo = {
         $("#bestLocation_submit").click(function () {
             let direct = $('[name=direct]:checked').val();
             let season = $('[name=season]:checked').val();
-            // alert(season)
+            if(!$("#floorNumber").val()){
+                alert('请输入楼层数！');
+                return;
+            }
+            if(!direct){
+                alert('请输入方位！')
+                return;
+            }
+            if(!season){
+                alert('请输入出生季节！')
+                return;
+            }
+
+            // console.log('direct', direct, 'season', season);
+            let breakFlag = false;
             indexOrder.forEach(function (item, index) {
-                if ((direct - 0 + index) % 9 > season) {return}
-                setTimeout(function () {
-                    $blocks.find('#block' + item).addClass('active').siblings().removeClass('active');
-                }, index * 500)
+                if (!breakFlag) {
+                    setTimeout(function () {
+                        $blocks.find('#block' + item).addClass('active').siblings().removeClass('active');
+                    }, index * 500);
+                    if (((direct - 0 + index) % 9 || 9) === season - 0) {
+                        breakFlag = true;
+                    }
+                }
             })
         });
         $("#floorNumber").change(function () {
