@@ -495,19 +495,20 @@ let MapGeo = {
         let indexOrder = [5, 9, 6, 7, 2, 8, 3, 4, 1];
         let $blocks = $(".blocks");
         $("#bestLocation_submit").click(function () {
+            let direct = $('[name=direct]:checked').val();
             let season = $('[name=season]:checked').val();
             // alert(season)
             indexOrder.forEach(function (item, index) {
-                if (index + 1 > season) {return}
+                if ((direct - 0 + index) % 9 > season) {return}
                 setTimeout(function () {
                     $blocks.find('#block' + item).addClass('active').siblings().removeClass('active');
                 }, index * 500)
             })
         });
         $("#floorNumber").change(function () {
-            if($(this).val()>4){
+            if ($(this).val() > 5) {
                 $("#direct").text('住宅或单位')
-            }else{
+            } else {
                 $("#direct").text('小区')
             }
         })
