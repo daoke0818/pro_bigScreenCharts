@@ -38,10 +38,41 @@
   button {
     outline: none; }
 
+  input {
+    height: 1.75rem;
+    vertical-align: middle; }
+
+  button {
+    margin-left: 1rem;
+    padding: .0625rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background: deepskyblue; }
+
+  @keyframes linkTo {
+    from, 80%, 90%, to {
+      left: 0; }
+    85%, 95% {
+      left: .5rem; } }
   #container {
     display: flex;
     flex-direction: column;
-    margin: 0 auto; } }
+    margin: 0 auto; }
+    #container nav {
+      text-align: right;
+      padding-right: 2rem; }
+      #container nav a {
+        padding-left: 1rem;
+        color: lightskyblue;
+        font-style: italic; }
+        #container nav a:hover {
+          text-decoration: underline; }
+        #container nav a:before {
+          content: '→ ';
+          position: relative;
+          left: 0;
+          animation: linkTo 5s ease-out;
+          animation-iteration-count: infinite; } }
 @font-face {
   font-family: digitalNumber;
   src: url("../assets/font/digitalNumber.TTF"); }
@@ -51,9 +82,7 @@
   background-repeat: no-repeat; }
 
 strong {
-  font-weight: normal;
-  color: var(--c_mainBlue);
-  letter-spacing: .125rem; }
+  color: var(--c_mainBlue); }
 
 h3 {
   margin-bottom: 1rem;
@@ -61,7 +90,8 @@ h3 {
   font-size: 1.5rem;
   letter-spacing: .0625rem;
   color: var(--c_mainWhite);
-  background: linear-gradient(to right, var(--c_mainBlue), transparent); }
+  background: linear-gradient(to right, var(--c_mainBlue), transparent);
+  z-index: 1; }
   h3.en {
     margin-top: .3rem;
     color: #999;
@@ -109,7 +139,8 @@ h5 {
     transform: skew(0) scale(1); } }
 #container > header {
   position: relative;
-  padding: 2rem 2rem 1.5rem; }
+  padding: 1.5rem 2rem 1rem;
+  height: 6.25rem; }
   #container > header .logo {
     position: absolute;
     animation: 20s logoAnimation infinite ease; }
@@ -163,6 +194,7 @@ h5 {
   padding: 0 1rem 2rem; }
 
 body > aside {
+  z-index: 1;
   position: absolute;
   bottom: 2rem;
   border: .5rem solid transparent;
@@ -209,18 +241,22 @@ body > aside {
         width: auto;
         height: 1rem;
         vertical-align: top; }
-    body > aside .input-group button {
-      margin-top: .5rem;
-      padding: .25rem 1rem;
-      font-size: 1.25rem;
-      color: #fff;
-      background: var(--c_mainBlue);
-      border: none;
-      border-radius: .25rem;
-      cursor: pointer; }
-      body > aside .input-group button:hover {
-        background: #4EA3D6; }
-      body > aside .input-group button:active {
-        background: #4e93c6; }
+      body > aside .input-group input[type=checkbox] {
+        margin-left: 0;
+        width: auto;
+        vertical-align: middle; }
+      body > aside .input-group input button {
+        margin-top: .5rem;
+        padding: .25rem 1rem;
+        font-size: 1.25rem;
+        color: #fff;
+        background: var(--c_mainBlue);
+        border: none;
+        border-radius: .25rem;
+        cursor: pointer; }
+        body > aside .input-group input button:hover {
+          background: #4EA3D6; }
+        body > aside .input-group input button:active {
+          background: #4e93c6; }
 
 /*# sourceMappingURL=common.css.map */

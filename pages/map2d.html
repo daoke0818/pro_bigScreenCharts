@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>地图-大屏图表适配解决方案</title>
+    <link rel="stylesheet" href="../static/assets/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/map2d.css">
+    <script src="../static/assets/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body id="investmentRisk">
+<div id="container">
+    <script src="../static/js/common.js"></script>
+    <header></header>
+    <nav>
+        <a href="index.html">回首页</a>
+        <a href="globe3d.html">进入3d地球</a>
+    </nav>
+
+    <main>
+        <!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
+        <div class="l">
+            <div class="chart-wrap">
+                <h3>玄奘取经和鉴真东渡</h3>
+                <div class="radioGroup">
+                    <label><input type="radio" name="mapType" value="geo">geo地图</label>
+                    <label><input type="radio" name="mapType" value="bmap" checked>百度地图</label>
+                </div>
+                <div class="chart-box">
+                    <div class="chart" id="ec01_map_geoMap"></div>
+                </div>
+                <div class="chart-box">
+                    <div class="chart" id="ec02_map_bMap"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="r">
+            <div class="r-t">
+                <div class="chart-wrap">
+                    <h3>配偶方位预测(仅供娱乐)<!--<button class="more">更多…</button>--></h3>
+                    <div class="input-group">
+                        <label>你的生日(农历)：
+                            <input type="number" id="spouseDirection_input_m" min="1" max="12" value="1"> 月
+                            <input type="number" id="spouseDirection_input_d" min="1" max="30" value="1"> 日
+                            <!--                           <select id="spouseDirection_input_m" >
+                                                           <option value="-">请选择</option>
+                                                           <option value="1">正月</option>
+                                                           <option value="2">二月</option>
+                                                           <option value="3">三月</option>
+                                                           <option value="4">四月</option>
+                                                           <option value="5">五月</option>
+                                                           <option value="6">六月</option>
+                                                           <option value="7">七月</option>
+                                                           <option value="8">八月</option>
+                                                           <option value="9">九月</option>
+                                                           <option value="10">十月</option>
+                                                           <option value="11">冬月</option>
+                                                           <option value="12">腊月</option>
+                                                       </select>
+                                                       <select id="spouseDirection_input_d" >
+                                                           <option value="-">请选择</option>
+                                                           <option value="1">初一</option>
+                                                           <option value="2">初二</option>
+                                                           <option value="3">初三</option>
+                                                           <option value="4">初四</option>
+                                                           <option value="5">初五</option>
+                                                           <option value="6">初六</option>
+                                                           <option value="7">初七</option>
+                                                           <option value="8">初八</option>
+                                                           <option value="9">初九</option>
+                                                           <option value="10">初十</option>
+                                                           <option value="1">十一</option>
+                                                           <option value="2">十二</option>
+                                                           <option value="3">十三</option>
+                                                           <option value="4">十四</option>
+                                                           <option value="5">十五</option>
+                                                           <option value="6">十六</option>
+                                                           <option value="7">十七</option>
+                                                           <option value="8">十八</option>
+                                                           <option value="9">十九</option>
+                                                           <option value="10">二十</option>
+                                                           <option value="1">十一</option>
+                                                           <option value="2">十二</option>
+                                                           <option value="3">十三</option>
+                                                           <option value="4">十四</option>
+                                                           <option value="5">十五</option>
+                                                           <option value="6">十六</option>
+                                                           <option value="7">十七</option>
+                                                           <option value="8">十八</option>
+                                                           <option value="9">十九</option>
+                                                           <option value="10">二十</option>
+                                                       </select>
+                           -->                        </label>
+                        <button id="spouseDirection_submit">测一测</button>
+                    </div>
+                    <div class="chart" id="ec02_pie_spouseDirection"></div>
+                    <div class="text">
+                        <p>如果找对象，预测结果可以作为一个参考方向；如果已是夫妻，两人测得结果和实际方位都匹配的自然概率是2.78%，其中只有一方匹配的自然概率是16.67%。</p>
+                        <p>猜对者请继续保持和谐，猜不对也请继续努力，夫妻相敬如宾，必能幸福长久！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="r-b">
+                <div class="chart-wrap c04_bestLocation">
+                    <h3>最吉方位预测(仅供娱乐)</h3>
+                    <div class="chart" id="c04_bestLocation">
+                        <div class="blocks">
+                            <div id="block1">东南</div>
+                            <div id="block2">南</div>
+                            <div id="block3">西南</div>
+                            <div id="block4">东</div>
+                            <div id="block5">中央</div>
+                            <div id="block6">西</div>
+                            <div id="block7">东北</div>
+                            <div id="block8">北</div>
+                            <div id="block9">西北</div>
+                        </div>
+                        <form>
+                            <div class="input-group">
+                                <label>楼层：<input id="floorNumber" type="number" value=""></label>
+                            </div>
+                            <div class="input-group">
+                                <label><span id="direct">住宅</span>门口朝向(出门时面向哪边，若开偏门也以正门为准)：</label><br>
+                                <label><input type="radio" name="direct" value="7">东</label>
+                                <label><input type="radio" name="direct" value="6">东南</label>
+                                <label><input type="radio" name="direct" value="1">南</label>
+                                <label><input type="radio" name="direct" value="8">西南</label><br>
+                                <label><input type="radio" name="direct" value="3">西</label>
+                                <label><input type="radio" name="direct" value="4">西北</label>
+                                <label><input type="radio" name="direct" value="9">北</label>
+                                <label><input type="radio" name="direct" value="2">东北</label>
+                            </div>
+                            <div class="input-group">
+
+                                <label>出生季节(立春到立夏之间为春季，余类推)：</label><br>
+                                <label><input type="radio" name="season" value="6">春</label>
+                                <label><input type="radio" name="season" value="1">夏</label>
+                                <label><input type="radio" name="season" value="4">秋</label>
+                                <label><input type="radio" name="season" value="9">冬</label>
+                            </div>
+                            <div class="input-group">
+                                <button id="bestLocation_submit" type="button">测一测</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<aside></aside>
+<script>
+    if (notebookOptim) {
+        $(`.ec04_pie_life .input-group>label,
+			.r-t .text,
+			.r-t .chart,
+			.r-b .text,
+			#blessings_input,
+			#startTime_input,
+			.blessings-input-wrap .label2
+
+			`).addClass('notebook');
+    }
+</script>
+<script src="../static/assets/js/echarts-4.2.0.min.js"></script>
+<script src="../static/assets/js/world2.js"></script>
+<script type="text/javascript" src="../static/assets/js/bmap.js"></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/getscript?v=3.0&ak=Hc6fBVaQUl3tRc6uHYlvpZIea7pwhGui&services=&t=20190123111209"></script>
+<script src="../static/js/chartsCom.js"></script>
+<script src="../static/js/map2d.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

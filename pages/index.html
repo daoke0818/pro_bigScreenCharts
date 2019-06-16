@@ -15,21 +15,11 @@
 <body id="investmentRisk">
 <div id="container">
     <script src="../static/js/common.js"></script>
-    <header>
-        <a href="http://e-art.top" class="logo" title="关中刀客在青岛">
-            <img src="../static/img/logo_v0.1_w.png" alt="logo">
-        </a>
-        <h1>大屏图表适配解决方案</h1>
-        <time id="headerTime"></time>
-        <div class="weatherBox">
-            <i class="weatherIcon" id="weatherIcon"></i>
-            <ul>
-                <li class="temperature" id="temperature"></li>
-                <li class="weather" id="weather"></li>
-            </ul>
-        </div>
-
-    </header>
+    <header></header>
+    <nav>
+        <a href="map2d.html">进入地图</a>
+        <a href="globe3d.html">进入3d地球</a>
+    </nav>
     <main>
         <!--样式里的l,m,r,t,b分别代表左，中，右，上，下-->
         <div class="l">
@@ -77,42 +67,14 @@
         </div>
     </main>
 </div>
-<aside>
-    <h3>设置</h3>
-    <div class="input-group">
-        <h4>设计图</h4>
-        <label for="designW">宽(像素):</label>
-        <input id="designW" value="1920" type="number" min="1">
-        <label for="designH">高(像素):</label>
-        <input id="designH" value="1080" type="number" min="1">
-    </div>
-    <div class="input-group">
-        <h4>缩放模式</h4>
-        <label for="contain" title="等比例包含，适合总览"><input type="radio" id="contain" name="zoomMode"><span>contain</span></label>
-        <label for="cover" title="等比例覆盖，适合开发细节"><input type="radio" id="cover" name="zoomMode"><span>cover</span></label>
-        <label for="stretch" title="拉伸，比例变形填满屏幕无滚动条"><input type="radio" id="stretch" name="zoomMode"><span>stretch</span></label>
-    </div>
-    <div class="input-group colors">
-        <h4>配色方案</h4>
-    </div>
-    <div class="input-group other">
-        <h4>其它</h4>
-        <label for="getWeatherPeriod">天气更新频率(分钟):</label>
-        <input id="getWeatherPeriod" type="number" min="1" value="5">
-        <label for="chartRefreshPeriod">图表刷新频率(秒):</label>
-        <input id="chartRefreshPeriod" type="number" min="1" value="10">
-    </div>
-    <div class="input-group">
-        <button id="saveSetting">保存并刷新</button>
-    </div>
-</aside>
+<aside></aside>
 <script src="../static/assets/js/echarts-4.2.0.min.js"></script>
 <script src="../static/js/chartsCom.js"></script>
 <script src="../static/js/index.js"></script>
 </body>
 </html>
 
-
+<!--/usr/local/apache-tomcat-9.0.16/webapps/ROOT/projects/bigScreenCharts-->
 
 
 

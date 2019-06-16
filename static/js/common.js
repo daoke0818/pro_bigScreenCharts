@@ -5,7 +5,8 @@ const settings = JSON.parse(localStorage.getItem('settings')) || {};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
-    zoomMode: settings.zoomMode || 'contain',
+    zoomMode: settings.zoomMode || (innerWidth < 768 ? 'cover' : 'contain'),
+    notebookOptim: [undefined, true].includes(settings.notebookOptim),
     getWeatherPeriod: settings.getWeatherPeriod || 5, //天气预报更新周期（分）
     chartRefreshPeriod: settings.chartRefreshPeriod || 10, // 图表刷新周期（秒）
     colors: settings.colors || 'default',
@@ -24,6 +25,7 @@ const Cfg = {
 };
 let hasGetWeather = false;
 let scale = 1;
+let notebookOptim = true;
 let colonShow = true;
 let [pageH, pageW] = [$(window).height(), $(window).width()];
 const weather2Code = {
@@ -97,9 +99,6 @@ const weather2Code = {
     "未知": 999,
 };
 const Public = {
-    ajaxHeaders: {
-        token: ''
-    },
     hasVal(val) {
         if (val === null) {
             return '-';
@@ -139,7 +138,7 @@ const Public = {
             Public.setHeaderTime();
         }, 500)
     },
-    //获取天气情况
+    // 获取天气情况
     getWeather(currTime) {
         // 获取地理位置
         $.get({
@@ -178,7 +177,7 @@ const Public = {
                 } else {
                     $container.css({height: pageW * Cfg.designH / Cfg.designW, width: '100%'});
                 }
-                scale = isWider?scaleH:scaleW;
+                scale = isWider ? scaleH : scaleW;
                 break;
             case 'cover':
                 $("html,body").css('overflow', 'initial');
@@ -187,21 +186,25 @@ const Public = {
                 } else {
                     $container.css({width: pageH * Cfg.designW / Cfg.designH, height: '100%'});
                 }
-                scale = isWider?scaleW:scaleH;
+                scale = isWider ? scaleW : scaleH;
                 break;
             case 'stretch':
-                scale = isWider?scaleH:scaleW;
+                scale = isWider ? scaleH : scaleW;
                 $container.css({width: '100%'}, {height: '100%'});
                 break;
         }
         $("html").css("font-size", scale * 16 + "px").css("opacity", 1);
+        notebookOptim = !(Cfg.notebookOptim === false || scale > .75);
         // console.log("~~~~~~~~~窗口高度：" + pageH + ",\n宽度:" + pageW + " \nbody字号：" + scale)
     },
     //图表缩放
-    chartsResize(charts) {
+    chartsResize(charts, param) {
         $(window).resize(() => {
-            Object.keys(charts).forEach(item => {
-                charts[item].resize();
+            Object.keys(charts).forEach(id => {
+                if (param && param.notResize.includes(id)) {
+                    return
+                }
+                charts[id].resize();
             })
         });
     },
@@ -215,7 +218,7 @@ const Public = {
     chartsReDraw(charts, t = Cfg.chartRefreshPeriod, noRefresh, someRefresh) {
         let counter = setInterval(() => {
             Object.keys(charts).forEach(item => {
-                if (noRefresh&&noRefresh.includes(item) && !someRefresh.includes(item)) return;
+                if (noRefresh && noRefresh.includes(item) && !(someRefresh && someRefresh.includes(item))) return;
                 let chart = charts[item];
                 let opt = chart.getOption();
                 chart.clear();
@@ -256,26 +259,35 @@ $(window).resize(() => {
 });
 
 $(function () {
-    Public.setHeaderTime(); // 页面顶部时间
-    $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
-    $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
-    $("#designW").val(settings.designW || 1920);
-    $("#designH").val(settings.designH || 1080);
-    $("#" + Cfg.zoomMode).prop('checked', true);
-    let $colors = $("body>aside .colors");
-    Object.keys(Cfg.colorData).forEach(item => {
-        $colors.append(`
+    // 加载源不能写成body>header>*,原因不明
+    $('#container>header').load('common.html header>*', function () {
+        // $('#container>header').load('common.html', function () {
+        Public.setHeaderTime(); // 页面顶部时间
+    });
+    // 加载设置面板
+    $('body>aside').load('common.html aside >*', function () {
+        $("#getWeatherPeriod").val(settings.getWeatherPeriod || 5);
+        $("#chartRefreshPeriod").val(settings.chartRefreshPeriod || 10);
+        $("#notebookOptim").attr('checked', [undefined, true].includes(settings.notebookOptim));
+        $("#designW").val(settings.designW || 1920);
+        $("#designH").val(settings.designH || 1080);
+        $("#" + Cfg.zoomMode).prop('checked', true);
+        let $colors = $("body>aside .colors");
+        Object.keys(Cfg.colorData).forEach(item => {
+            $colors.append(`
             <label for="colors_${item}">
                 <input type="radio" id="colors_${item}" name="colors" ${Cfg.colors === item ? 'checked' : ''}><span>${item}</span>
             </label>
         `)
+        });
     });
 
     // 保存设置
-    $("#saveSetting").click(function () {
+    $("body ").on('click', '#saveSetting', function () {
         let settings = {
             getWeatherPeriod: $("#getWeatherPeriod").val(),
             chartRefreshPeriod: $("#chartRefreshPeriod").val(),
+            notebookOptim: $("#notebookOptim").is(":checked"),
             designW: $("#designW").val(),
             designH: $("#designH").val(),
             colors: $("body>aside input[type=radio][name=colors]:checked").next().text(),
@@ -287,7 +299,8 @@ $(function () {
 
     const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
     if (!(sessionData && sessionData.settingTip)) {
-        alert('请把鼠标移动到屏幕左侧边靠下的位置，可以滑出设置面板。');
+        alert('请把鼠标移动到屏幕左侧边靠下的位置，可以滑出设置面板。' +
+            '\n如果浏览器已经解除最小字号限制，请在设置面板中取消“低分辨率优化”的勾选。');
         sessionStorage.setItem('sessionData', JSON.stringify({settingTip: true}))
     }
 

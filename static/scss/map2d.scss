@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+//样式里的l,m,r,t,b分别代表左，中，右，上，下
+//布局
+main {
+  > * {
+    display: flex;
+    overflow: hidden; //可以让元素严格按照百分比显示，而防止被内部大尺寸元素撑住
+  }
+
+  h3 .more {
+    position: absolute;
+    right: 2rem;
+    font-style: italic;
+    font-size: 1.25rem;
+  }
+
+  .l {
+    flex: 0 0 66.66%;
+    padding: 1rem;
+
+    .chart-wrap {
+      position: relative;
+
+      .radioGroup {
+        position: absolute;
+        right: 2rem;
+        top: 4rem;
+        z-index: 1;
+
+        input {
+          vertical-align: middle;
+        }
+      }
+
+      .chart-box {
+        flex: 1;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        //height: 100%;
+        //height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
+        .chart {
+          height: 53.125rem;
+        }
+      }
+    }
+  }
+  .chart-wrap {
+    border: .0625rem solid rgba(76, 180, 231, 0.33);
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .chart {
+      flex: 1;
+      height: 0; //这样可以不让内部元素撑住高度而破坏布局比例
+    }
+  }
+
+  .r {
+    flex: 0 0 33.33%;
+    flex-direction: column;
+    > div {
+      display: flex;
+      flex: 0 0 50%;
+      padding: 1rem;
+
+      .chart-wrap {
+        position: relative;
+      }
+    }
+    .r-t {
+      .chart-wrap{
+        .chart{
+          &:before{
+            content: '北↑';
+            position: absolute;
+            left: 9.75rem;
+            top: 1rem;
+          }
+          &.notebook:before{
+            left: 7.75rem;
+            top: .5rem;
+          }
+        }
+        .input-group{
+          margin-left: 1rem;
+        }
+        .text{
+          position: absolute;
+          width: 38%;
+          right: 1rem;
+          top: 9rem;
+          &.notebook{
+            width: 13rem;
+            top: 7rem;
+          }
+        }
+      }
+    }
+
+
+    .r-b {
+      #c04_bestLocation{
+          flex: 0;
+          display: flex;
+        .blocks{
+          display: flex;
+          position: relative;
+          flex-wrap: wrap;
+          width: 19rem;
+          top: 2rem;
+          left: 2rem;
+          >div{
+            width: 5rem;
+            height: 5rem;
+            text-align: center;
+            line-height: 4rem;
+            font-size: 2rem;
+            background-color: rgba(255,255,255,.13);
+            border: .125rem solid rgba(255,255,255,.63);
+            transition: all .5s;
+            &.active{
+              background: deepskyblue;
+            }
+          }
+        }
+        form{
+          margin-top: 2rem;
+          width: 17rem;
+          .input-group{
+            margin-bottom: .5rem;
+            button{
+              margin-left: 0;
+            }
+            #floorNumber{
+              width: 4rem ;
+            }
+          }
+        }
+
+      }
+
+    }
+  }
+
+
+
+}
