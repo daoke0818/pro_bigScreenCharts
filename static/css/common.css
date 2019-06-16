@@ -38,6 +38,17 @@
   button {
     outline: none; }
 
+  input {
+    height: 1.75rem;
+    vertical-align: middle; }
+
+  button {
+    margin-left: 1rem;
+    padding: .0625rem 1rem;
+    font-size: 1rem;
+    color: #fff;
+    background: deepskyblue; }
+
   @keyframes linkTo {
     from, 80%, 90%, to {
       left: 0; }
@@ -51,6 +62,7 @@
       text-align: right;
       padding-right: 2rem; }
       #container nav a {
+        padding-left: 1rem;
         color: lightskyblue;
         font-style: italic; }
         #container nav a:hover {

@@ -10,7 +10,8 @@ let MapGeo = {
         const that = this;
         this.ec01_map('ec01_map_geoMap'); //geo地图
         this.ec01_map('ec02_map_bMap'); //百度地图
-        this.ec03_line_blessings();
+        this.ec02_pie_spouseDirection();
+        this.c04_bestLocation();
         // 地图切换事件
         $("#ec01_map_geoMap").parent().prev().find('[name=mapType]').click(function () {
             if ($(this).val() === 'geo') {
@@ -19,7 +20,6 @@ let MapGeo = {
                 $("#ec02_map_bMap").parent().show().siblings('.chart-box').hide();
             }
         });
-        this.ec04_pie_life();
     },
     ec01_map(id) {
         const that = this;
@@ -406,187 +406,130 @@ let MapGeo = {
 
 
     },
-    ec03_line_blessings() {
-        const chart = echarts.init($("#ec03_line_blessings")[0]);
-        this.charts.ec03_line_blessings = chart;
-        chart.setOption(opt_line);
-        let [xData, data] = [[], []];
-        let [xDataNew, dataNew] = [[], []];
-        for (let i = 0; i <= 120; i++) {
-            xData.push(i);
-            data.push(Math.random() * 200 - 100)
-        }
-
-        chart.setOption({
-            grid: {
-                top: '11%',
-                right: '13%'
-            },
-            xAxis: {
-                // name:'年龄',
-                nameGap: 5 * scale,
-                data: xData
-            },
-            yAxis: {
-                name: '福报',
-                nameGap: 5 * scale,
-                min: -110,
-                max: 110
-            },
-            toolTip: {},
-            dataZoom: { // 本图表option的个性
-                type: 'inside',
-            },
-            visualMap: [{
-                show: false,
-                type: 'continuous',
-                seriesIndex: 0,
-                min: -100,
-                max: 100,
-                inRange: {
-                    // color: ['#000', 'lightblue'],
-                    color: ['red', 'yellow', 'lightgreen'],
-                    // symbolSize: [30, 100]
-                }
-            }],
-            series: [{
-                data: data,
-                markLine: {
-                    silent: true,
-                    label: {show: false},
-                    symbolSize: 15 * scale,
-                    data: [{
-                        yAxis: -100
-                    }, {
-                        yAxis: 0
-                    }, {
-                        yAxis: 100
-                    }]
-                },
-            }].map(item => {
-                return $.extend(true, {}, seri_line, item)
-            })
-        });
-
-        let message = '云谷禅师曰：' +
-            '\n人未能无心（凡人都会起心动念），终为阴阳所缚，安得无数（所以有命运）？' +
-            '\n但惟凡人有数（不过只有凡人是这样）。' +
-            '\n极善之人。数固拘他不定。极恶之人。数亦拘他不定。（而极善极恶之人才能逃脱命运束缚）';
-        let setOpt = (param) => {
-            let [startTime, val] = [$("#startTime_input_show").val(), $('#blessings_input').val()];
-
-            dataNew = data.map((item, index) => {
-                if (index < startTime) {
-                    return item;
-                }
-                if (["100", "-100"].includes(val)) {
-                    return val
-                }
-                let range = (1 - (val > 0 ? item : -item) / 100);
-                let tempVal = range * val + item + (param === 'startTime' ? 0 : Math.random() * 20 - 10);
-                return tempVal > 100 ? 100 : (tempVal < -100 ? -100 : tempVal);
-            });
-            chart.setOption({
-                series: [{
-                    data: dataNew,
-                    markLine: {
-                        silent: true,
-                        symbolSize: 15 * scale,
-                        data: [{
-                            yAxis: -100
-                        }, {
-                            yAxis: val
-                        }, {
-                            yAxis: 100
-                        }]
-                    },
-                }].map(item => {
-                    return $.extend(true, {}, seri_line, item)
-                })
-            })
-            if (param !== 'startTime' && ["100", "-100"].includes(val)) {
-                alert(message)
-            }
-        }
-        $('#blessings_input').change(function () {
-            let val = $(this).val();
-            $("#blessings_input_show").val($(this).val());
-            setOpt();
-        });
-        $('#startTime_input').change(function () {
-            $("#startTime_input_show").val($(this).val());
-            setOpt('startTime');
-        });
-
-    },
-    ec04_pie_life() {
-        let chart = echarts.init($("#ec04_pie_life")[0]);
-        this.charts.ec04_pie_life = chart;
+    ec02_pie_spouseDirection() {
+        const chart = echarts.init($("#ec02_pie_spouseDirection")[0]);
+        this.charts.ec02_pie_spouseDirection = chart;
         chart.setOption(opt_pie);
         chart.setOption({
             legend: {show: false},
             series: [{
-                center: notebookOptim ? ['26%', '60%'] : ['30%', '55%'],
-                radius: [0, notebookOptim ? '33%' : '45%'],
+                data: '子丑寅卯辰巳午未申酉戌亥'.split('').map((item) => {
+                    return {
+                        name: item,
+                        value: 1
+                    }
+                }),
+                startAngle: '105',
+                label: {
+                    fontSize: 16 * scale,
+                    textShadowColor: '#000',
+                    textShadowBlur: .5 * scale,
+                    textShadowOffsetX: scale,
+                    textShadowOffsetY: scale,
+                }
+            }, {
+                startAngle: '45',
                 data: [
-                    {name: '基本寿命\n(无意外)', value: 60},
-                    {name: '心态', value: 13.5},
-                    {name: '情绪', value: 9},
-                    {name: '身体', value: 9},
-                    {name: '作息', value: 4.5},
-                    {name: '饮食', value: 4.5},
-                    {name: '习惯', value: 4.5},
                     {
-                        name: '剩余',
-                        value: 45,
+                        name: '',
+                        value: 30,
                         itemStyle: {
-                            color: "#aaa"
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor: 'red',
                         }
                     },
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
+                    {
+                        name: '',
+                        value: 30,
+                        itemStyle: {
+                            color: 'rgba(255,0,0,.33)',
+                            borderWidth: 5 * scale,
+                            borderColor: 'red',
+                        }
+                    },
+                    {name: '', value: 150, itemStyle: {color: 'transparent'}},
                 ]
             }].map(item => {
-                return $.extend(true, {}, seri_pie, item)
+                return $.extend(true, {}, seri_pie, {
+                    silent: true,
+                    label: {
+                        position: 'inside',
+                        verticalAlign: 'top'
+                    },
+                    animationEasing: 'exponentialOut',
+                    center: ['30%', '55%'],
+                    radius: [0, '76%'],
+                }, item)
             })
         });
-        $('.ec04_pie_life').find('input').change(function () {
-            let score = 0;
-            let [curRate, curVal, curId] = [0, $(this).val(), $(this).attr('id')];
-            $(this).prev().val($(this).val());
-            $('.ec04_pie_life').find('input').each(function (index, item) {
-                let [rate, val, id] = [0, $(this).val(), $(this).attr('id')];
-                switch (id) {
-                    case 'mindset':
-                        rate = 0.3;
-                        break;
-                    case 'mind' :
-                    case 'body':
-                        rate = 0.2;
-                        break;
-                    case 'workAndRest':
-                    case 'diet':
-                    case 'interest':
-                        rate = 0.1;
-                        break;
-                }
-                if (id === curId) {
-                    curRate = rate
-                }
-                score += 90 * rate * (val - 0) / 10;
-            });
-            $("#score").text(Math.ceil(score) + 60);
-            let opt = chart.getOption();
-            opt.series[0].data[$(this).parent().index() + 1].value = 90 * curRate * ($(this).val() - 0) / 10;
-            opt.series[0].data[7].value = 90 - score;
+        let opt = chart.getOption();
+        $('#spouseDirection_submit').click(function () {
+            opt.series[1].startAngle %= 360;
+            opt.series[1].animationDurationUpdate = 0;
             chart.setOption(opt);
-        }).eq(0).change()
+            let [mon, date] = [$("#spouseDirection_input_m").val(), $("#spouseDirection_input_d").val()];
+            if (!((mon <= 12 && mon >= 1) && (date <= 30 && date >= 1))) {
+                alert('请输入正确的生日');
+                return
+            }
+            setTimeout(function () {
+                let num = mon - 0 + (date - 0);
+                opt.series[1].startAngle = -(num - 1) * 30 - 105 - 1800;
+                opt.series[1].animationDurationUpdate = 5000;
+                chart.setOption(opt);
+            }, 0)
+
+
+        })
+
+    },
+    c04_bestLocation() {
         /*
-        * 平时心态30，消极沮丧：积极乐观
-        * 遇事情绪20，急躁易怒：谦和淡定
-        * 身体20，懒散不动：坚持锻炼
-        * 作息10，熬夜嗜睡：早起早睡
-        * 饮食10，暴食重口、：规律清淡
-        * 习惯爱好10，颓废庸俗：高雅艺术
+        * 春缺金-乾-六白
+        * 夏缺水-坎-一白
+        * 秋缺木-巽-四绿
+        * 冬缺火-离-九紫
         * */
+        let indexOrder = [5, 9, 6, 7, 2, 8, 3, 4, 1];
+        let $blocks = $(".blocks");
+        $("#bestLocation_submit").click(function () {
+            let direct = $('[name=direct]:checked').val();
+            let season = $('[name=season]:checked').val();
+            if(!$("#floorNumber").val()){
+                alert('请输入楼层数！');
+                return;
+            }
+            if(!direct){
+                alert('请输入方位！')
+                return;
+            }
+            if(!season){
+                alert('请输入出生季节！')
+                return;
+            }
+
+            // console.log('direct', direct, 'season', season);
+            let breakFlag = false;
+            indexOrder.forEach(function (item, index) {
+                if (!breakFlag) {
+                    setTimeout(function () {
+                        $blocks.find('#block' + item).addClass('active').siblings().removeClass('active');
+                    }, index * 500);
+                    if (((direct - 0 + index) % 9 || 9) === season - 0) {
+                        breakFlag = true;
+                    }
+                }
+            })
+        });
+        $("#floorNumber").change(function () {
+            if ($(this).val() > 5) {
+                $("#direct").text('住宅或单位')
+            } else {
+                $("#direct").text('小区')
+            }
+        })
     }
 };
 MapGeo.init();
