@@ -189,7 +189,7 @@ let globe3d = {
                 globeOuterRadius: 240, //对lines3d无效
                 shading: 'realistic',
                 viewControl: {
-                    autoRotate: false,
+                    autoRotate: true,
                     minDistance: 20,
                     targetCoord: [120.38, 36.07],
                 },
