@@ -8,7 +8,6 @@ let globe3d = {
     },
     loadData() {
         const that = this;
-        this.ec01_map();
         this.ec03_line_blessings();
         // 地图切换事件
         /*
@@ -21,6 +20,7 @@ let globe3d = {
                 });
         */
         this.ec04_pie_life();
+        this.ec01_map();
     },
     ec01_map() {
         const that = this;
