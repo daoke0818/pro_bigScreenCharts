@@ -14,9 +14,13 @@ let stydyPlan = {
         chart.setOption(opt_line); // 设置这个类型（折线图）图表的共性
         let recordData = [1., .5, 1., 0.,
             .0, .5, .5, .5, .8, .8, .0,
-            .9, .6, .5, .5, .2
+            .9, .6, .5, .5, .2, .2, .2,
         ];
+        let planData = [];
         chart.setOption({
+            grid:{
+                top:'10%'
+            },
             xAxis: { // 本图表option的个性
                 name: '日期',
                 boundaryGap: true,
@@ -26,9 +30,15 @@ let stydyPlan = {
                     let data = [];
                     while (startTime.getTime() < now.getTime()) {
                         data.push(startTime);
+                        if (startTime.getDay() === 0) {
+                            planData.push(0)
+                        } else {
+                            planData.push(1)
+                        }
+
                         startTime = new Date(startTime.getTime() + 86400 * 1000);
                     }
-                    console.log(data.map(item => item.getMonth() + 1 + '-' + item.getDate()))
+                    // console.log(data.map(item => item.getMonth() + 1 + '-' + item.getDate()))
                     return data.map(item => item.getMonth() + 1 + '-' + item.getDate())
                 })()
             },
@@ -45,9 +55,15 @@ let stydyPlan = {
                 }, item)
             }),*/
             yAxis: {
-                name: '学习时间(天)',
-                max:30
-                // offset:'right'
+                name: '学习进度(天) / %',
+                max: 30,
+                splitLine:{show:true},
+                axisLabel:{
+                    formatter: val=>{
+                        return `${val} / (${(val*100/30).toFixed(0)}%)`
+                    }
+                },
+
             },
             dataZoom: {
                 type: 'inside',
@@ -55,19 +71,62 @@ let stydyPlan = {
             },
             series: [
                 {
+                    name: "每日计划",
+                    // yAxisIndex: 0,
+                    type: 'bar',
+                    data: planData
+                }, {
                     name: "每日完成",
-                    yAxisIndex: 0,
-                    type:'bar',
-                    // label:{show:true},
+                    // yAxisIndex: 0,
+                    type: 'bar',
                     data: recordData
                 }, {
+                    name: "累计计划",
+                    itemStyle:{
+                        color:'red'
+                    },
+                    areaStyle:{
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'red' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: 'transparent' // 100% 处的颜色
+                            }],
+                            global: false // 缺省为 false
+                        }
+                    },
+                    data: planData.map((item, index) => {
+                        return planData.slice().splice(0, index + 1).reduce((pre, cur) => {
+                            return pre + cur
+                        }).toFixed(2)
+                    })
+                }, {
                     name: "累计完成",
-                    yAxisIndex: 0,
-                    label:{show:true},
+                    // yAxisIndex: 0,
+                    areaStyle:{
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'green' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: 'transparent' // 100% 处的颜色
+                            }],
+                            global: false // 缺省为 false
+                        }
+                    },
                     data: recordData.map((item, index) => {
                         return recordData.slice().splice(0, index + 1).reduce((pre, cur) => {
                             return pre + cur
-                        })
+                        }).toFixed(2)
                     })
                 },
                 // {"name": "C", data: [2, 1, 2, 2, 1, 1, 1]},
@@ -77,6 +136,10 @@ let stydyPlan = {
                         symbol: 'circle',
                         smooth: false,
                         showSymbol: false,
+                        label: {
+                            show: true,
+                            position:'top'
+                        },
                     }, item)
             })
         })
