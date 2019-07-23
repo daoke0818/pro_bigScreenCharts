@@ -3,7 +3,7 @@ let stydyPlan = {
         this.charts = {};
         this.loadData();
         Public.chartsResize(this.charts);
-        // Public.chartsReDraw(this.charts, null)
+        Public.chartsReDraw(this.charts)
     },
     loadData() {
         this.ec01_line_studyPlan();//
@@ -16,7 +16,7 @@ let stydyPlan = {
         let recordData = [1., .5, 1., 0.,
             .0, .5, .5, .5, .8, .8, .0,
             .9, .6, .5, .5, .2, .2, .2,
-            .1,
+            .1, .0
         ];
         let [xData0,planData] = [[],[]];
         let xData = (function () {
@@ -34,12 +34,13 @@ let stydyPlan = {
                 startTime = new Date(startTime.getTime() + 86400 * 1000);
             }
             // console.log(data.map(item => item.getMonth() + 1 + '-' + item.getDate()))
-            return data.map(item => item.getMonth() + 1 + '-' + item.getDate())
+            let weekStr = '日一二三四五六';
+            return data.map(item => item.getMonth() + 1 + '-' + item.getDate()+'\n周'+weekStr[item.getDay()]+'')
         })();
         let planDataSum =  planData.map((item, index) => {
             return planData.slice().splice(0, index + 1).reduce((pre, cur) => {
                 return pre + cur
-            }).toFixed(2)
+            }).toFixed(1)
         });
         chart.setOption({
             grid: {
@@ -80,12 +81,12 @@ let stydyPlan = {
             // tooltip:{trigger:'item'},
             series: [
                 {
-                    name: "每日计划",
+                    name: "当日计划",
                     // yAxisIndex: 0,
                     type: 'bar',
                     data: planData
                 }, {
-                    name: "每日完成",
+                    name: "当日完成",
                     // yAxisIndex: 0,
                     type: 'bar',
                     data: recordData
