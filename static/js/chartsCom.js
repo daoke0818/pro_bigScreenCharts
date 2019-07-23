@@ -56,6 +56,10 @@ let com_axis = {
     },
     splitLine: { //分割线
         show: false,
+        lineStyle:{
+            color:['#aaa', '#888'],
+            type:'dashed'
+        }
     },
     boundaryGap: false
 };

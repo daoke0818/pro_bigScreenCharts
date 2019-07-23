@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>学习计划表</title>
+    <meta name="keywords" content="大屏图表适配解决方案,ECharts,页面自适应,关中刀客在青岛,个人博客,前端技术博客">
+    <meta name="description" content="多种模式适配各种比例的大屏，图表的配置项抽取各层级公用部分，定时刷新，页面时钟，城市定位，天气，颜色主题更换">
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <link rel="stylesheet" href="../static/assets/css/iconfont.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+<!--    <link rel="stylesheet" href="../static/css/index.css">-->
+    <script src="../static/assets/js/jquery-3.3.1.min.js"></script>
+    <style>
+        .l{
+            flex: 1;
+            display: flex;
+            padding-top: 2rem;
+            flex-direction: column;
+        }
+        .chart-wrap{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .chart{
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body id="pb_studyPlan">
+<div id="container">
+    <script src="../static/js/common.js"></script>
+    <header></header>
+    <main>
+        <div class="l">
+            <div class="chart-wrap">
+                <h3>离职期间预计30个学习日完成计划，欢迎大家监督^_^</h3>
+                <div class="chart" id="ec01_line_studyPlan"></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+<aside></aside>
+<script src="../static/assets/js/echarts-4.2.0.min.js"></script>
+<script src="../static/js/chartsCom.js"></script>
+<script src="../static/js/studyPlan.js"></script>
+</body>
+</html>
+
+<!--/usr/local/apache-tomcat-9.0.16/webapps/ROOT/projects/bigScreenCharts-->
+
+
+
+
+
