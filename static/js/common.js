@@ -261,7 +261,9 @@ $(window).resize(() => {
 $(function () {
     // 加载源不能写成body>header>*,原因不明
     $('#container>header').load('common.html header>*', function () {
-        // $('#container>header').load('common.html', function () {
+        if($('body').attr('id')==='pb_studyPlan'){
+            $('header>h1').text('学习进度执行图表')
+        }
         Public.setHeaderTime(); // 页面顶部时间
     });
     // 加载设置面板

@@ -16,7 +16,7 @@ let stydyPlan = {
         let recordData = [1., .5, 1., 0.,
             .0, .5, .5, .5, .8, .8, .0,
             .9, .6, .5, .5, .2, .2, .2,
-            .1, .0
+            .1, .0, .0, .1,
         ];
         let [xData0,planData] = [[],[]];
         let xData = (function () {
