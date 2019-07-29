@@ -57,7 +57,7 @@ let com_axis = {
     splitLine: { //分割线
         show: false,
         lineStyle:{
-            color:['#aaa', '#888'],
+            color:['rgba(255,255,255,.63)', 'rgba(255,255,255,.33)'],
             type:'dashed'
         }
     },
