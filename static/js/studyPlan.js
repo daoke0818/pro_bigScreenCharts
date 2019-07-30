@@ -19,7 +19,7 @@ let stydyPlan = {
             .1, .0, .0, .1, .1, .2, .1,
             .2,
         ];
-        let [xData0,planData] = [[],[]];
+        let [xData0, planData] = [[], []];
         let xData = (function () {
             let startTime = new Date('2019-07-04');
             let now = new Date();
@@ -36,9 +36,9 @@ let stydyPlan = {
             }
             // console.log(data.map(item => item.getMonth() + 1 + '-' + item.getDate()))
             let weekStr = '日一二三四五六';
-            return data.map(item => item.getMonth() + 1 + '-' + item.getDate()+'\n周'+weekStr[item.getDay()]+'')
+            return data.map(item => item.getMonth() + 1 + '-' + item.getDate() + '\n周' + weekStr[item.getDay()] + '')
         })();
-        let planDataSum =  planData.map((item, index) => {
+        let planDataSum = planData.map((item, index) => {
             return planData.slice().splice(0, index + 1).reduce((pre, cur) => {
                 return pre + cur
             }).toFixed(1)
@@ -50,7 +50,11 @@ let stydyPlan = {
             xAxis: { // 本图表option的个性
                 name: '日期',
                 boundaryGap: true,
-                data: xData
+                data: xData,
+                axisLabel: {
+                    fontSize: 16 * scale,
+                    // fontSize: (xData > 25 ? 16 : 14) * scale,
+                },
             },
             /*yAxis: [{
                 name: '每日学习时间(天)',
@@ -117,24 +121,24 @@ let stydyPlan = {
                     // 折线图不显示label的bug，只能用scatter实现
                     name: "累计计划",
                     type: 'scatter',
-                    tooltip:{show:false},
-                    itemStyle: { color: 'red' },
+                    tooltip: {show: false},
+                    itemStyle: {color: 'red'},
                     label: {
-                        fontSize: 18 * scale,
+                        fontSize: (xData > 25 ? 18 : 16) * scale,
                         fontWeight: 'bold',
-                        formatter:function (param) {
-                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value/.3).toFixed(1)}%)`
+                        formatter: function (param) {
+                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
                         }
                     },
                     data: planDataSum
                 }, {
                     name: "累计完成",
                     label: {show: false},
-                    itemStyle: { color: 'greenyellow' },
+                    itemStyle: {color: 'greenyellow'},
                     // series.tooltip 仅在 tooltip.trigger 为 'item' 时有效，所以下面设置无效
-                    tooltip:{
-                        formatter:function (param) {
-                            return `${(param.value/planDataSum[param.dataIndex]).toFixed(1)}%)`
+                    tooltip: {
+                        formatter: function (param) {
+                            return `${(param.value / planDataSum[param.dataIndex]).toFixed(1)}%)`
                         }
                     },
                     areaStyle: {
@@ -161,15 +165,15 @@ let stydyPlan = {
                     // 折线图不显示label的bug，只能用scatter实现
                     name: "累计完成",
                     type: 'scatter',
-                    tooltip:{show:false},
+                    tooltip: {show: false},
                     label: {
-                        fontSize: 18 * scale,
+                        fontSize: (xData > 25 ? 18 : 16) * scale,
                         fontWeight: 'bold',
-                        formatter:function (param) {
-                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value/.3).toFixed(1)}%)`
+                        formatter: function (param) {
+                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
                         }
                     },
-                    itemStyle: { color: 'greenyellow' },
+                    itemStyle: {color: 'greenyellow'},
                     data: recordData.map((item, index) => {
                         return recordData.slice().splice(0, index + 1).reduce((pre, cur) => {
                             return pre + cur
@@ -187,8 +191,8 @@ let stydyPlan = {
                         label: {
                             show: true,
                             position: 'top',
-                            fontWeight:'bolder',
-                            fontFamily:'sans-serif'
+                            fontWeight: 'bolder',
+                            fontFamily: 'sans-serif'
                         },
                     }, item)
             })
