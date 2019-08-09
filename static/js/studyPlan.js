@@ -8,16 +8,16 @@ let stydyPlan = {
     loadData() {
         this.ec01_line_studyPlan();//
     },
-    //亲，现在都几点了，木有积分就早点洗洗睡吧 :)
     ec01_line_studyPlan() {
         let chart = echarts.init($("#ec01_line_studyPlan")[0]); //初始化图表，注意命名的规范合理
         this.charts.ec01_line_studyPlan = chart; //放入charts对象方便后面的刷新缩放以及其他操作
         chart.setOption(opt_line); // 设置这个类型（折线图）图表的共性
-        let recordData = [1., .5, 1., 0.,
+        let recordData = [1., .5, 1., 0., // 7月
             .0, .5, .5, .5, .8, .8, .0,
             .9, .6, .5, .5, .2, .2, .2,
             .1, .0, .0, .1, .1, .2, .1,
-            .2,
+            .2, .1, .1, .2, .2, .3, .2, // 8月
+            .2, .0, .2, .1, .1,
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
@@ -26,12 +26,11 @@ let stydyPlan = {
             let data = [];
             while (startTime.getTime() < now.getTime()) {
                 data.push(startTime);
-                if (startTime.getDay() === 0) {
+                if (startTime.getDay() === 0) { // 周日处理其他事情
                     planData.push(0)
                 } else {
                     planData.push(1)
                 }
-
                 startTime = new Date(startTime.getTime() + 86400 * 1000);
             }
             // console.log(data.map(item => item.getMonth() + 1 + '-' + item.getDate()))
@@ -39,13 +38,18 @@ let stydyPlan = {
             return data.map(item => item.getMonth() + 1 + '-' + item.getDate() + '\n周' + weekStr[item.getDay()] + '')
         })();
         let planDataSum = planData.map((item, index) => {
-            return planData.slice().splice(0, index + 1).reduce((pre, cur) => {
+            let sum = planData.slice().splice(0, index + 1).reduce((pre, cur) => {
                 return pre + cur
-            }).toFixed(1)
+            });
+            return sum > 30 ? 30 : sum.toFixed(1)
         });
+        let lineFontSize = (xData.length > 36 ? 13 :(xData.length > 24 ? 14 : 16)) * scale;
+        console.log(xData,lineFontSize)
         chart.setOption({
             grid: {
-                top: '10%'
+                top: '10%',
+                left: '7%',
+                right: '5%'
             },
             xAxis: { // 本图表option的个性
                 name: '日期',
@@ -53,21 +57,8 @@ let stydyPlan = {
                 data: xData,
                 axisLabel: {
                     fontSize: 16 * scale,
-                    // fontSize: (xData > 25 ? 16 : 14) * scale,
                 },
             },
-            /*yAxis: [{
-                name: '每日学习时间(天)',
-                max:30
-                // offset:'right'
-            }, {
-                name: '累计完成',
-                max:30
-            }].map(item => {
-                $.extend(true, {}, com_axis, {
-                    type: 'value',
-                }, item)
-            }),*/
             yAxis: {
                 name: '学习进度(天) / %',
                 max: 30,
@@ -124,7 +115,7 @@ let stydyPlan = {
                     tooltip: {show: false},
                     itemStyle: {color: 'red'},
                     label: {
-                        fontSize: (xData > 25 ? 18 : 16) * scale,
+                        fontSize: lineFontSize,
                         fontWeight: 'bold',
                         formatter: function (param) {
                             return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
@@ -167,7 +158,7 @@ let stydyPlan = {
                     type: 'scatter',
                     tooltip: {show: false},
                     label: {
-                        fontSize: (xData > 25 ? 18 : 16) * scale,
+                        fontSize: lineFontSize,
                         fontWeight: 'bold',
                         formatter: function (param) {
                             return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
