@@ -17,7 +17,8 @@ let stydyPlan = {
             .9, .6, .5, .5, .2, .2, .2,
             .1, .0, .0, .1, .1, .2, .1,
             .2, .1, .1, .2, .2, .3, .2, // 8月
-            .2, .0, .2, .1, .1,
+            .2, .0, .2, .1, .1, .3, .2,
+            .2, .2, .2, .0, .8
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
@@ -43,8 +44,8 @@ let stydyPlan = {
             });
             return sum > 30 ? 30 : sum.toFixed(1)
         });
-        let lineFontSize = (xData.length > 36 ? 13 :(xData.length > 24 ? 14 : 16)) * scale;
-        console.log(xData,lineFontSize)
+        let lineFontSize = (xData.length > 36 ? 13 : (xData.length > 24 ? 14 : 16)) * scale;
+        console.log(xData, lineFontSize)
         chart.setOption({
             grid: {
                 top: '10%',
