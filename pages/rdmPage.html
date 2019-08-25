@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>屏保专用页面</title>
+    <meta name="keywords" content="大屏图表适配解决方案,ECharts,页面自适应,关中刀客在青岛,个人博客,前端技术博客">
+    <meta name="description" content="多种模式适配各种比例的大屏，图表的配置项抽取各层级公用部分，定时刷新，页面时钟，城市定位，天气，颜色主题更换">
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <style>
+        html, body, iframe {
+            margin: 0;
+            padding: 0;
+            border: none;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body id="pb_studyPlan">
+<iframe id="container" src="globe3d.html"></iframe>
+
+<script>
+    const datas = [
+        {
+            src: 'index.html',
+        }, {
+            src: 'pb_studyPlan.html',
+            duration: '300'
+        }, {
+            src: 'map2d.html',
+        }, {
+            src: 'globe3d.html',
+        }, {
+            src: 'http://e-art.top/',
+            duration: '300'
+        }, {
+            src: 'http://e-art.top/projects/dingFuHuangZhuangHome/',
+        }, {
+            src: 'http://e-art.top/projects/babyLiteracy/',
+            duration: '10'
+        }, {
+            src: 'https://music.163.com/#/djradio?id=350029457',
+            duration: '300'
+        },
+    ];
+    const iframe = document.querySelector('#container');
+    let changeSrc = () => {
+        const data = datas[Math.floor(Math.random() * datas.length)];
+        let timer = setTimeout(function () {
+            iframe.src = data.src;
+            changeSrc();
+        }, data.duration*1000 || 180);
+    };
+    changeSrc();
+</script>
+</body>
+</html>
+
+<!--/usr/local/apache-tomcat-9.0.16/webapps/ROOT/projects/bigScreenCharts-->
+
+
+
+
+
