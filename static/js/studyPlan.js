@@ -20,7 +20,8 @@ let stydyPlan = {
             .2, .0, .2, .1, .1, .3, .2,
             .2, .2, .2, .0, .8, .7, .4,
             1., 1., .8, .5, .1, .1, .9,
-            .9, .8, .0, .9, 1., .8
+            .9, .8, .0, .9, 1., .8, .8,
+            1., .2, .9, .4
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
@@ -121,7 +122,9 @@ let stydyPlan = {
                         fontSize: lineFontSize,
                         fontWeight: 'bold',
                         formatter: function (param) {
-                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
+                            console.log('~~', param.dataIndex)
+                            let percentStr = param.dataIndex % 2 === 0?`(${(param.value / .3).toFixed(1)})%`:'';
+                            return `\v${param.value}\n\v${percentStr}`
                         }
                     },
                     data: planDataSum
@@ -164,7 +167,8 @@ let stydyPlan = {
                         fontSize: lineFontSize,
                         fontWeight: 'bold',
                         formatter: function (param) {
-                            return `\v\v\v\v${param.value}\n\v\v\v\v(${(param.value / .3).toFixed(1)}%)`
+                            let percentStr = param.dataIndex % 2 === 0?`(${(param.value / .3).toFixed(1)})%`:'';
+                            return `\v${param.value}\n\v${percentStr}`
                         }
                     },
                     itemStyle: {color: 'greenyellow'},
