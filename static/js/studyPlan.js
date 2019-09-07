@@ -1,9 +1,11 @@
 let stydyPlan = {
     init() {
+        this.totalDays = 36;
         this.charts = {};
         this.loadData();
         Public.chartsResize(this.charts);
-        Public.chartsReDraw(this.charts)
+        Public.chartsReDraw(this.charts);
+        console.log(this)
     },
     loadData() {
         this.ec01_line_studyPlan();//
@@ -21,7 +23,7 @@ let stydyPlan = {
             .2, .2, .2, .0, .8, .7, .4,
             1., 1., .8, .5, .1, .1, .9,
             .9, .8, .0, .9, 1., .8, .8,
-            1., .2, .9, .4
+            1., .2, .9, .4, .9, .9
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
@@ -45,7 +47,7 @@ let stydyPlan = {
             let sum = planData.slice().splice(0, index + 1).reduce((pre, cur) => {
                 return pre + cur
             });
-            return sum > 30 ? 30 : sum.toFixed(1)
+            return sum > this.totalDays ? this.totalDays : sum.toFixed(1)
         });
         let lineFontSize = (xData.length > 36 ? 13 : (xData.length > 24 ? 14 : 16)) * scale;
         console.log(xData, lineFontSize);
@@ -65,11 +67,12 @@ let stydyPlan = {
             },
             yAxis: {
                 name: '学习进度(天) / %',
-                max: 30,
+                max: this.totalDays,
                 splitLine: {show: true},
                 axisLabel: {
                     formatter: val => {
-                        return `${val} / (${(val * 100 / 30).toFixed(0)}%)`
+                        console.log(this)
+                        return `${val} / (${(val * 100 / this.totalDays).toFixed(0)}%)`
                     }
                 },
 

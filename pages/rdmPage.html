@@ -22,7 +22,7 @@
 </head>
 
 <body id="pb_studyPlan">
-<iframe id="container" src="globe3d.html"></iframe>
+<iframe id="container" src=""></iframe>
 
 <script>
     const datas = [
@@ -43,18 +43,18 @@
         }, {
             src: 'http://e-art.top/projects/babyLiteracy/',
             duration: '10'
-        }, {
-            src: 'https://music.163.com/#/djradio?id=350029457',
-            duration: '300'
+        // }, {
+        //     src: 'https://music.163.com/#/djradio?id=350029457',
+        //     duration: '300'
         },
     ];
     const iframe = document.querySelector('#container');
     let changeSrc = () => {
         const data = datas[Math.floor(Math.random() * datas.length)];
+        iframe.src = data.src;
         let timer = setTimeout(function () {
-            iframe.src = data.src;
             changeSrc();
-        }, data.duration*1000 || 180);
+        }, data.duration*1000 || 180*1000);
     };
     changeSrc();
 </script>
