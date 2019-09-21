@@ -22,9 +22,10 @@ let stydyPlan = {
             .2, .0, .2, .1, .1, .3, .2,
             .2, .2, .2, .0, .8, .7, .4,
             1., 1., .8, .5, .1, .1, .9,
-            .9, .8, .0, .9, 1., .8, .8,
+            .9, .8, .0, .9, 1., .8, .8, // 9月
             1., .2, .9, .4, .9, .9, .9,
-            .6, .8, .4, .3, .4, .9, .5
+            .6, .8, .4, .3, .4, .9, .5,
+            .8, .7, .6, .9, .5, .5
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
@@ -68,7 +69,7 @@ let stydyPlan = {
             },
             yAxis: {
                 name: '学习进度(天) / %',
-                max: this.totalDays,
+                // max: this.totalDays,
                 splitLine: {show: true},
                 axisLabel: {
                     formatter: val => {
