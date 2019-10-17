@@ -26,14 +26,17 @@ let stydyPlan = {
             1., .2, .9, .4, .9, .9, .9,
             .6, .8, .4, .3, .4, .9, .5,
             .8, .7, .6, .9, .5, .5, .0,
-            .0, .0, .0,
+            .0, .0, .0, .8, .9, .4, .5,
+            .0, .4, .9, .1, .1, 1., .6, // 10月
+            .9, .7, .8, .8, .5
         ];
         let [xData0, planData] = [[], []];
         let xData = (function () {
             let startTime = new Date('2019-07-04');
-            let now = new Date();
+            let endTime = new Date('2019-10-11');
+            // let now = new Date(); // 封印了，不用了
             let data = [];
-            while (startTime.getTime() < now.getTime()) {
+            while (startTime.getTime() <= endTime.getTime()) {
                 data.push(startTime);
                 if (startTime.getDay() === 0) { // 周日处理其他事情
                     planData.push(0)
