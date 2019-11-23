@@ -9,8 +9,15 @@
 
 如果大家觉得这个项目有帮到自己的地方，打个星即可，无需捐助^_^。
 
-#### 演示地址：
+#### 演示地址
 http://e-art.top/projects/bigScreenCharts
+
+#####截图
+![](https://img-blog.csdnimg.cn/20190621142010866.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Rhb2tlX2xp,size_16,color_FFFFFF,t_70)
+
+![](https://img-blog.csdnimg.cn/20190918220813794.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Rhb2tlX2xp,size_16,color_FFFFFF,t_70)
+
+![](https://img-blog.csdnimg.cn/20190918222401610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Rhb2tlX2xp,size_16,color_FFFFFF,t_70)
 
 #### 功能和特点
 1. 页面内容适应各种比例的大屏。可以设置为自动等比例缩放(contain和cover两种模式)，也可以设置为拉伸(stretch模式)来铺满窗口。
