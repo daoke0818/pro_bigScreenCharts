@@ -49,11 +49,11 @@
     outline: none;
   }
 
-  input{
+  input {
     height: 1.75rem;
     vertical-align: middle;
   }
-  button{
+  button {
     margin-left: 1rem;
     padding: .0625rem 1rem;
     font-size: 1rem;
@@ -196,6 +196,40 @@ h5 {
     position: relative;
     padding: 1.5rem 2rem 1rem;
     height: 6.25rem;
+    /*&:before{
+      #container > header:before {
+        display: block;
+        position: absolute;
+        content: '';
+        left: 13rem;
+        height: 7rem;
+        width: 14rem;
+        background: url(../img/gestures.jpg);
+        background-position: 2rem -12.5rem;
+        background-size: 200%;
+        !* background-origin: border-box; *!
+      }
+    }*/
+    /*js操作伪元素方法 https://www.jianshu.com/p/37f639f108dd*/
+    @media screen and (max-width: 760px){
+      &.showGesture:after {
+        content: "　← 左右滑动这里试试 →　　　点击可关闭";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        line-height: 2.5;
+        font-size: 2.5rem;
+        background: rgba(0, 0, 0, .8);
+        border: .25rem solid #fff;
+        border-radius: .5rem;
+        box-shadow: 0 0 1.5rem inset;
+      }
+    }
+
+
     .logo {
       position: absolute;
       animation: 20s logoAnimation infinite ease;
