@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2019/4/19.
  */
-const settings = JSON.parse(localStorage.getItem('settings')) || {};
+let settings = JSON.parse(localStorage.getItem('settings')) || {};
 const Cfg = {
     designW: settings.designW || 1920, //设计图宽度
     designH: settings.designH || 1080, //设计图高度
@@ -21,7 +21,8 @@ const Cfg = {
             '#FAE6DC', '#283C14'],
         winter: ['#F5F5FA', '#96822D', '#6E5A19', '#BECDEB',
             '#E1E1F0', '#281E1E'],
-    }
+    },
+    hideGesture: settings.hideGesture
 };
 let hasGetWeather = false;
 let scale = 1;
@@ -261,10 +262,14 @@ $(window).resize(() => {
 $(function () {
     // 加载源不能写成body>header>*,原因不明
     $('#container>header').load('common.html header>*', function () {
-        if($('body').attr('id')==='pb_studyPlan'){
+        if ($('body').attr('id') === 'pb_studyPlan') {
             $('header>h1').text('学习进度执行图表')
         }
         Public.setHeaderTime(); // 页面顶部时间
+        if (Cfg.zoomMode === 'cover' && !Cfg.hideGesture) {
+            $('header').addClass('showGesture')
+        }
+
     });
     // 加载设置面板
     $('body>aside').load('common.html aside >*', function () {
@@ -283,10 +288,9 @@ $(function () {
         `)
         });
     });
-
     // 保存设置
-    $("body ").on('click', '#saveSetting', function () {
-        let settings = {
+    $("body").on('click', '#saveSetting', function () {
+        settings = {
             getWeatherPeriod: $("#getWeatherPeriod").val(),
             chartRefreshPeriod: $("#chartRefreshPeriod").val(),
             notebookOptim: $("#notebookOptim").is(":checked"),
@@ -297,8 +301,13 @@ $(function () {
         };
         localStorage.setItem('settings', JSON.stringify(settings));
         window.location.reload();
+    }).on('click', '#container>header', function () {
+        if (!Cfg.hideGesture) {
+            $(this).removeClass('showGesture');
+            settings.hideGesture = true;
+            localStorage.setItem('settings', JSON.stringify(settings))
+        }
     });
-
     const sessionData = JSON.parse(sessionStorage.getItem('sessionData'));
     // body的id以“pb_”开头的将作为屏保，无需alert
     if (!(sessionData && sessionData.settingTip) && !$('body').attr('id').startsWith('pb_')) {
@@ -306,5 +315,6 @@ $(function () {
             '\n如果浏览器已经解除最小字号限制，请在设置面板中取消“低分辨率优化”的勾选。');
         sessionStorage.setItem('sessionData', JSON.stringify({settingTip: true}))
     }
+
 
 });

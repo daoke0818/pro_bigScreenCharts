@@ -212,7 +212,7 @@ h5 {
     }*/
     /*js操作伪元素方法 https://www.jianshu.com/p/37f639f108dd*/
     @media screen and (max-width: 760px){
-      &:after {
+      &.showGesture:after {
         content: "　← 左右滑动这里试试 →　　　点击可关闭";
         display: block;
         position: absolute;
