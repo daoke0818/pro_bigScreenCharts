@@ -1,10 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用css3绘制任意角度扇形</title>
+    <style>
+        .pie {
+            position: relative;
+            margin: 1em auto;
+            padding: 0;
+            width: 32em;
+            height: 32em;
+            border-radius: 100%;
+            list-style: none;
+            overflow: hidden;
+            transform: rotate(0deg) /*针对mac safari浏览器兼容*/
+
+        }
+
+        .slice {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 50%;
+            transform-origin: 0% 100%;
+        }
+
+        .slice-1 {
+            transform: rotate(-36deg) skewY(-54deg);
+            background: #FF0088;
+        }
+
+        .slice-2 {
+            transform: rotate(-72deg) skewY(-54deg);
+            background: #FF0000;
+        }
+
+        .slice-3 {
+            transform: rotate(-108deg) skewY(-54deg);
+            background: #FF5511;
+        }
+
+        .slice-4 {
+            transform: rotate(-144deg) skewY(-54deg);
+            background: #FF8800;
+        }
+
+        .slice-5 {
+            transform: rotate(-180deg) skewY(-54deg);
+            background: #FFBB00;
+        }
+
+        .slice-6 {
+            transform: rotate(-216deg) skewY(-54deg);
+            background: #BBFF00;
+        }
+
+        .slice-7 {
+            transform: rotate(-252deg) skewY(-54deg);
+            background: #77FF00;
+        }
+
+        .slice-8 {
+            transform: rotate(-288deg) skewY(-54deg);
+            background: #00FF00;
+        }
+
+        .slice-9 {
+            transform: rotate(-324deg) skewY(-54deg);
+            background: #00FF99;
+        }
+
+        .slice-10 {
+            transform: rotate(-360deg) skewY(-54deg);
+            background: #00FFCC;
+        }
+    </style>
 </head>
 <body>
-$END$
+<ul class='pie'>
+    <li class='slice-1 slice'></li>
+    <li class='slice-2 slice'></li>
+    <li class='slice-3 slice'></li>
+    <li class='slice-4 slice'></li>
+    <li class='slice-5 slice'></li>
+    <li class='slice-6 slice'></li>
+    <li class='slice-7 slice'></li>
+    <li class='slice-8 slice'></li>
+    <li class='slice-9 slice'></li>
+    <li class='slice-10 slice'></li>
+    <ul>
 </body>
 </html>

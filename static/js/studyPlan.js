@@ -5,7 +5,7 @@ let stydyPlan = {
         this.loadData();
         Public.chartsResize(this.charts);
         Public.chartsReDraw(this.charts);
-        console.log(this)
+        // console.log(this)
     },
     loadData() {
         this.ec01_line_studyPlan();//
@@ -56,7 +56,7 @@ let stydyPlan = {
             return sum > this.totalDays ? this.totalDays : sum.toFixed(1)
         });
         let lineFontSize = (xData.length > 36 ? 13 : (xData.length > 24 ? 14 : 16)) * scale;
-        console.log(xData, lineFontSize);
+        // console.log(xData, lineFontSize);
         chart.setOption({
             grid: {
                 top: '10%',
@@ -77,7 +77,7 @@ let stydyPlan = {
                 splitLine: {show: true},
                 axisLabel: {
                     formatter: val => {
-                        console.log(this)
+                        // console.log(this)
                         return `${val} / (${(val * 100 / this.totalDays).toFixed(0)}%)`
                     }
                 },
@@ -131,7 +131,7 @@ let stydyPlan = {
                         fontSize: lineFontSize,
                         fontWeight: 'bold',
                         formatter: function (param) {
-                            console.log('~~', param.dataIndex)
+                            // console.log('~~', param.dataIndex)
                             let percentStr = param.dataIndex % 2 === 0?`(${(param.value / .3).toFixed(1)})%`:'';
                             return `\v${param.value}\n\v${percentStr}`
                         }
